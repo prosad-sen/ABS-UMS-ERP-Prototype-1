@@ -300,9 +300,11 @@ export async function seedDummyData() {
         studentRecords.push({
           userId: `student_${studentCounter}`,
           studentId: studentId,
+          rollNumber: `${year}${j.toString().padStart(3, '0')}`,
           program: 'B.Tech',
           branch: branch,
           batch: year.toString(),
+          admissionYear: year,
           currentSemester: currentSemester,
           admissionDate: new Date(year, 6, 15).toISOString().split('T')[0], // July 15th admission
           cgpa: hasGraduated ? generateCGPA() : (currentSemester >= 2 ? generateCGPA() : null),
