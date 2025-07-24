@@ -8,6 +8,13 @@ This is a comprehensive University Management System (UMS) designed for COEP Tec
 
 Preferred communication style: Simple, everyday language.
 
+## Current Issues (July 24, 2025)
+- User reports application not loading at http://localhost:5000
+- Server confirmed running and responding with HTTP 200
+- Multiple test pages created but user still reports "No" access
+- Possible browser/network connectivity issue on user's end
+- Need to provide multiple URL options and troubleshooting steps
+
 ## System Architecture
 
 ### Frontend Architecture
