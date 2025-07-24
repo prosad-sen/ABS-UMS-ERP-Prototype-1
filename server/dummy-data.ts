@@ -200,7 +200,7 @@ export async function seedDummyData() {
     for (const course of COEP_COURSES) {
       courseRecords.push({
         courseCode: course.code,
-        name: course.name,
+        courseName: course.name,
         credits: course.credits,
         branch: course.branch,
         semester: Math.floor(Math.random() * 8) + 1,
