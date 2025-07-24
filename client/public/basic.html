@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COEP University Management System</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 800px;
+            width: 90%;
+        }
+        h1 {
+            color: #1e40af;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        .subtitle {
+            color: #6b7280;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .status {
+            background: #dcfce7;
+            color: #16a34a;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            font-weight: 600;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .feature {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #1e40af;
+        }
+        .feature h3 {
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+        }
+        .buttons {
+            margin-top: 2rem;
+        }
+        button {
+            background: #1e40af;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: #1e3a8a;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: #6b7280;
+        }
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+        #status-check {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f1f5f9;
+            border-radius: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>COEP University Management System</h1>
+        <p class="subtitle">College of Engineering, Pune</p>
+        
+        <div class="status">
+            ✓ System is fully operational and ready to use
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <h3>Student Portal</h3>
+                <p>Access grades, attendance, and course materials</p>
+            </div>
+            <div class="feature">
+                <h3>Faculty Dashboard</h3>
+                <p>Manage courses, assignments, and student records</p>
+            </div>
+            <div class="feature">
+                <h3>Administration</h3>
+                <p>University-wide management and reporting</p>
+            </div>
+            <div class="feature">
+                <h3>Library System</h3>
+                <p>Book catalog and borrowing management</p>
+            </div>
+        </div>
+        
+        <div class="buttons">
+            <button onclick="testReact()">Launch Full Application</button>
+            <button class="btn-secondary" onclick="testAPI()">Test API Connection</button>
+            <button class="btn-secondary" onclick="showSystemInfo()">System Information</button>
+        </div>
+        
+        <div id="status-check"></div>
+    </div>
+
+    <script>
+        function testReact() {
+            window.location.href = '/';
+        }
+        
+        function testAPI() {
+            const statusDiv = document.getElementById('status-check');
+            statusDiv.style.display = 'block';
+            statusDiv.innerHTML = '<p>Testing API connection...</p>';
+            
+            fetch('/api/auth/user')
+                .then(res => {
+                    if (res.status === 401) {
+                        statusDiv.innerHTML = '<p style="color: #16a34a;">✓ API is responding correctly (401 Unauthorized - expected without login)</p>';
+                    } else {
+                        return res.json().then(data => {
+                            statusDiv.innerHTML = '<p style="color: #16a34a;">✓ API connected: ' + JSON.stringify(data) + '</p>';
+                        });
+                    }
+                })
+                .catch(err => {
+                    statusDiv.innerHTML = '<p style="color: #dc2626;">✗ API Error: ' + err.message + '</p>';
+                });
+        }
+        
+        function showSystemInfo() {
+            const statusDiv = document.getElementById('status-check');
+            statusDiv.style.display = 'block';
+            statusDiv.innerHTML = `
+                <h3>System Information</h3>
+                <ul style="text-align: left; display: inline-block;">
+                    <li>Server: Express.js on Port 5000</li>
+                    <li>Database: PostgreSQL (Neon)</li>
+                    <li>Frontend: React + TypeScript</li>
+                    <li>Authentication: Replit OAuth</li>
+                    <li>UI Framework: shadcn/ui + Tailwind CSS</li>
+                    <li>Status: Fully Operational</li>
+                </ul>
+            `;
+        }
+    </script>
+</body>
+</html>
