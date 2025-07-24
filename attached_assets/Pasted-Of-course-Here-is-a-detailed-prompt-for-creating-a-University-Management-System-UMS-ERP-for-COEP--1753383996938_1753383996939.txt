@@ -1,0 +1,134 @@
+Of course. Here is a detailed prompt for creating a University Management System (UMS) ERP for COEP Technological University, based on the functional specifications provided in your document. This prompt is designed to be used for development on a platform like Firebase, detailing the necessary features, user roles, data models, and contextual dummy data.
+Project Prompt: University Management System (UMS) ERP for COEP Technological University
+Objective: Develop a comprehensive, fully functional University Management System (UMS) ERP software for COEP Technological University. This system should be a web-based application built on Firebase (or a similar backend-as-a-service platform), incorporating all the features outlined below. The application must be populated with realistic dummy data contextualized for COEP to demonstrate its full capabilities.
+Core Technologies:
+ * Frontend: A modern JavaScript framework (e.g., React, Vue, or Angular).
+ * Backend & Database: Google Firebase (utilizing Firestore for the database, Firebase Authentication for users, and Firebase Storage for file uploads).
+ * UI/UX: A clean, professional, and responsive user interface with a consistent design language and the COEP logo.
+User Roles: The system must support distinct roles with specific permissions:
+ * Super Admin: Has complete control over the entire system, including configuration and user management.
+ * Student: Access to personal profile, academic information, courses, attendance, fees, LMS, and communication tools.
+ * Parent: Can view their child's progress, attendance, and fee status.
+ * Faculty/Instructor: Manages courses, attendance, assignments, grading, and research profiles.
+ * Admissions Officer: Manages the entire admissions process.
+ * Finance Officer: Manages fee collection, payroll, and financial accounting.
+ * HR Manager: Manages recruitment, employee profiles, and leave.
+ * Librarian: Manages the library module.
+ * Alumni: Access to the alumni network and events.
+Module 1: Admissions (Importance: Critical)
+1.1 Student Registration
+ * Description: Create a detailed and configurable student registration portal.
+ * Functionality:
+   * A public-facing registration page for applicants.
+   * Admin panel to configure form fields, required documents, and program-specific questions.
+   * Multi-step application form: Personal Details, Academic History (SSC, HSC, MHT-CET/JEE/GATE scores), Program/Branch Selection, Document Uploads (photo, signature, mark sheets).
+   * Generate a unique Application ID upon submission.
+   * Applicant dashboard to track application status (e.g., "Submitted," "Under Review," "Accepted").
+ * COEP Dummy Data:
+   * Programs: "B.Tech. in Computer Engineering," "B.Tech. in Mechanical Engineering," "M.Tech. in Structural Engineering," "Planning (B.Plan)."
+   * Documents: SSC Marksheet, HSC Marksheet, MHT-CET Scorecard, Caste Certificate (if applicable).
+1.2 Fee Collection
+ * Description: Manage online fee collection during and after admission.
+ * Functionality:
+   * Define multiple fee components (e.g., Tuition, Development, Gymkhana).
+   * Integrate with a payment gateway (e.g., Razorpay, Stripe) for online payments via UPI, cards, net banking.
+   * Support for installment payments and application of concessions or scholarships.
+   * Automated generation of fee receipts.
+ * COEP Dummy Data:
+   * Fee Structure for First Year B.Tech.: Tuition Fee: ₹85,000, Development Fee: ₹15,000, Other Fees: ₹5,000.
+1.3 Scholarship Management (Importance: Important)
+ * Description: A comprehensive module to manage scholarships.
+ * Functionality:
+   * List available government and private scholarships.
+   * Allow students to apply for scholarships through the portal.
+   * Admin dashboard to track applications, verify documents, and manage disbursement.
+   * Integrate with the finance module to reflect scholarship amounts in student fee accounts.
+Module 2: Student Information System (SIS)
+2.1 Student Profile (Importance: Critical)
+ * Description: Centralized and detailed student profiles.
+ * Functionality:
+   * Once a student is admitted, their application data should auto-populate a permanent student profile.
+   * The profile should include personal, academic, and contact information.
+   * A feature to auto-generate a professional CV/Resume using the profile data.
+   * Track student progression year-wise, including academic performance and any disciplinary actions.
+2.2 Course Management (Importance: Critical)
+ * Description: Manage course registration, electives, and prerequisites.
+ * Functionality:
+   * Students can register for courses for the upcoming semester.
+   * The system should enforce prerequisite rules.
+   * Manage elective choices with seat availability caps.
+   * Faculty can view enrolled student lists for their courses.
+2.3 Other SIS Features
+ * Attendance and Leave Tracking (Importance: Important): Faculty can mark daily/lecture-wise attendance. Students can apply for leave, which goes through an approval workflow.
+ * Career Progression (Importance: Nice to Have): A placement portal where the T&P cell can manage company listings, students can build resumes, and apply for jobs/internships. Archive placement data.
+ * Graduation Certification (Importance: Important): Configure eligibility rules for graduation. Generate rank lists, provisional certificates, and final degree certificates.
+ * Mentoring/Counseling (Importance: Nice to Have): Map faculty mentors to a group of students for academic and career counseling.
+ * Parent Interaction (Importance: Nice to Have): A dedicated parent portal to view their child's performance, attendance, and fee details, and to communicate with faculty.
+ * Grievances and Feedback (Importance: Important): A formal system for students to submit grievances or feedback, with a defined workflow for resolution and tracking.
+Module 3: Academic & Learning Management (LMS)
+3.1 Curriculum Management (Importance: Important)
+ * Description: Design and manage the university curriculum.
+ * Functionality:
+   * Define Programs, Courses, and Syllabi.
+   * Implement Outcome-Based Education (OBE) by mapping Course Outcomes (COs) to Program Outcomes (POs).
+   * Faculty can create and upload detailed lesson plans for their courses.
+3.2 Academic Scheduling (Importance: Critical)
+ * Description: A comprehensive scheduling tool for all academic activities.
+ * Functionality:
+   * Create and manage timetables, automatically checking for faculty and classroom clashes.
+   * Schedule guest lectures, seminars, and workshops.
+   * Manage faculty workload and assignments.
+3.3 Assignment, Quizzes & LMS (Importance: Important)
+ * Description: A full-fledged Learning Management System integrated with the ERP.
+ * Functionality:
+   * Content Management: Faculty can upload course materials (notes, videos, links).
+   * Assignments & Quizzes: Faculty can create, schedule, and grade assignments and online quizzes. Include plagiarism checker integration.
+   * Collaborative Learning: Discussion forums for each course.
+   * Learner Analytics: Dashboards to track student engagement and performance on LMS activities.
+Module 4: Exam Management System (Importance: Critical)
+ * Description: An end-to-end system to manage all examination processes.
+ * Functionality:
+   * Scheduling: Create and publish the examination timetable.
+   * Registration: Students register for exams; the system checks eligibility.
+   * Question Paper Management: Create a secure question bank tagged by course and difficulty. Generate question papers.
+   * Conducting Exams: Assign invigilators and manage exam day logistics.
+   * Evaluation & Results: Enter marks, manage grading (relative/absolute), and process results. Allow for revaluation requests. Publish results on the student portal.
+Module 5: Finance & HR
+5.1 Finance (Importance: Critical)
+ * Description: A complete finance and accounting module.
+ * Functionality:
+   * Accounts Configuration: Manage Chart of Accounts, ledgers, and cost centers.
+   * Procurement: Manage vendors, purchase orders, and requisitions.
+   * Fee Management: The central fee management hub from Module 1.
+   * Payroll Management: Configure salary structures for faculty and staff, process monthly salaries, and manage tax deductions.
+   * Budgeting: Plan, allocate, and monitor departmental budgets.
+5.2 Human Resources Management System (HRMS)
+ * Description: Manage all employee-related activities.
+ * Functionality:
+   * Recruitment (Importance: Critical): Post job openings, track applicants, and schedule interviews.
+   * Employee Profile (Importance: Critical): Maintain detailed profiles for all staff and faculty.
+   * Leave Management (Importance: Critical): Configure leave policies and manage the entire leave application and approval workflow.
+   * Faculty Performance (Importance: Important): A system for annual performance appraisals, goal setting, and feedback collection.
+   * Exit Management (Importance: Important): Manage the full and final settlement process for departing employees.
+Module 6: Accreditation & Research
+6.1 Accreditation (Importance: Important)
+ * Description: A module to simplify the accreditation data collection process.
+ * Functionality:
+   * Generate reports required for NBA, NAAC, and NIRF by automatically collating data from all other modules (e.g., student-faculty ratio, publications, results).
+   * Manage compliance with regulatory bodies like UGC and AICTE.
+6.2 Research Management
+ * Description: A dedicated module to track and manage all research activities.
+ * Functionality:
+   * Faculty Research Profile (Importance: Important): Faculty can manage their research profiles, linking publications from Scopus/Google Scholar.
+   * Project & Funding Management (Importance: Critical): Track research project proposals, funding, and progress.
+   * Publications/Patents (Importance: Important): Maintain a central repository of all research publications and patents from the university.
+   * PhD Scholar Management (Importance: Important): Manage the entire lifecycle of PhD scholars, from admission and guide assignment to thesis submission and evaluation.
+Module 7: Supporting Modules (Importance: Important)
+ * Description: Essential supporting modules for campus operations.
+ * Functionality:
+   * Library Management: Manage the catalog, issue/returns, fines, and access to e-databases.
+   * Hostel Management: Manage room allocation, hostel fees, and maintenance requests.
+   * Transport Management: Manage bus routes, student passes, and vehicle tracking.
+   * Inventory Management: Track all university assets, from lab equipment to furniture.
+   * Alumni Management: A portal for alumni to connect, view events, and contribute to fundraising.
+By developing all the features specified above, the resulting UMS ERP will be a comprehensive and robust platform tailored to the operational needs of COEP Technological University.
