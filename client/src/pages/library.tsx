@@ -1,191 +1,111 @@
-import { useState, useEffect } from 'react';
-import { useQuery, useMutation } from '@tanstack/react-query';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useAuth } from '@/hooks/useAuth';
-import { useToast } from '@/hooks/use-toast';
-import { apiRequest, queryClient } from '@/lib/queryClient';
-import { isUnauthorizedError } from '@/lib/authUtils';
-import { 
-  Book, 
-  Search, 
-  Calendar, 
-  User, 
-  CheckCircle, 
-  Clock, 
-  AlertCircle,
-  BookOpen,
-  Library as LibraryIcon,
-  Plus
-} from 'lucide-react';
+import { useState } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Search, BookOpen, Calendar, AlertCircle } from "lucide-react";
 
 export default function Library() {
-  const { user, isAuthenticated, isLoading } = useAuth();
-  const { toast } = useToast();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [searchQuery, setSearchQuery] = useState("");
 
-  // Redirect to login if not authenticated
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      toast({
-        title: "Unauthorized",
-        description: "You are logged out. Logging in again...",
-        variant: "destructive",
-      });
-      setTimeout(() => {
-        window.location.href = "/api/login";
-      }, 500);
-      return;
+  // Mock data
+  const borrowedBooks = [
+    {
+      id: 1,
+      title: "Introduction to Algorithms",
+      author: "Thomas H. Cormen",
+      issueDate: "2024-01-15",
+      dueDate: "2024-02-15",
+      status: "issued"
+    },
+    {
+      id: 2,
+      title: "Computer Networks",
+      author: "Andrew S. Tanenbaum",
+      issueDate: "2024-01-10",
+      dueDate: "2024-02-10",
+      status: "overdue"
     }
-  }, [isAuthenticated, isLoading, toast]);
+  ];
 
-  const { data: books = [], isLoading: isLoadingBooks } = useQuery({
-    queryKey: ['/api/library/books', { search: searchQuery, category: selectedCategory }],
-    retry: false,
-  });
-
-  const { data: borrowedBooks = [], isLoading: isLoadingBorrowed } = useQuery({
-    queryKey: ['/api/student/borrowed-books'],
-    retry: false,
-  });
-
-  const borrowBookMutation = useMutation({
-    mutationFn: async (bookId: number) => {
-      return await apiRequest('/api/student/borrow-book', 'POST', { bookId });
+  const availableBooks = [
+    {
+      id: 3,
+      title: "Database System Concepts",
+      author: "Abraham Silberschatz",
+      isbn: "9780078022159",
+      available: true,
+      location: "Section C, Shelf 3"
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/library/books'] });
-      queryClient.invalidateQueries({ queryKey: ['/api/student/borrowed-books'] });
-      toast({
-        title: "Book Borrowed",
-        description: "The book has been borrowed successfully.",
-      });
-    },
-    onError: (error: Error) => {
-      if (isUnauthorizedError(error)) {
-        toast({
-          title: "Unauthorized",
-          description: "You are logged out. Logging in again...",
-          variant: "destructive",
-        });
-        setTimeout(() => {
-          window.location.href = "/api/login";
-        }, 500);
-        return;
-      }
-      toast({
-        title: "Borrow Failed",
-        description: error.message || "Failed to borrow book. Please try again.",
-        variant: "destructive",
-      });
-    },
-  });
-
-  const returnBookMutation = useMutation({
-    mutationFn: async (borrowingId: number) => {
-      return await apiRequest('/api/student/return-book', 'POST', { borrowingId });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/library/books'] });
-      queryClient.invalidateQueries({ queryKey: ['/api/student/borrowed-books'] });
-      toast({
-        title: "Book Returned",
-        description: "The book has been returned successfully.",
-      });
-    },
-    onError: (error: Error) => {
-      if (isUnauthorizedError(error)) {
-        toast({
-          title: "Unauthorized",
-          description: "You are logged out. Logging in again...",
-          variant: "destructive",
-        });
-        setTimeout(() => {
-          window.location.href = "/api/login";
-        }, 500);
-        return;
-      }
-      toast({
-        title: "Return Failed",
-        description: error.message || "Failed to return book. Please try again.",
-        variant: "destructive",
-      });
-    },
-  });
-
-  const handleBorrowBook = (bookId: number) => {
-    borrowBookMutation.mutate(bookId);
-  };
-
-  const handleReturnBook = (borrowingId: number) => {
-    returnBookMutation.mutate(borrowingId);
-  };
-
-  if (isLoading || isLoadingBooks) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-8 h-8 border-4 border-coep-blue border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading library...</p>
-        </div>
-      </div>
-    );
-  }
-
-  const categories = ['all', 'textbook', 'reference', 'fiction', 'technical', 'research'];
+    {
+      id: 4,
+      title: "Operating System Concepts",
+      author: "Abraham Silberschatz",
+      isbn: "9781118063330",
+      available: true,
+      location: "Section C, Shelf 4"
+    }
+  ];
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-gray-900">Library Management</h1>
-        <div className="flex gap-2">
-          <Badge variant="secondary" className="flex items-center gap-1">
-            <BookOpen className="h-3 w-3" />
-            {books.length} Books Available
-          </Badge>
-          <Badge variant="default" className="flex items-center gap-1">
-            <LibraryIcon className="h-3 w-3" />
-            {borrowedBooks.length} Borrowed
-          </Badge>
-        </div>
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight">Library Portal</h1>
+        <p className="text-muted-foreground">Search for books and manage your borrowings</p>
       </div>
 
-      {/* Search and Filter */}
+      {/* Library Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Books Borrowed</CardTitle>
+            <BookOpen className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">2</div>
+            <p className="text-xs text-muted-foreground">Maximum limit: 5</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Due Soon</CardTitle>
+            <Calendar className="h-4 w-4 text-orange-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-orange-500">1</div>
+            <p className="text-xs text-muted-foreground">Within next 7 days</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Overdue</CardTitle>
+            <AlertCircle className="h-4 w-4 text-red-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-red-500">1</div>
+            <p className="text-xs text-muted-foreground">Return immediately</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Search Section */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Search className="h-5 w-5" />
-            Search Books
-          </CardTitle>
+          <CardTitle>Search Books</CardTitle>
+          <CardDescription>Search by title, author, or ISBN</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex gap-4">
-            <div className="flex-1">
-              <Input
-                placeholder="Search by title, author, or ISBN..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full"
-              />
-            </div>
-            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-              <SelectTrigger className="w-48">
-                <SelectValue placeholder="Select category" />
-              </SelectTrigger>
-              <SelectContent>
-                {categories.map(category => (
-                  <SelectItem key={category} value={category}>
-                    {category.charAt(0).toUpperCase() + category.slice(1)}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Button variant="outline" className="flex items-center gap-2">
+          <div className="flex gap-2">
+            <Input
+              placeholder="Enter book title, author, or ISBN..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="flex-1"
+            />
+            <Button className="gap-2">
               <Search className="h-4 w-4" />
               Search
             </Button>
@@ -193,156 +113,76 @@ export default function Library() {
         </CardContent>
       </Card>
 
-      {/* My Borrowed Books */}
+      {/* Borrowed Books */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Clock className="h-5 w-5" />
-            My Borrowed Books
-          </CardTitle>
+          <CardTitle>My Borrowed Books</CardTitle>
         </CardHeader>
         <CardContent>
-          {isLoadingBorrowed ? (
-            <div className="text-center py-8">
-              <div className="w-6 h-6 border-2 border-coep-blue border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
-              <p className="text-sm text-gray-600">Loading borrowed books...</p>
-            </div>
-          ) : borrowedBooks.length === 0 ? (
-            <div className="text-center py-8">
-              <Book className="h-12 w-12 text-gray-400 mx-auto mb-2" />
-              <p className="text-gray-600">No books currently borrowed</p>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {borrowedBooks.map((borrowing: any) => {
-                const dueDate = new Date(borrowing.dueDate);
-                const isOverdue = dueDate < new Date();
-                return (
-                  <div key={borrowing.id} className="flex items-center justify-between p-4 border rounded-lg">
-                    <div className="flex items-center gap-4">
-                      <Book className="h-8 w-8 text-coep-blue" />
-                      <div>
-                        <h4 className="font-medium">{borrowing.book?.title}</h4>
-                        <p className="text-sm text-gray-600">by {borrowing.book?.author}</p>
-                        <div className="flex items-center gap-4 mt-1 text-xs text-gray-500">
-                          <span>Borrowed: {new Date(borrowing.borrowDate).toLocaleDateString()}</span>
-                          <span className={isOverdue ? 'text-red-600 font-medium' : ''}>
-                            Due: {dueDate.toLocaleDateString()}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {isOverdue && (
-                        <Badge variant="destructive" className="flex items-center gap-1">
-                          <AlertCircle className="h-3 w-3" />
-                          Overdue
-                        </Badge>
-                      )}
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleReturnBook(borrowing.id)}
-                        disabled={returnBookMutation.isPending}
-                        className="flex items-center gap-2"
-                      >
-                        {returnBookMutation.isPending ? (
-                          <>
-                            <div className="w-3 h-3 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                            Returning...
-                          </>
-                        ) : (
-                          'Return Book'
-                        )}
-                      </Button>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Title</TableHead>
+                <TableHead>Author</TableHead>
+                <TableHead>Issue Date</TableHead>
+                <TableHead>Due Date</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Action</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {borrowedBooks.map((book) => (
+                <TableRow key={book.id}>
+                  <TableCell className="font-medium">{book.title}</TableCell>
+                  <TableCell>{book.author}</TableCell>
+                  <TableCell>{book.issueDate}</TableCell>
+                  <TableCell>{book.dueDate}</TableCell>
+                  <TableCell>
+                    <Badge variant={book.status === "overdue" ? "destructive" : "default"}>
+                      {book.status}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <Button size="sm" variant="outline">Renew</Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </CardContent>
       </Card>
 
       {/* Available Books */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <BookOpen className="h-5 w-5" />
-            Available Books
-          </CardTitle>
+          <CardTitle>Available Books</CardTitle>
+          <CardDescription>Popular books available for borrowing</CardDescription>
         </CardHeader>
         <CardContent>
-          {books.length === 0 ? (
-            <div className="text-center py-8">
-              <Book className="h-12 w-12 text-gray-400 mx-auto mb-2" />
-              <p className="text-gray-600">No books found matching your criteria</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {books.map((book: any) => {
-                const isBorrowed = borrowedBooks.some((borrowing: any) => 
-                  borrowing.bookId === book.id && !borrowing.returnDate
-                );
-                const isAvailable = book.availableCopies > 0;
-
-                return (
-                  <Card key={book.id} className="h-full">
-                    <CardHeader>
-                      <CardTitle className="text-lg leading-tight">{book.title}</CardTitle>
-                      <div className="space-y-1 text-sm text-gray-600">
-                        <p className="flex items-center gap-1">
-                          <User className="h-3 w-3" />
-                          {book.author}
-                        </p>
-                        <p>ISBN: {book.isbn}</p>
-                        <div className="flex items-center justify-between">
-                          <Badge variant="secondary">{book.category}</Badge>
-                          <span className="text-xs">
-                            {book.availableCopies}/{book.totalCopies} available
-                          </span>
-                        </div>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="pt-0">
-                      <p className="text-sm text-gray-700 mb-4 line-clamp-3">
-                        {book.description || 'No description available.'}
-                      </p>
-                      <div className="flex gap-2">
-                        {isBorrowed ? (
-                          <Badge variant="default" className="flex items-center gap-1">
-                            <CheckCircle className="h-3 w-3" />
-                            Already Borrowed
-                          </Badge>
-                        ) : isAvailable ? (
-                          <Button
-                            size="sm"
-                            onClick={() => handleBorrowBook(book.id)}
-                            disabled={borrowBookMutation.isPending}
-                            className="flex items-center gap-2"
-                          >
-                            {borrowBookMutation.isPending ? (
-                              <>
-                                <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                                Borrowing...
-                              </>
-                            ) : (
-                              <>
-                                <Plus className="h-3 w-3" />
-                                Borrow
-                              </>
-                            )}
-                          </Button>
-                        ) : (
-                          <Badge variant="destructive">Not Available</Badge>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-          )}
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Title</TableHead>
+                <TableHead>Author</TableHead>
+                <TableHead>ISBN</TableHead>
+                <TableHead>Location</TableHead>
+                <TableHead>Action</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {availableBooks.map((book) => (
+                <TableRow key={book.id}>
+                  <TableCell className="font-medium">{book.title}</TableCell>
+                  <TableCell>{book.author}</TableCell>
+                  <TableCell className="font-mono text-sm">{book.isbn}</TableCell>
+                  <TableCell>{book.location}</TableCell>
+                  <TableCell>
+                    <Button size="sm">Reserve</Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </CardContent>
       </Card>
     </div>
