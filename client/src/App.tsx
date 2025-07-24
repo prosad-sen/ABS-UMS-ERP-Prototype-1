@@ -9,10 +9,10 @@ import Landing from "@/pages/landing";
 import Dashboard from "@/pages/dashboard";
 import Attendance from "@/pages/attendance";
 import Academics from "@/pages/academics";
-import Fees from "./pages/fees";
-import LMS from "./pages/lms";
-import Library from "./pages/library";
-import Profile from "./pages/profile";
+import Fees from "@/pages/fees";
+import LMS from "@/pages/lms";
+import Library from "@/pages/library";
+import Profile from "@/pages/profile";
 import MainLayout from "@/components/layout/main-layout";
 
 function Router() {
