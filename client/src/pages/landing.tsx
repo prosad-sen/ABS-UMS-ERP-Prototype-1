@@ -1,0 +1,83 @@
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+export default function Landing() {
+  const [selectedRole, setSelectedRole] = useState("");
+
+  const handleLogin = () => {
+    if (!selectedRole) {
+      alert("Please select your role");
+      return;
+    }
+    
+    // Redirect to login with role parameter
+    window.location.href = `/api/login?role=${selectedRole}`;
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-coep-blue to-coep-light-blue flex items-center justify-center p-4">
+      <Card className="w-full max-w-md">
+        <CardContent className="p-8">
+          {/* COEP Logo */}
+          <div className="text-center mb-8">
+            <div className="w-20 h-20 bg-coep-blue rounded-full mx-auto mb-4 flex items-center justify-center">
+              <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3ZM18.82 9L12 12.72L5.18 9L12 5.28L18.82 9ZM17 16L12 18.72L7 16V12.27L12 15L17 12.27V16Z"/>
+              </svg>
+            </div>
+            <h1 className="text-2xl font-bold text-gray-800">COEP Technological University</h1>
+            <p className="text-gray-600 mt-2">University Management System</p>
+          </div>
+
+          <div className="space-y-6">
+            <div>
+              <Label className="block text-sm font-medium text-gray-700 mb-2">Select Your Role</Label>
+              <Select value={selectedRole} onValueChange={setSelectedRole}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Choose your role..." />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="student">Student</SelectItem>
+                  <SelectItem value="faculty">Faculty</SelectItem>
+                  <SelectItem value="admin">Administrator</SelectItem>
+                  <SelectItem value="parent">Parent</SelectItem>
+                  <SelectItem value="finance">Finance Officer</SelectItem>
+                  <SelectItem value="hr">HR Manager</SelectItem>
+                  <SelectItem value="librarian">Librarian</SelectItem>
+                  <SelectItem value="alumni">Alumni</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div>
+              <Label className="block text-sm font-medium text-gray-700 mb-2">Login ID</Label>
+              <Input type="text" placeholder="Enter your login ID" />
+            </div>
+
+            <div>
+              <Label className="block text-sm font-medium text-gray-700 mb-2">Password</Label>
+              <Input type="password" placeholder="Enter your password" />
+            </div>
+
+            <Button 
+              onClick={handleLogin} 
+              className="w-full bg-coep-blue hover:bg-coep-light-blue"
+            >
+              Login to Portal
+            </Button>
+
+            <div className="text-center">
+              <a href="#" className="text-coep-blue text-sm hover:underline">
+                Forgot Password?
+              </a>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
