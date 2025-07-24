@@ -20,6 +20,20 @@ import { z } from "zod";
 export async function registerRoutes(app: Express): Promise<Server> {
   // Auth middleware
   await setupAuth(app);
+  
+  // Import and seed dummy data
+  const { seedDummyData } = await import('./dummy-data');
+  
+  // Seed data route (for development)
+  app.post('/api/seed-data', async (req, res) => {
+    try {
+      await seedDummyData();
+      res.json({ message: 'COEP dummy data seeded successfully!' });
+    } catch (error) {
+      console.error('Error seeding data:', error);
+      res.status(500).json({ message: 'Failed to seed data', error: error.message });
+    }
+  });
 
   // Auth routes
   app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
