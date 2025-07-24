@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple COEP Test</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+</head>
+<body>
+    <h1>COEP UMS Simple Test</h1>
+    <div id="test-root"></div>
+    <script>
+        const e = React.createElement;
+        const container = document.getElementById('test-root');
+        const root = ReactDOM.createRoot(container);
+        root.render(e('div', null, 
+            e('h2', null, 'React is working!'),
+            e('p', null, 'This proves React can mount in your browser.'),
+            e('button', {onClick: () => alert('Clicked!')}, 'Test Button')
+        ));
+    </script>
+</body>
+</html>
