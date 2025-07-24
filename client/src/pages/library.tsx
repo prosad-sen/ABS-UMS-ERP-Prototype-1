@@ -1,261 +1,348 @@
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { useAuth } from "@/hooks/useAuth";
-import { Search, BookOpen, Download, ExternalLink } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { useQuery, useMutation } from '@tanstack/react-query';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useAuth } from '@/hooks/useAuth';
+import { useToast } from '@/hooks/use-toast';
+import { apiRequest, queryClient } from '@/lib/queryClient';
+import { isUnauthorizedError } from '@/lib/authUtils';
+import { 
+  Book, 
+  Search, 
+  Calendar, 
+  User, 
+  CheckCircle, 
+  Clock, 
+  AlertCircle,
+  BookOpen,
+  Library as LibraryIcon,
+  Plus
+} from 'lucide-react';
 
 export default function Library() {
-  const { user } = useAuth();
-  const [searchQuery, setSearchQuery] = useState("");
+  const { user, isAuthenticated, isLoading } = useAuth();
+  const { toast } = useToast();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
-  const { data: borrowings, isLoading: borrowingsLoading } = useQuery({
-    queryKey: ["/api/library/borrowings"],
-    enabled: !!user,
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      toast({
+        title: "Unauthorized",
+        description: "You are logged out. Logging in again...",
+        variant: "destructive",
+      });
+      setTimeout(() => {
+        window.location.href = "/api/login";
+      }, 500);
+      return;
+    }
+  }, [isAuthenticated, isLoading, toast]);
+
+  const { data: books = [], isLoading: isLoadingBooks } = useQuery({
+    queryKey: ['/api/library/books', { search: searchQuery, category: selectedCategory }],
+    retry: false,
   });
 
-  const { data: searchResults, isLoading: searchLoading } = useQuery({
-    queryKey: ["/api/library/books/search", searchQuery],
-    enabled: !!user && searchQuery.length > 2,
+  const { data: borrowedBooks = [], isLoading: isLoadingBorrowed } = useQuery({
+    queryKey: ['/api/student/borrowed-books'],
+    retry: false,
   });
 
-  if (borrowingsLoading) {
+  const borrowBookMutation = useMutation({
+    mutationFn: async (bookId: number) => {
+      return await apiRequest('/api/student/borrow-book', 'POST', { bookId });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/library/books'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/student/borrowed-books'] });
+      toast({
+        title: "Book Borrowed",
+        description: "The book has been borrowed successfully.",
+      });
+    },
+    onError: (error: Error) => {
+      if (isUnauthorizedError(error)) {
+        toast({
+          title: "Unauthorized",
+          description: "You are logged out. Logging in again...",
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = "/api/login";
+        }, 500);
+        return;
+      }
+      toast({
+        title: "Borrow Failed",
+        description: error.message || "Failed to borrow book. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const returnBookMutation = useMutation({
+    mutationFn: async (borrowingId: number) => {
+      return await apiRequest('/api/student/return-book', 'POST', { borrowingId });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/library/books'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/student/borrowed-books'] });
+      toast({
+        title: "Book Returned",
+        description: "The book has been returned successfully.",
+      });
+    },
+    onError: (error: Error) => {
+      if (isUnauthorizedError(error)) {
+        toast({
+          title: "Unauthorized",
+          description: "You are logged out. Logging in again...",
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = "/api/login";
+        }, 500);
+        return;
+      }
+      toast({
+        title: "Return Failed",
+        description: error.message || "Failed to return book. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleBorrowBook = (bookId: number) => {
+    borrowBookMutation.mutate(bookId);
+  };
+
+  const handleReturnBook = (borrowingId: number) => {
+    returnBookMutation.mutate(borrowingId);
+  };
+
+  if (isLoading || isLoadingBooks) {
     return (
-      <div className="flex items-center justify-center h-64">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-coep-blue border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading library information...</p>
+          <p className="text-gray-600">Loading library...</p>
         </div>
       </div>
     );
   }
 
-  // Mock library stats
-  const libraryStats = {
-    booksBorrowed: 3,
-    maxAllowed: 5,
-    overdueBooks: 0,
-    totalFine: 0
-  };
-
-  // Mock current borrowings
-  const mockBorrowings = [
-    {
-      id: 1,
-      book: {
-        title: "Introduction to Algorithms",
-        author: "Thomas Cormen",
-        isbn: "9780262033848"
-      },
-      issueDate: "2024-11-25",
-      dueDate: "2024-12-25",
-      status: "issued"
-    },
-    {
-      id: 2,
-      book: {
-        title: "Computer Networks",
-        author: "Andrew Tanenbaum", 
-        isbn: "9780132126953"
-      },
-      issueDate: "2024-11-20",
-      dueDate: "2024-12-20",
-      status: "issued"
-    },
-    {
-      id: 3,
-      book: {
-        title: "Database System Concepts",
-        author: "Abraham Silberschatz",
-        isbn: "9780073523323"
-      },
-      issueDate: "2024-12-01",
-      dueDate: "2024-12-31", 
-      status: "issued"
-    }
-  ];
-
-  const digitalResources = [
-    {
-      id: 1,
-      name: "IEEE Xplore",
-      type: "Research Database",
-      description: "Access millions of technical papers and conference proceedings",
-      color: "bg-red-100",
-      textColor: "text-red-600"
-    },
-    {
-      id: 2,
-      name: "SpringerLink",
-      type: "E-Books & Journals",
-      description: "Comprehensive collection of scientific literature and textbooks",
-      color: "bg-blue-100", 
-      textColor: "text-blue-600"
-    },
-    {
-      id: 3,
-      name: "NPTEL",
-      type: "Online Courses",
-      description: "Free online courses from premier Indian institutions",
-      color: "bg-green-100",
-      textColor: "text-green-600"
-    }
-  ];
+  const categories = ['all', 'textbook', 'reference', 'fiction', 'technical', 'research'];
 
   return (
     <div className="space-y-6">
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">Library Management</h2>
-        <p className="text-gray-600">Search books, manage your borrowings, and access digital resources</p>
-      </div>
-
-      {/* Search and Quick Stats */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-        <div className="lg:col-span-2">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg font-semibold text-gray-800">Search Library Catalog</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex space-x-3">
-                <Input
-                  placeholder="Search books, authors, or ISBN..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="flex-1"
-                />
-                <Button className="bg-coep-blue hover:bg-coep-light-blue">
-                  <Search className="w-5 h-5" />
-                </Button>
-              </div>
-              <div className="flex flex-wrap gap-2 mt-4">
-                {["Computer Science", "Mathematics", "Engineering", "Research Papers"].map((tag) => (
-                  <Badge 
-                    key={tag}
-                    variant="secondary" 
-                    className="cursor-pointer hover:bg-gray-200"
-                    onClick={() => setSearchQuery(tag)}
-                  >
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold text-gray-900">Library Management</h1>
+        <div className="flex gap-2">
+          <Badge variant="secondary" className="flex items-center gap-1">
+            <BookOpen className="h-3 w-3" />
+            {books.length} Books Available
+          </Badge>
+          <Badge variant="default" className="flex items-center gap-1">
+            <LibraryIcon className="h-3 w-3" />
+            {borrowedBooks.length} Borrowed
+          </Badge>
         </div>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg font-semibold text-gray-800">My Library Stats</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Books Borrowed</span>
-                <span className="font-semibold text-coep-blue">{libraryStats.booksBorrowed}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Max Allowed</span>
-                <span className="font-medium">{libraryStats.maxAllowed}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Overdue Books</span>
-                <span className="font-medium text-error-red">{libraryStats.overdueBooks}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Total Fine</span>
-                <span className="font-medium">₹{libraryStats.totalFine}</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
       </div>
 
-      {/* Current Borrowings */}
+      {/* Search and Filter */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg font-semibold text-gray-800">Current Borrowings</CardTitle>
+          <CardTitle className="flex items-center gap-2">
+            <Search className="h-5 w-5" />
+            Search Books
+          </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Book</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Author</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Issue Date</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Due Date</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Status</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {mockBorrowings.map((borrowing) => (
-                  <tr key={borrowing.id} className="border-b border-gray-100">
-                    <td className="py-3 px-4">
-                      <div>
-                        <p className="font-medium text-gray-800">{borrowing.book.title}</p>
-                        <p className="text-xs text-gray-600">ISBN: {borrowing.book.isbn}</p>
-                      </div>
-                    </td>
-                    <td className="py-3 px-4">{borrowing.book.author}</td>
-                    <td className="py-3 px-4">{new Date(borrowing.issueDate).toLocaleDateString()}</td>
-                    <td className="py-3 px-4">{new Date(borrowing.dueDate).toLocaleDateString()}</td>
-                    <td className="py-3 px-4">
-                      <Badge variant="default" className="bg-success-green">
-                        On Time
-                      </Badge>
-                    </td>
-                    <td className="py-3 px-4">
-                      <Button variant="link" className="p-0 h-auto text-coep-blue">
-                        Renew
-                      </Button>
-                    </td>
-                  </tr>
+          <div className="flex gap-4">
+            <div className="flex-1">
+              <Input
+                placeholder="Search by title, author, or ISBN..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full"
+              />
+            </div>
+            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <SelectTrigger className="w-48">
+                <SelectValue placeholder="Select category" />
+              </SelectTrigger>
+              <SelectContent>
+                {categories.map(category => (
+                  <SelectItem key={category} value={category}>
+                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                  </SelectItem>
                 ))}
-              </tbody>
-            </table>
+              </SelectContent>
+            </Select>
+            <Button variant="outline" className="flex items-center gap-2">
+              <Search className="h-4 w-4" />
+              Search
+            </Button>
           </div>
         </CardContent>
       </Card>
 
-      {/* Digital Resources */}
+      {/* My Borrowed Books */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg font-semibold text-gray-800">Digital Resources</CardTitle>
+          <CardTitle className="flex items-center gap-2">
+            <Clock className="h-5 w-5" />
+            My Borrowed Books
+          </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {digitalResources.map((resource) => (
-              <div 
-                key={resource.id}
-                className="p-4 border border-gray-200 rounded-lg hover:border-coep-blue transition-colors cursor-pointer"
-              >
-                <div className="flex items-center space-x-3 mb-3">
-                  <div className={`w-10 h-10 ${resource.color} rounded-lg flex items-center justify-center`}>
-                    {resource.name === "IEEE Xplore" ? (
-                      <Download className={`w-5 h-5 ${resource.textColor}`} />
-                    ) : resource.name === "SpringerLink" ? (
-                      <BookOpen className={`w-5 h-5 ${resource.textColor}`} />
-                    ) : (
-                      <ExternalLink className={`w-5 h-5 ${resource.textColor}`} />
-                    )}
+          {isLoadingBorrowed ? (
+            <div className="text-center py-8">
+              <div className="w-6 h-6 border-2 border-coep-blue border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
+              <p className="text-sm text-gray-600">Loading borrowed books...</p>
+            </div>
+          ) : borrowedBooks.length === 0 ? (
+            <div className="text-center py-8">
+              <Book className="h-12 w-12 text-gray-400 mx-auto mb-2" />
+              <p className="text-gray-600">No books currently borrowed</p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {borrowedBooks.map((borrowing: any) => {
+                const dueDate = new Date(borrowing.dueDate);
+                const isOverdue = dueDate < new Date();
+                return (
+                  <div key={borrowing.id} className="flex items-center justify-between p-4 border rounded-lg">
+                    <div className="flex items-center gap-4">
+                      <Book className="h-8 w-8 text-coep-blue" />
+                      <div>
+                        <h4 className="font-medium">{borrowing.book?.title}</h4>
+                        <p className="text-sm text-gray-600">by {borrowing.book?.author}</p>
+                        <div className="flex items-center gap-4 mt-1 text-xs text-gray-500">
+                          <span>Borrowed: {new Date(borrowing.borrowDate).toLocaleDateString()}</span>
+                          <span className={isOverdue ? 'text-red-600 font-medium' : ''}>
+                            Due: {dueDate.toLocaleDateString()}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {isOverdue && (
+                        <Badge variant="destructive" className="flex items-center gap-1">
+                          <AlertCircle className="h-3 w-3" />
+                          Overdue
+                        </Badge>
+                      )}
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleReturnBook(borrowing.id)}
+                        disabled={returnBookMutation.isPending}
+                        className="flex items-center gap-2"
+                      >
+                        {returnBookMutation.isPending ? (
+                          <>
+                            <div className="w-3 h-3 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                            Returning...
+                          </>
+                        ) : (
+                          'Return Book'
+                        )}
+                      </Button>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-medium text-gray-800">{resource.name}</p>
-                    <p className="text-xs text-gray-600">{resource.type}</p>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-600 mb-3">{resource.description}</p>
-                <Button variant="outline" className="w-full border-coep-blue text-coep-blue hover:bg-coep-blue hover:text-white">
-                  {resource.name === "IEEE Xplore" ? "Access Database" : 
-                   resource.name === "SpringerLink" ? "Browse Collection" : "Explore Courses"}
-                </Button>
-              </div>
-            ))}
-          </div>
+                );
+              })}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Available Books */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <BookOpen className="h-5 w-5" />
+            Available Books
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {books.length === 0 ? (
+            <div className="text-center py-8">
+              <Book className="h-12 w-12 text-gray-400 mx-auto mb-2" />
+              <p className="text-gray-600">No books found matching your criteria</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {books.map((book: any) => {
+                const isBorrowed = borrowedBooks.some((borrowing: any) => 
+                  borrowing.bookId === book.id && !borrowing.returnDate
+                );
+                const isAvailable = book.availableCopies > 0;
+
+                return (
+                  <Card key={book.id} className="h-full">
+                    <CardHeader>
+                      <CardTitle className="text-lg leading-tight">{book.title}</CardTitle>
+                      <div className="space-y-1 text-sm text-gray-600">
+                        <p className="flex items-center gap-1">
+                          <User className="h-3 w-3" />
+                          {book.author}
+                        </p>
+                        <p>ISBN: {book.isbn}</p>
+                        <div className="flex items-center justify-between">
+                          <Badge variant="secondary">{book.category}</Badge>
+                          <span className="text-xs">
+                            {book.availableCopies}/{book.totalCopies} available
+                          </span>
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="pt-0">
+                      <p className="text-sm text-gray-700 mb-4 line-clamp-3">
+                        {book.description || 'No description available.'}
+                      </p>
+                      <div className="flex gap-2">
+                        {isBorrowed ? (
+                          <Badge variant="default" className="flex items-center gap-1">
+                            <CheckCircle className="h-3 w-3" />
+                            Already Borrowed
+                          </Badge>
+                        ) : isAvailable ? (
+                          <Button
+                            size="sm"
+                            onClick={() => handleBorrowBook(book.id)}
+                            disabled={borrowBookMutation.isPending}
+                            className="flex items-center gap-2"
+                          >
+                            {borrowBookMutation.isPending ? (
+                              <>
+                                <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                Borrowing...
+                              </>
+                            ) : (
+                              <>
+                                <Plus className="h-3 w-3" />
+                                Borrow
+                              </>
+                            )}
+                          </Button>
+                        ) : (
+                          <Badge variant="destructive">Not Available</Badge>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>

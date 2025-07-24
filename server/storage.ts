@@ -41,7 +41,7 @@ import {
   type FacultyCourse,
 } from "@shared/schema";
 import { db } from "./db";
-import { eq, and, desc, gte, lte, sql, count, avg } from "drizzle-orm";
+import { eq, and, desc, gte, lte, sql, count, avg, isNull } from "drizzle-orm";
 
 // Interface for storage operations
 export interface IStorage {
@@ -180,11 +180,10 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getStudentsByProgram(program: string, branch?: string): Promise<Student[]> {
-    const query = db.select().from(students).where(eq(students.program, program));
     if (branch) {
-      query.where(eq(students.branch, branch));
+      return await db.select().from(students).where(and(eq(students.program, program), eq(students.branch, branch)));
     }
-    return await query;
+    return await db.select().from(students).where(eq(students.program, program));
   }
 
   // Faculty operations
@@ -251,7 +250,15 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getStudentEnrollments(studentId: number, semester?: number, academicYear?: string): Promise<(Enrollment & { course: Course })[]> {
-    let query = db
+    let conditions = [eq(enrollments.studentId, studentId)];
+    if (semester) {
+      conditions.push(eq(enrollments.semester, semester));
+    }
+    if (academicYear) {
+      conditions.push(eq(enrollments.academicYear, academicYear));
+    }
+    
+    return await db
       .select({
         id: enrollments.id,
         studentId: enrollments.studentId,
@@ -267,16 +274,7 @@ export class DatabaseStorage implements IStorage {
       })
       .from(enrollments)
       .innerJoin(courses, eq(enrollments.courseId, courses.id))
-      .where(eq(enrollments.studentId, studentId));
-
-    if (semester) {
-      query = query.where(eq(enrollments.semester, semester));
-    }
-    if (academicYear) {
-      query = query.where(eq(enrollments.academicYear, academicYear));
-    }
-
-    return await query;
+      .where(and(...conditions));
   }
 
   async getCourseEnrollments(courseId: number, semester: number, academicYear: string): Promise<(Enrollment & { student: Student })[]> {
@@ -315,7 +313,15 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getFacultyCourses(facultyId: number, semester?: number, academicYear?: string): Promise<(FacultyCourse & { course: Course })[]> {
-    let query = db
+    let conditions = [eq(facultyCourses.facultyId, facultyId)];
+    if (semester) {
+      conditions.push(eq(facultyCourses.semester, semester));
+    }
+    if (academicYear) {
+      conditions.push(eq(facultyCourses.academicYear, academicYear));
+    }
+
+    return await db
       .select({
         id: facultyCourses.id,
         facultyId: facultyCourses.facultyId,
@@ -328,16 +334,7 @@ export class DatabaseStorage implements IStorage {
       })
       .from(facultyCourses)
       .innerJoin(courses, eq(facultyCourses.courseId, courses.id))
-      .where(eq(facultyCourses.facultyId, facultyId));
-
-    if (semester) {
-      query = query.where(eq(facultyCourses.semester, semester));
-    }
-    if (academicYear) {
-      query = query.where(eq(facultyCourses.academicYear, academicYear));
-    }
-
-    return await query;
+      .where(and(...conditions));
   }
 
   // Attendance operations
@@ -347,7 +344,18 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getStudentAttendance(studentId: number, courseId?: number, startDate?: Date, endDate?: Date): Promise<(Attendance & { course: Course })[]> {
-    let query = db
+    let conditions = [eq(attendance.studentId, studentId)];
+    if (courseId) {
+      conditions.push(eq(attendance.courseId, courseId));
+    }
+    if (startDate) {
+      conditions.push(gte(attendance.date, startDate.toISOString().split('T')[0]));
+    }
+    if (endDate) {
+      conditions.push(lte(attendance.date, endDate.toISOString().split('T')[0]));
+    }
+
+    return await db
       .select({
         id: attendance.id,
         studentId: attendance.studentId,
@@ -366,19 +374,8 @@ export class DatabaseStorage implements IStorage {
       })
       .from(attendance)
       .innerJoin(courses, eq(attendance.courseId, courses.id))
-      .where(eq(attendance.studentId, studentId));
-
-    if (courseId) {
-      query = query.where(eq(attendance.courseId, courseId));
-    }
-    if (startDate) {
-      query = query.where(gte(attendance.date, startDate.toISOString().split('T')[0]));
-    }
-    if (endDate) {
-      query = query.where(lte(attendance.date, endDate.toISOString().split('T')[0]));
-    }
-
-    return await query.orderBy(desc(attendance.date));
+      .where(and(...conditions))
+      .orderBy(desc(attendance.date));
   }
 
   async getCourseAttendance(courseId: number, date: Date): Promise<(Attendance & { student: Student })[]> {
@@ -410,19 +407,19 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getAttendanceStats(studentId: number, courseId?: number): Promise<{ totalClasses: number; attendedClasses: number; percentage: number }> {
-    let query = db
+    let conditions = [eq(attendance.studentId, studentId)];
+    if (courseId) {
+      conditions.push(eq(attendance.courseId, courseId));
+    }
+
+    const [stats] = await db
       .select({
         total: count(),
         attended: sql<number>`sum(case when ${attendance.status} = 'present' then 1 else 0 end)`,
       })
       .from(attendance)
-      .where(eq(attendance.studentId, studentId));
+      .where(and(...conditions));
 
-    if (courseId) {
-      query = query.where(eq(attendance.courseId, courseId));
-    }
-
-    const [stats] = await query;
     const totalClasses = stats?.total || 0;
     const attendedClasses = Number(stats?.attended) || 0;
     const percentage = totalClasses > 0 ? (attendedClasses / totalClasses) * 100 : 0;
@@ -452,16 +449,16 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getStudentFeePayments(studentId: number, academicYear?: string): Promise<FeePayment[]> {
-    let query = db
-      .select()
-      .from(feePayments)
-      .where(eq(feePayments.studentId, studentId));
-
+    let conditions = [eq(feePayments.studentId, studentId)];
     if (academicYear) {
-      query = query.where(eq(feePayments.academicYear, academicYear));
+      conditions.push(eq(feePayments.academicYear, academicYear));
     }
 
-    return await query.orderBy(desc(feePayments.paymentDate));
+    return await db
+      .select()
+      .from(feePayments)
+      .where(and(...conditions))
+      .orderBy(desc(feePayments.paymentDate));
   }
 
   async getStudentFeeDues(studentId: number): Promise<{ totalDue: number; payments: FeePayment[]; structure: FeeStructure | null }> {
@@ -500,18 +497,19 @@ export class DatabaseStorage implements IStorage {
   }
 
   async searchBooks(query: string, category?: string): Promise<Book[]> {
-    let dbQuery = db
-      .select()
-      .from(books)
-      .where(
-        sql`${books.title} ILIKE ${`%${query}%`} OR ${books.author} ILIKE ${`%${query}%`} OR ${books.isbn} ILIKE ${`%${query}%`}`
-      );
+    let conditions = [
+      sql`${books.title} ILIKE ${`%${query}%`} OR ${books.author} ILIKE ${`%${query}%`} OR ${books.isbn} ILIKE ${`%${query}%`}`
+    ];
 
-    if (category) {
-      dbQuery = dbQuery.where(eq(books.category, category));
+    if (category && category !== 'all') {
+      conditions.push(eq(books.category, category));
     }
 
-    return await dbQuery.limit(50);
+    return await db
+      .select()
+      .from(books)
+      .where(and(...conditions))
+      .limit(50);
   }
 
   async createBook(book: InsertBook): Promise<Book> {
@@ -559,7 +557,12 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getStudentBorrowings(studentId: number, status?: string): Promise<(BookBorrowing & { book: Book })[]> {
-    let query = db
+    let conditions = [eq(bookBorrowings.studentId, studentId)];
+    if (status) {
+      conditions.push(eq(bookBorrowings.status, status));
+    }
+
+    return await db
       .select({
         id: bookBorrowings.id,
         studentId: bookBorrowings.studentId,
@@ -575,13 +578,8 @@ export class DatabaseStorage implements IStorage {
       })
       .from(bookBorrowings)
       .innerJoin(books, eq(bookBorrowings.bookId, books.id))
-      .where(eq(bookBorrowings.studentId, studentId));
-
-    if (status) {
-      query = query.where(eq(bookBorrowings.status, status));
-    }
-
-    return await query.orderBy(desc(bookBorrowings.issueDate));
+      .where(and(...conditions))
+      .orderBy(desc(bookBorrowings.issueDate));
   }
 
   // Assignment operations
@@ -609,7 +607,12 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getStudentAssignments(studentId: number, status?: string): Promise<(AssignmentSubmission & { assignment: Assignment & { course: Course } })[]> {
-    let query = db
+    let conditions = [eq(assignmentSubmissions.studentId, studentId)];
+    if (status) {
+      conditions.push(eq(assignmentSubmissions.status, status));
+    }
+
+    return await db
       .select({
         id: assignmentSubmissions.id,
         assignmentId: assignmentSubmissions.assignmentId,
@@ -641,13 +644,8 @@ export class DatabaseStorage implements IStorage {
       .from(assignmentSubmissions)
       .innerJoin(assignments, eq(assignmentSubmissions.assignmentId, assignments.id))
       .innerJoin(courses, eq(assignments.courseId, courses.id))
-      .where(eq(assignmentSubmissions.studentId, studentId));
-
-    if (status) {
-      query = query.where(eq(assignmentSubmissions.status, status));
-    }
-
-    return await query.orderBy(desc(assignments.dueDate));
+      .where(and(...conditions))
+      .orderBy(desc(assignments.dueDate));
   }
 
   // Announcement operations
@@ -718,7 +716,7 @@ export class DatabaseStorage implements IStorage {
           eq(enrollments.studentId, studentId),
           eq(assignments.status, 'active'),
           gte(assignments.dueDate, new Date()),
-          sql`${assignmentSubmissions.id} IS NULL`
+          isNull(assignmentSubmissions.id)
         )
       );
 

@@ -1,54 +1,106 @@
-import { useAuth } from "@/hooks/useAuth";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Bell } from "lucide-react";
+import { useAuth } from '@/hooks/useAuth';
+import type { User } from '@shared/schema';
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Badge } from '@/components/ui/badge';
+import { 
+  Bell, 
+  Settings, 
+  LogOut, 
+  User as UserIcon,
+  GraduationCap
+} from 'lucide-react';
 
 export default function Header() {
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
 
-  const userName = user?.firstName 
-    ? `${user.firstName} ${user.lastName || ''}`.trim()
-    : user?.email?.split('@')[0] || 'User';
-
-  const userRole = user?.role ? user.role.charAt(0).toUpperCase() + user.role.slice(1) : 'User';
+  const userData = user as User | undefined;
+  const displayName = userData?.firstName ? `${userData.firstName} ${userData.lastName || ''}`.trim() : 'Student';
+  const userEmail = userData?.email || '';
 
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200">
-      <div className="flex items-center justify-between px-6 py-4">
-        <div className="flex items-center space-x-4">
-          <div className="w-10 h-10 bg-coep-blue rounded-lg flex items-center justify-center">
-            <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3ZM18.82 9L12 12.72L5.18 9L12 5.28L18.82 9ZM17 16L12 18.72L7 16V12.27L12 15L17 12.27V16Z"/>
-            </svg>
-          </div>
-          <div>
-            <h1 className="text-xl font-bold text-gray-800">COEP Technological University</h1>
-            <p className="text-sm text-gray-600">University Management System</p>
+    <header className="fixed top-0 left-0 right-0 z-40 bg-white border-b border-gray-200 h-16">
+      <div className="flex items-center justify-between h-full px-6">
+        {/* Logo and Title */}
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-coep-blue rounded-lg flex items-center justify-center">
+              <GraduationCap className="h-5 w-5 text-white" />
+            </div>
+            <div>
+              <h1 className="text-lg font-bold text-gray-900">COEP UMS</h1>
+              <p className="text-xs text-gray-600">University Management System</p>
+            </div>
           </div>
         </div>
 
-        <div className="flex items-center space-x-4">
-          <div className="relative">
-            <Button variant="ghost" size="sm" className="p-2 text-gray-600 hover:text-gray-800 relative">
-              <Bell className="w-5 h-5" />
-              <span className="absolute -top-1 -right-1 bg-error-red text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                3
-              </span>
+        {/* Right side - User menu */}
+        <div className="flex items-center gap-4">
+          {/* Notifications */}
+          <Button variant="ghost" size="sm" className="relative">
+            <Bell className="h-5 w-5" />
+            <span className="absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full text-xs"></span>
+          </Button>
+
+          {/* User Menu */}
+          {isAuthenticated ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="flex items-center gap-3 pl-2 pr-4">
+                  <Avatar className="h-8 w-8">
+                    <AvatarImage src={userData?.profileImageUrl} alt={displayName} />
+                    <AvatarFallback className="bg-coep-blue text-white text-sm">
+                      {displayName.split(' ').map(n => n[0]).join('').toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="text-left">
+                    <p className="text-sm font-medium">{displayName}</p>
+                    <p className="text-xs text-gray-600">Student</p>
+                  </div>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel>
+                  <div className="space-y-1">
+                    <p className="text-sm font-medium">{displayName}</p>
+                    <p className="text-xs text-gray-600">{userEmail}</p>
+                    <Badge variant="secondary" className="text-xs">
+                      Student
+                    </Badge>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="flex items-center gap-2">
+                  <UserIcon className="h-4 w-4" />
+                  Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem className="flex items-center gap-2">
+                  <Settings className="h-4 w-4" />
+                  Settings
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem 
+                  className="flex items-center gap-2 text-red-600"
+                  onClick={() => window.location.href = '/api/logout'}
+                >
+                  <LogOut className="h-4 w-4" />
+                  Sign out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button onClick={() => window.location.href = '/api/login'}>
+              Sign In
             </Button>
-          </div>
-          
-          <div className="flex items-center space-x-3">
-            <div className="text-right">
-              <p className="text-sm font-medium text-gray-800">{userName}</p>
-              <p className="text-xs text-gray-600">{userRole}</p>
-            </div>
-            <Avatar className="w-10 h-10 border-2 border-gray-200">
-              <AvatarImage src={user?.profileImageUrl || undefined} alt="Profile" />
-              <AvatarFallback className="bg-coep-blue text-white">
-                {userName.charAt(0).toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
-          </div>
+          )}
         </div>
       </div>
     </header>

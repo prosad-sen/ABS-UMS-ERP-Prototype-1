@@ -1,28 +1,125 @@
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useAuth } from "@/hooks/useAuth";
-import { Edit, Save, X } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { useQuery, useMutation } from '@tanstack/react-query';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { useAuth } from '@/hooks/useAuth';
+import { useToast } from '@/hooks/use-toast';
+import { apiRequest, queryClient } from '@/lib/queryClient';
+import { isUnauthorizedError } from '@/lib/authUtils';
+import { 
+  User, 
+  Mail, 
+  Phone, 
+  MapPin, 
+  Calendar, 
+  BookOpen, 
+  GraduationCap,
+  Edit,
+  Save,
+  X
+} from 'lucide-react';
 
 export default function Profile() {
-  const { user } = useAuth();
+  const { user, isAuthenticated, isLoading } = useAuth();
+  const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
-  const [activeTab, setActiveTab] = useState("personal");
-
-  const { data: studentProfile, isLoading } = useQuery({
-    queryKey: ["/api/students/profile"],
-    enabled: !!user,
+  const [formData, setFormData] = useState({
+    phone: '',
+    address: '',
+    emergencyContact: '',
   });
 
-  if (isLoading) {
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      toast({
+        title: "Unauthorized",
+        description: "You are logged out. Logging in again...",
+        variant: "destructive",
+      });
+      setTimeout(() => {
+        window.location.href = "/api/login";
+      }, 500);
+      return;
+    }
+  }, [isAuthenticated, isLoading, toast]);
+
+  const { data: studentData, isLoading: isLoadingStudent } = useQuery({
+    queryKey: ['/api/student/profile'],
+    retry: false,
+  });
+
+  const { data: academicData, isLoading: isLoadingAcademic } = useQuery({
+    queryKey: ['/api/student/academic-summary'],
+    retry: false,
+  });
+
+  // Initialize form data when student data loads
+  useEffect(() => {
+    if (studentData) {
+      setFormData({
+        phone: studentData.phone || '',
+        address: studentData.address || '',
+        emergencyContact: studentData.emergencyContact || '',
+      });
+    }
+  }, [studentData]);
+
+  const updateProfileMutation = useMutation({
+    mutationFn: async (updateData: any) => {
+      return await apiRequest('/api/student/profile', 'PUT', updateData);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/student/profile'] });
+      setIsEditing(false);
+      toast({
+        title: "Profile Updated",
+        description: "Your profile has been updated successfully.",
+      });
+    },
+    onError: (error: Error) => {
+      if (isUnauthorizedError(error)) {
+        toast({
+          title: "Unauthorized",
+          description: "You are logged out. Logging in again...",
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = "/api/login";
+        }, 500);
+        return;
+      }
+      toast({
+        title: "Update Failed",
+        description: error.message || "Failed to update profile. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleSave = () => {
+    updateProfileMutation.mutate(formData);
+  };
+
+  const handleCancel = () => {
+    if (studentData) {
+      setFormData({
+        phone: studentData.phone || '',
+        address: studentData.address || '',
+        emergencyContact: studentData.emergencyContact || '',
+      });
+    }
+    setIsEditing(false);
+  };
+
+  if (isLoading || isLoadingStudent || isLoadingAcademic) {
     return (
-      <div className="flex items-center justify-center h-64">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-coep-blue border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-600">Loading profile...</p>
@@ -31,337 +128,247 @@ export default function Profile() {
     );
   }
 
-  const userName = user?.firstName 
-    ? `${user.firstName} ${user.lastName || ''}`.trim()
-    : user?.email?.split('@')[0] || 'User';
-
-  // Mock student data based on the profile structure
-  const mockStudent = {
-    studentId: "202111001",
-    rollNumber: "11001",
-    program: "B.Tech",
-    branch: "Computer Engineering",
-    currentSemester: 6,
-    cgpa: 8.49,
-    admissionYear: 2021,
-    dateOfBirth: "2003-08-15",
-    gender: "Male",
-    bloodGroup: "O+",
-    fatherName: "Rajesh Sharma",
-    motherName: "Sunita Sharma",
-    address: "Flat 203, Sunrise Apartments, Pune, Maharashtra - 411001",
-    phone: "+91 9876543210",
-    emergencyContact: "+91 9876543211"
-  };
+  const displayName = user?.firstName ? `${user.firstName} ${user.lastName || ''}`.trim() : 'Student';
+  const userEmail = user?.email || '';
 
   return (
     <div className="space-y-6">
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">Student Profile</h2>
-        <p className="text-gray-600">Manage your personal information and academic details</p>
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold text-gray-900">My Profile</h1>
+        {!isEditing ? (
+          <Button onClick={() => setIsEditing(true)} className="flex items-center gap-2">
+            <Edit className="h-4 w-4" />
+            Edit Profile
+          </Button>
+        ) : (
+          <div className="flex gap-2">
+            <Button 
+              onClick={handleSave}
+              disabled={updateProfileMutation.isPending}
+              className="flex items-center gap-2"
+            >
+              {updateProfileMutation.isPending ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  Saving...
+                </>
+              ) : (
+                <>
+                  <Save className="h-4 w-4" />
+                  Save
+                </>
+              )}
+            </Button>
+            <Button variant="outline" onClick={handleCancel} className="flex items-center gap-2">
+              <X className="h-4 w-4" />
+              Cancel
+            </Button>
+          </div>
+        )}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Profile Info */}
+        {/* Profile Overview */}
         <div className="lg:col-span-1">
           <Card>
-            <CardContent className="p-6">
-              <div className="text-center mb-6">
-                <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-gray-200">
-                  <AvatarImage src={user?.profileImageUrl || undefined} alt="Student Profile" />
-                  <AvatarFallback className="bg-coep-blue text-white text-2xl">
-                    {userName.charAt(0).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
-                <h3 className="text-xl font-semibold text-gray-800">{userName}</h3>
-                <p className="text-gray-600">Student ID: {mockStudent.studentId}</p>
-                <p className="text-sm text-gray-500">{mockStudent.program} {mockStudent.branch}</p>
+            <CardHeader className="text-center">
+              <Avatar className="w-24 h-24 mx-auto mb-4">
+                <AvatarImage src={user?.profileImageUrl} alt={displayName} />
+                <AvatarFallback className="text-2xl bg-coep-blue text-white">
+                  {displayName.split(' ').map(n => n[0]).join('').toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              <CardTitle className="text-xl">{displayName}</CardTitle>
+              <p className="text-gray-600">{userEmail}</p>
+              <div className="flex justify-center mt-2">
+                <Badge variant="secondary" className="flex items-center gap-1">
+                  <GraduationCap className="h-3 w-3" />
+                  Student
+                </Badge>
               </div>
-
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600">Current Semester</span>
-                  <span className="font-medium">{mockStudent.currentSemester}th</span>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <BookOpen className="h-4 w-4 text-gray-500" />
+                  <div>
+                    <p className="text-sm font-medium">{studentData?.program || 'Program'}</p>
+                    <p className="text-xs text-gray-600">{studentData?.branch || 'Branch'}</p>
+                  </div>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600">CGPA</span>
-                  <span className="font-medium text-coep-blue">{mockStudent.cgpa}</span>
+                <div className="flex items-center gap-3">
+                  <Calendar className="h-4 w-4 text-gray-500" />
+                  <div>
+                    <p className="text-sm font-medium">Semester {studentData?.currentSemester || 1}</p>
+                    <p className="text-xs text-gray-600">Year {studentData?.admissionYear || '2024'}</p>
+                  </div>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600">Attendance</span>
-                  <span className="font-medium">87.5%</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600">Admission Year</span>
-                  <span className="font-medium">{mockStudent.admissionYear}</span>
+                <div className="flex items-center gap-3">
+                  <User className="h-4 w-4 text-gray-500" />
+                  <div>
+                    <p className="text-sm font-medium">{studentData?.rollNumber || 'Roll Number'}</p>
+                    <p className="text-xs text-gray-600">Student ID: {studentData?.studentId || 'ID'}</p>
+                  </div>
                 </div>
               </div>
-
-              <Button 
-                onClick={() => setIsEditing(!isEditing)}
-                className="w-full mt-6 bg-coep-blue hover:bg-coep-light-blue"
-              >
-                {isEditing ? (
-                  <>
-                    <X className="w-4 h-4 mr-2" />
-                    Cancel Edit
-                  </>
-                ) : (
-                  <>
-                    <Edit className="w-4 h-4 mr-2" />
-                    Edit Profile
-                  </>
-                )}
-              </Button>
             </CardContent>
           </Card>
         </div>
 
-        {/* Detailed Information */}
-        <div className="lg:col-span-2">
+        {/* Personal Information */}
+        <div className="lg:col-span-2 space-y-6">
           <Card>
-            <CardContent className="p-6">
-              <Tabs value={activeTab} onValueChange={setActiveTab}>
-                <TabsList className="grid w-full grid-cols-4">
-                  <TabsTrigger value="personal">Personal</TabsTrigger>
-                  <TabsTrigger value="academic">Academic</TabsTrigger>
-                  <TabsTrigger value="contact">Contact</TabsTrigger>
-                  <TabsTrigger value="documents">Documents</TabsTrigger>
-                </TabsList>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <User className="h-5 w-5" />
+                Personal Information
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <Label>First Name</Label>
+                  <Input value={user?.firstName || ''} disabled className="mt-1" />
+                </div>
+                <div>
+                  <Label>Last Name</Label>
+                  <Input value={user?.lastName || ''} disabled className="mt-1" />
+                </div>
+                <div>
+                  <Label>Email</Label>
+                  <Input value={userEmail} disabled className="mt-1" />
+                </div>
+                <div>
+                  <Label>Date of Birth</Label>
+                  <Input 
+                    value={studentData?.dateOfBirth ? new Date(studentData.dateOfBirth).toLocaleDateString() : ''}
+                    disabled 
+                    className="mt-1" 
+                  />
+                </div>
+                <div>
+                  <Label>Gender</Label>
+                  <Input value={studentData?.gender || ''} disabled className="mt-1" />
+                </div>
+                <div>
+                  <Label>Blood Group</Label>
+                  <Input value={studentData?.bloodGroup || ''} disabled className="mt-1" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
-                {/* Personal Information */}
-                <TabsContent value="personal" className="mt-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <Label htmlFor="fullName">Full Name</Label>
-                      <Input 
-                        id="fullName"
-                        value={userName}
-                        readOnly={!isEditing}
-                        className={!isEditing ? "bg-gray-50" : ""}
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="dateOfBirth">Date of Birth</Label>
-                      <Input 
-                        id="dateOfBirth"
-                        value={new Date(mockStudent.dateOfBirth).toLocaleDateString()}
-                        readOnly={!isEditing}
-                        className={!isEditing ? "bg-gray-50" : ""}
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="gender">Gender</Label>
-                      <Input 
-                        id="gender"
-                        value={mockStudent.gender}
-                        readOnly={!isEditing}
-                        className={!isEditing ? "bg-gray-50" : ""}
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="bloodGroup">Blood Group</Label>
-                      <Input 
-                        id="bloodGroup"
-                        value={mockStudent.bloodGroup}
-                        readOnly={!isEditing}
-                        className={!isEditing ? "bg-gray-50" : ""}
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="fatherName">Father's Name</Label>
-                      <Input 
-                        id="fatherName"
-                        value={mockStudent.fatherName}
-                        readOnly={!isEditing}
-                        className={!isEditing ? "bg-gray-50" : ""}
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="motherName">Mother's Name</Label>
-                      <Input 
-                        id="motherName"
-                        value={mockStudent.motherName}
-                        readOnly={!isEditing}
-                        className={!isEditing ? "bg-gray-50" : ""}
-                      />
-                    </div>
-                    <div className="md:col-span-2">
-                      <Label htmlFor="address">Address</Label>
-                      <Textarea 
-                        id="address"
-                        rows={3}
-                        value={mockStudent.address}
-                        readOnly={!isEditing}
-                        className={!isEditing ? "bg-gray-50" : ""}
-                      />
-                    </div>
-                  </div>
-                </TabsContent>
+          {/* Contact Information */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Phone className="h-5 w-5" />
+                Contact Information
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div>
+                  <Label>Phone Number</Label>
+                  <Input
+                    value={formData.phone}
+                    onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                    disabled={!isEditing}
+                    className="mt-1"
+                    placeholder="Enter phone number"
+                  />
+                </div>
+                <div>
+                  <Label>Emergency Contact</Label>
+                  <Input
+                    value={formData.emergencyContact}
+                    onChange={(e) => setFormData(prev => ({ ...prev, emergencyContact: e.target.value }))}
+                    disabled={!isEditing}
+                    className="mt-1"
+                    placeholder="Enter emergency contact"
+                  />
+                </div>
+                <div>
+                  <Label>Address</Label>
+                  <Textarea
+                    value={formData.address}
+                    onChange={(e) => setFormData(prev => ({ ...prev, address: e.target.value }))}
+                    disabled={!isEditing}
+                    className="mt-1"
+                    placeholder="Enter address"
+                    rows={3}
+                  />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
-                {/* Academic Information */}
-                <TabsContent value="academic" className="mt-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <Label htmlFor="studentId">Student ID</Label>
-                      <Input 
-                        id="studentId"
-                        value={mockStudent.studentId}
-                        readOnly
-                        className="bg-gray-50"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="rollNumber">Roll Number</Label>
-                      <Input 
-                        id="rollNumber"
-                        value={mockStudent.rollNumber}
-                        readOnly
-                        className="bg-gray-50"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="program">Program</Label>
-                      <Input 
-                        id="program"
-                        value={mockStudent.program}
-                        readOnly
-                        className="bg-gray-50"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="branch">Branch</Label>
-                      <Input 
-                        id="branch"
-                        value={mockStudent.branch}
-                        readOnly
-                        className="bg-gray-50"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="semester">Current Semester</Label>
-                      <Input 
-                        id="semester"
-                        value={`${mockStudent.currentSemester}th Semester`}
-                        readOnly
-                        className="bg-gray-50"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="cgpa">CGPA</Label>
-                      <Input 
-                        id="cgpa"
-                        value={mockStudent.cgpa}
-                        readOnly
-                        className="bg-gray-50"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="admissionYear">Admission Year</Label>
-                      <Input 
-                        id="admissionYear"
-                        value={mockStudent.admissionYear}
-                        readOnly
-                        className="bg-gray-50"
-                      />
-                    </div>
-                  </div>
-                </TabsContent>
+          {/* Family Information */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <User className="h-5 w-5" />
+                Family Information
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <Label>Father's Name</Label>
+                  <Input value={studentData?.fatherName || ''} disabled className="mt-1" />
+                </div>
+                <div>
+                  <Label>Mother's Name</Label>
+                  <Input value={studentData?.motherName || ''} disabled className="mt-1" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
-                {/* Contact Information */}
-                <TabsContent value="contact" className="mt-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <Label htmlFor="email">Email Address</Label>
-                      <Input 
-                        id="email"
-                        value={user?.email || ""}
-                        readOnly={!isEditing}
-                        className={!isEditing ? "bg-gray-50" : ""}
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="phone">Phone Number</Label>
-                      <Input 
-                        id="phone"
-                        value={mockStudent.phone}
-                        readOnly={!isEditing}
-                        className={!isEditing ? "bg-gray-50" : ""}
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="emergencyContact">Emergency Contact</Label>
-                      <Input 
-                        id="emergencyContact"
-                        value={mockStudent.emergencyContact}
-                        readOnly={!isEditing}
-                        className={!isEditing ? "bg-gray-50" : ""}
-                      />
-                    </div>
-                  </div>
-                </TabsContent>
-
-                {/* Documents */}
-                <TabsContent value="documents" className="mt-6">
-                  <div className="space-y-4">
-                    <div className="p-4 border border-gray-200 rounded-lg">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="font-medium text-gray-800">SSC Marksheet</p>
-                          <p className="text-sm text-gray-600">Uploaded on: Jan 15, 2021</p>
-                        </div>
-                        <Button variant="outline" size="sm">View</Button>
+          {/* Academic Summary */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <GraduationCap className="h-5 w-5" />
+                Academic Summary
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-coep-blue">
+                    {studentData?.cgpa || '0.00'}
+                  </p>
+                  <p className="text-sm text-gray-600">Current CGPA</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-green-600">
+                    {academicData?.totalCredits || 0}
+                  </p>
+                  <p className="text-sm text-gray-600">Credits Earned</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-blue-600">
+                    {academicData?.coursesCompleted || 0}
+                  </p>
+                  <p className="text-sm text-gray-600">Courses Completed</p>
+                </div>
+              </div>
+              
+              {academicData?.recentGrades && academicData.recentGrades.length > 0 && (
+                <div className="mt-6">
+                  <h4 className="font-medium mb-3">Recent Grades</h4>
+                  <div className="space-y-2">
+                    {academicData.recentGrades.slice(0, 5).map((grade: any, index: number) => (
+                      <div key={index} className="flex justify-between items-center py-2 border-b">
+                        <span className="text-sm">{grade.courseName}</span>
+                        <Badge variant={grade.grade === 'A+' ? 'default' : 'secondary'}>
+                          {grade.grade}
+                        </Badge>
                       </div>
-                    </div>
-                    
-                    <div className="p-4 border border-gray-200 rounded-lg">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="font-medium text-gray-800">HSC Marksheet</p>
-                          <p className="text-sm text-gray-600">Uploaded on: Jan 15, 2021</p>
-                        </div>
-                        <Button variant="outline" size="sm">View</Button>
-                      </div>
-                    </div>
-                    
-                    <div className="p-4 border border-gray-200 rounded-lg">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="font-medium text-gray-800">MHT-CET Scorecard</p>
-                          <p className="text-sm text-gray-600">Uploaded on: Jan 15, 2021</p>
-                        </div>
-                        <Button variant="outline" size="sm">View</Button>
-                      </div>
-                    </div>
-                    
-                    <div className="p-4 border border-gray-200 rounded-lg">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="font-medium text-gray-800">Caste Certificate</p>
-                          <p className="text-sm text-gray-600">Uploaded on: Jan 15, 2021</p>
-                        </div>
-                        <Button variant="outline" size="sm">View</Button>
-                      </div>
-                    </div>
+                    ))}
                   </div>
-                </TabsContent>
-              </Tabs>
-
-              {isEditing && (
-                <div className="flex justify-end space-x-3 mt-6 pt-6 border-t border-gray-200">
-                  <Button 
-                    variant="outline"
-                    onClick={() => setIsEditing(false)}
-                  >
-                    Cancel
-                  </Button>
-                  <Button 
-                    onClick={() => setIsEditing(false)}
-                    className="bg-coep-blue hover:bg-coep-light-blue"
-                  >
-                    <Save className="w-4 h-4 mr-2" />
-                    Save Changes
-                  </Button>
                 </div>
               )}
             </CardContent>

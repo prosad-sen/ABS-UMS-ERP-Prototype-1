@@ -1,71 +1,108 @@
-import { Link, useLocation } from "wouter";
-import { Button } from "@/components/ui/button";
-import { useAuth } from "@/hooks/useAuth";
-import { cn } from "@/lib/utils";
-import {
-  Home,
-  QrCode,
-  BookOpen,
-  IndianRupee,
-  GraduationCap,
-  Library,
-  User,
-  LogOut
-} from "lucide-react";
+import { Link, useLocation } from 'wouter';
+import { 
+  BarChart3, 
+  BookOpen, 
+  Calendar, 
+  DollarSign, 
+  FileText, 
+  GraduationCap, 
+  Library, 
+  QrCode, 
+  User 
+} from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const navigationItems = [
-  { path: "/", label: "Dashboard", icon: Home },
-  { path: "/attendance", label: "Attendance", icon: QrCode },
-  { path: "/academics", label: "Academics", icon: BookOpen },
-  { path: "/fees", label: "Fees", icon: IndianRupee },
-  { path: "/lms", label: "Learning", icon: GraduationCap },
-  { path: "/library", label: "Library", icon: Library },
-  { path: "/profile", label: "Profile", icon: User },
+  {
+    name: 'Dashboard',
+    href: '/',
+    icon: BarChart3,
+    description: 'Overview & Analytics'
+  },
+  {
+    name: 'Profile',
+    href: '/profile',
+    icon: User,
+    description: 'Personal Information'
+  },
+  {
+    name: 'Academics',
+    href: '/academics',
+    icon: GraduationCap,
+    description: 'Courses & Grades'
+  },
+  {
+    name: 'Attendance',
+    href: '/attendance',
+    icon: QrCode,
+    description: 'QR Code Scanner'
+  },
+  {
+    name: 'Fees',
+    href: '/fees',
+    icon: DollarSign,
+    description: 'Payments & Dues'
+  },
+  {
+    name: 'LMS',
+    href: '/lms',
+    icon: FileText,
+    description: 'Learning Management'
+  },
+  {
+    name: 'Library',
+    href: '/library',
+    icon: Library,
+    description: 'Books & Resources'
+  }
 ];
 
 export default function Sidebar() {
   const [location] = useLocation();
 
-  const handleLogout = () => {
-    window.location.href = "/api/logout";
-  };
-
   return (
-    <aside className="w-64 bg-white shadow-sm h-screen sticky top-0 overflow-y-auto">
-      <nav className="p-4 space-y-2">
-        {navigationItems.map((item) => {
-          const Icon = item.icon;
-          const isActive = location === item.path;
-          
-          return (
-            <Link key={item.path} href={item.path}>
-              <Button
-                variant="ghost"
+    <aside className="fixed left-0 top-16 z-30 h-[calc(100vh-4rem)] w-64 border-r border-gray-200 bg-white overflow-y-auto">
+      <div className="p-6">
+        <nav className="space-y-2">
+          {navigationItems.map((item) => {
+            const isActive = location === item.href || (item.href !== '/' && location.startsWith(item.href));
+            
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
                 className={cn(
-                  "w-full justify-start space-x-3 p-3 h-auto",
-                  isActive 
-                    ? "text-coep-blue bg-blue-50 hover:bg-blue-50" 
-                    : "text-gray-700 hover:bg-gray-100"
+                  'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200',
+                  isActive
+                    ? 'bg-coep-blue text-white shadow-sm'
+                    : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
                 )}
               >
-                <Icon className="w-5 h-5" />
-                <span>{item.label}</span>
-              </Button>
-            </Link>
-          );
-        })}
-      </nav>
-
-      {/* Logout Button */}
-      <div className="absolute bottom-4 left-4 right-4">
-        <Button
-          variant="ghost"
-          onClick={handleLogout}
-          className="w-full justify-start space-x-2 p-3 text-gray-600 hover:text-gray-800 hover:bg-gray-100"
-        >
-          <LogOut className="w-5 h-5" />
-          <span>Logout</span>
-        </Button>
+                <item.icon className={cn(
+                  'h-5 w-5',
+                  isActive ? 'text-white' : 'text-gray-500'
+                )} />
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium">{item.name}</span>
+                  <span className={cn(
+                    'text-xs',
+                    isActive ? 'text-blue-100' : 'text-gray-500'
+                  )}>
+                    {item.description}
+                  </span>
+                </div>
+              </Link>
+            );
+          })}
+        </nav>
+      </div>
+      
+      {/* Footer */}
+      <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-gray-200">
+        <div className="text-center">
+          <p className="text-xs text-gray-500">COEP Technological University</p>
+          <p className="text-xs text-gray-400">University Management System</p>
+        </div>
       </div>
     </aside>
   );
