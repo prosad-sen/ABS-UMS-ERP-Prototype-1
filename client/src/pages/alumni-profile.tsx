@@ -32,9 +32,9 @@ export default function AlumniProfile() {
   // Alumni-specific data
   const alumniData = {
     id: "ALM20180045",
-    firstName: "Rajesh",
-    lastName: "Patel",
-    email: "rajesh.patel@alumni.coep.ac.in",
+    firstName: "Vikash",
+    lastName: "Singh",
+    email: "vikash.singh@alumni.coep.ac.in",
     phone: "+91 9876543210",
     profileImageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
     rollNumber: "2018045",
@@ -45,8 +45,8 @@ export default function AlumniProfile() {
     currentCompany: "Microsoft India",
     workLocation: "Bangalore, Karnataka",
     experience: "2.5 years",
-    linkedinUrl: "https://linkedin.com/in/priya-patel-coep",
-    githubUrl: "https://github.com/priyapatel",
+    linkedinUrl: "https://www.linkedin.com/school/coep-technological-university/",
+    githubUrl: "https://github.com/vikashsingh",
     address: "Koramangala, Bangalore - 560034",
     bloodGroup: "O+",
     dateOfBirth: "1999-12-08",

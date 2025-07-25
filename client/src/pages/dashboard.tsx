@@ -13,6 +13,7 @@ import Leaderboard from "@/components/gamification/leaderboard";
 import AnimatedInfoSlider from "@/components/ui/animated-info-slider";
 import AWSLabSystem from "@/components/labs/aws-lab-system";
 import DetailedStatsModal from "@/components/analytics/detailed-stats-modal";
+import EnhancedSliderModal from "@/components/ui/enhanced-slider-modal";
 import AIQuickActions from "@/components/ai/ai-quick-actions";
 import { 
   Trophy, 
@@ -151,7 +152,11 @@ export default function Dashboard() {
       color: "text-purple-600",
       bgColor: "bg-gradient-to-r from-purple-500 to-pink-500",
       stats: { value: "12", label: "Badges Earned", trend: "up" as const },
-      action: { label: "View All Achievements", onClick: () => {} }
+      action: { label: "View All Achievements", onClick: () => {
+        setSelectedDetailType("rising-star");
+        setSelectedDetailTitle("Rising Star Recognition");
+        setShowDetailModal(true);
+      }}
     },
     {
       id: "upcoming-opportunities",
@@ -161,7 +166,11 @@ export default function Dashboard() {
       color: "text-indigo-600", 
       bgColor: "bg-gradient-to-r from-indigo-500 to-blue-500",
       stats: { value: "8", label: "New Opportunities", trend: "up" as const },
-      action: { label: "Explore Now", onClick: () => {} }
+      action: { label: "Explore Now", onClick: () => {
+        setSelectedDetailType("exciting-opportunities");
+        setSelectedDetailTitle("Exciting Opportunities Ahead");
+        setShowDetailModal(true);
+      }}
     }
   ];
 
@@ -415,7 +424,17 @@ export default function Dashboard() {
                 <p className="text-xl lg:text-2xl font-bold text-gray-800">87.3%</p>
                 <Badge className="bg-green-100 text-green-800 text-xs mt-1">Top Companies</Badge>
               </div>
-              <Briefcase className="h-6 w-6 lg:h-8 lg:w-8 text-green-600" />
+              <Button
+                variant="ghost"
+                size="sm"
+                className="p-1 hover:bg-blue-100"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open('https://www.linkedin.com/school/coep-technological-university/', '_blank');
+                }}
+              >
+                <Linkedin className="h-6 w-6 lg:h-8 lg:w-8 text-blue-600" />
+              </Button>
             </div>
             
             {/* Placement Analytics Preview */}
@@ -759,9 +778,17 @@ export default function Dashboard() {
         </CardContent>
       </Card>
 
+      {/* Enhanced Slider Modal */}
+      <EnhancedSliderModal
+        isOpen={showDetailModal}
+        onClose={() => setShowDetailModal(false)}
+        title={selectedDetailTitle}
+        type={selectedDetailType}
+      />
+      
       {/* Detailed Stats Modal */}
       <DetailedStatsModal
-        isOpen={showDetailModal}
+        isOpen={false}
         onClose={() => setShowDetailModal(false)}
         title={selectedDetailTitle}
         type={selectedDetailType as any}

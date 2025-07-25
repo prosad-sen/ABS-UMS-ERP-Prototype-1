@@ -36,6 +36,7 @@ import TransportManagement from "@/pages/transport-management";
 import FacultyProfile from "@/pages/faculty-profile";
 import AdminStudentRecords from "@/pages/admin-student-records";
 import AdminAcademics from "@/pages/admin-academics";
+import AdminFees from "@/pages/admin-fees";
 import AlumniProfile from "@/pages/alumni-profile";
 import FacultyAcademics from "@/pages/faculty-academics";
 import StudentExamManagement from "@/pages/student-exam-management";
@@ -175,7 +176,7 @@ function Router() {
         {/* Administrator/Registrar specific pages */}
         <Route path="/admin-student-records" component={AdminStudentRecords} />
         <Route path="/admin-academics" component={AdminAcademics} />
-        <Route path="/admin-fees" component={Fees} />
+        <Route path="/admin-fees" component={AdminFees} />
         <Route path="/admin-reports" component={CustomizedReports} />
         <Route path="/admin-grievances" component={Grievances} />
         <Route path="/admin-placements" component={StudentPlacements} />
