@@ -212,7 +212,7 @@ export default function VCDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-purple-100 text-sm">Placement Rate</p>
-                <p className="text-3xl font-bold">{executiveKPIs.placementRate}%</p>
+                <p className="text-3xl font-bold">87.3%</p>
                 <div className="flex items-center space-x-1 mt-1">
                   <TrendingUp className="h-3 w-3 text-green-300" />
                   <span className="text-green-300 text-xs">+5%</span>

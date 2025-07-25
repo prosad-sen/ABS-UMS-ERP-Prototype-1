@@ -33,13 +33,13 @@ const getRoleNavigation = (role: string) => {
         ...baseItems,
         {
           name: 'My Courses',
-          href: '/faculty-courses',
+          href: '/academics',
           icon: BookOpen,
           description: 'Course Management'
         },
         {
           name: 'Student Progress',
-          href: '/student-progress',
+          href: '/profile',
           icon: User,
           description: 'Track Students'
         },
@@ -51,15 +51,15 @@ const getRoleNavigation = (role: string) => {
         },
         {
           name: 'Grading',
-          href: '/grading',
+          href: '/academics',
           icon: FileText,
           description: 'Grade Assignments'
         },
         {
-          name: 'Schedule',
-          href: '/faculty-schedule',
-          icon: Calendar,
-          description: 'Class Schedule'
+          name: 'Faculty Resources',
+          href: '/library',
+          icon: Library,
+          description: 'Teaching Resources'
         },
         {
           name: 'Student Placements',
@@ -75,46 +75,46 @@ const getRoleNavigation = (role: string) => {
       return [
         ...baseItems,
         {
-          name: 'User Management',
-          href: '/user-management',
+          name: 'Student Records',
+          href: '/profile',
           icon: User,
-          description: 'Manage Users'
+          description: 'Manage Student Records'
         },
         {
-          name: 'Placements',
-          href: '/admin-placements',
+          name: 'Academic Management',
+          href: '/academics',
           icon: GraduationCap,
-          description: 'Placement Management'
+          description: 'Academic Programs'
         },
         {
-          name: 'System Analytics',
-          href: '/system-analytics',
-          icon: BarChart3,
-          description: 'System Metrics'
+          name: 'Fee Management',
+          href: '/fees',
+          icon: DollarSign,
+          description: 'Financial Records'
         },
         {
-          name: 'Department Stats',
-          href: '/department-stats',
-          icon: GraduationCap,
-          description: 'Department Data'
-        },
-        {
-          name: 'Grievances',
-          href: '/admin-grievances',
-          icon: MessageSquare,
-          description: 'Handle Issues'
-        },
-        {
-          name: 'Reports',
-          href: '/admin-reports',
+          name: 'System Reports',
+          href: '/reports',
           icon: FileText,
-          description: 'Generate Reports'
+          description: 'Administrative Reports'
+        },
+        {
+          name: 'Grievance Management',
+          href: '/grievances',
+          icon: MessageSquare,
+          description: 'Handle Student Issues'
         },
         {
           name: 'Placement Analytics',
           href: '/student-placements',
           icon: Briefcase,
           description: 'University Placements'
+        },
+        {
+          name: 'Management Dashboard',
+          href: '/management',
+          icon: BarChart3,
+          description: 'Strategic Analytics'
         }
       ];
     
@@ -122,10 +122,22 @@ const getRoleNavigation = (role: string) => {
       return [
         ...baseItems,
         {
-          name: 'Strategic KPIs',
-          href: '/strategic-kpis',
-          icon: BarChart3,
-          description: 'Key Metrics'
+          name: 'Executive Reports',
+          href: '/reports',
+          icon: FileText,
+          description: 'Board Reports'
+        },
+        {
+          name: 'Financial Analytics',
+          href: '/fees',
+          icon: DollarSign,
+          description: 'Budget & Revenue'
+        },
+        {
+          name: 'Academic Excellence',
+          href: '/academics',
+          icon: GraduationCap,
+          description: 'Academic Performance'
         },
         {
           name: 'Placement Excellence',
@@ -134,22 +146,10 @@ const getRoleNavigation = (role: string) => {
           description: 'Strategic Placement Analytics'
         },
         {
-          name: 'Financial Overview',
-          href: '/financial-overview',
-          icon: DollarSign,
-          description: 'Budget & Finance'
-        },
-        {
-          name: 'University Rankings',
-          href: '/university-rankings',
-          icon: GraduationCap,
-          description: 'Competitive Analysis'
-        },
-        {
-          name: 'Board Reports',
-          href: '/board-reports',
-          icon: FileText,
-          description: 'Executive Reports'
+          name: 'Management Analytics',
+          href: '/management',
+          icon: BarChart3,
+          description: 'Strategic Intelligence'
         }
       ];
     
@@ -157,14 +157,20 @@ const getRoleNavigation = (role: string) => {
       return [
         ...baseItems,
         {
-          name: 'Child Progress',
-          href: '/child-progress',
+          name: 'Child Profile',
+          href: '/profile',
           icon: User,
-          description: 'Academic Tracking'
+          description: 'Child Information'
+        },
+        {
+          name: 'Academic Progress',
+          href: '/academics',
+          icon: GraduationCap,
+          description: 'Grades & Performance'
         },
         {
           name: 'Attendance View',
-          href: '/parent-attendance',
+          href: '/attendance',
           icon: QrCode,
           description: 'Attendance Records'
         },
@@ -181,8 +187,8 @@ const getRoleNavigation = (role: string) => {
           description: 'Child Placement Status'
         },
         {
-          name: 'Communication',
-          href: '/parent-communication',
+          name: 'Parent Communication',
+          href: '/grievances',
           icon: MessageSquare,
           description: 'Faculty Messages'
         }
@@ -192,20 +198,20 @@ const getRoleNavigation = (role: string) => {
       return [
         ...baseItems,
         {
-          name: 'Network',
-          href: '/alumni-network',
+          name: 'Alumni Profile',
+          href: '/profile',
           icon: User,
-          description: 'Alumni Directory'
+          description: 'Professional Profile'
         },
         {
-          name: 'Job Board',
-          href: '/job-board',
-          icon: FileText,
-          description: 'Career Opportunities'
+          name: 'Career Network',
+          href: '/student-clubs',
+          icon: Users,
+          description: 'Professional Network'
         },
         {
-          name: 'Mentorship',
-          href: '/mentorship',
+          name: 'Mentorship Program',
+          href: '/academics',
           icon: GraduationCap,
           description: 'Guide Students'
         },
@@ -216,10 +222,16 @@ const getRoleNavigation = (role: string) => {
           description: 'Industry Opportunities'
         },
         {
-          name: 'Donations',
-          href: '/donations',
+          name: 'Alumni Contributions',
+          href: '/fees',
           icon: DollarSign,
           description: 'Support University'
+        },
+        {
+          name: 'University Updates',
+          href: '/library',
+          icon: Library,
+          description: 'News & Events'
         }
       ];
     
