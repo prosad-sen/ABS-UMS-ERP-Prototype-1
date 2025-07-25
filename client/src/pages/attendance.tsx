@@ -90,12 +90,43 @@ export default function Attendance() {
     { date: "2024-03-13", subject: "Data Structures", status: "present", time: "9:00 AM" }
   ];
 
-  const handleQRScan = () => {
+  const handleQRScan = async () => {
     setIsScanning(true);
-    setTimeout(() => {
+    
+    try {
+      // Simulate QR code scanning with mock data
+      setTimeout(async () => {
+        try {
+          // Generate a mock QR code for demonstration
+          const mockQRData = "COEP_ATTENDANCE_CS301_" + Date.now();
+          
+          const response = await fetch('/api/attendance/scan', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              qrData: mockQRData,
+              studentId: 'student_001'
+            })
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            alert(`✅ ${result.message}`);
+            // Refresh attendance data in a real app
+          } else {
+            alert(`❌ ${result.message}`);
+          }
+        } catch (error) {
+          alert('❌ Failed to process QR scan. Please try again.');
+        } finally {
+          setIsScanning(false);
+        }
+      }, 2000);
+    } catch (error) {
       setIsScanning(false);
-      // Mock attendance marking
-    }, 3000);
+      alert('❌ QR scanner failed to initialize.');
+    }
   };
 
   return (
@@ -328,8 +359,26 @@ export default function Attendance() {
                   className="bg-coep-blue hover:bg-blue-700 px-8 py-3"
                 >
                   <QrCode className="h-5 w-5 mr-2" />
-                  {isScanning ? 'Scanning...' : 'Start QR Scan'}
+                  {isScanning ? 'Scanning QR Code...' : 'Start QR Scan'}
                 </Button>
+                
+                {!isScanning && (
+                  <Button 
+                    variant="outline"
+                    onClick={async () => {
+                      try {
+                        const response = await fetch('/api/attendance/generate-qr/CS301');
+                        const data = await response.json();
+                        alert(`📱 Mock QR Code Generated:\n${data.qrData}\n\nThis simulates the instructor's QR code display.`);
+                      } catch (error) {
+                        alert('Failed to generate QR code.');
+                      }
+                    }}
+                    className="px-8 py-3"
+                  >
+                    Generate Test QR
+                  </Button>
+                )}
                 
                 <div className="text-sm text-gray-600 space-y-2">
                   <p><strong>Instructions:</strong></p>

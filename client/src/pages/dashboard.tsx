@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import { useAuth } from "@/hooks/useAuth";
 import AchievementBadge from "@/components/gamification/achievement-badge";
 import ProgressRing from "@/components/gamification/progress-ring";
@@ -15,11 +18,17 @@ import {
   DollarSign,
   Sparkles,
   Flame,
-  Star
+  Star,
+  X,
+  Send
 } from "lucide-react";
 
 export default function Dashboard() {
   const { user } = useAuth();
+  const [showAIChat, setShowAIChat] = useState(false);
+  const [aiMessage, setAiMessage] = useState("");
+  const [aiResponse, setAiResponse] = useState("");
+  const [isAiLoading, setIsAiLoading] = useState(false);
   
   const { data: stats, isLoading: statsLoading } = useQuery({
     queryKey: ["/api/dashboard/stats"],
@@ -43,6 +52,56 @@ export default function Dashboard() {
   }
 
   const userName = 'Student';
+
+  const handleAiQuery = async () => {
+    if (!aiMessage.trim()) return;
+    
+    setIsAiLoading(true);
+    try {
+      const response = await fetch('/api/ai/query', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          message: aiMessage,
+          context: `Student dashboard query. User: ${userName}. Current academic status: Semester 4, CGPA 8.45, Computer Science Engineering.`
+        })
+      });
+      
+      const data = await response.json();
+      setAiResponse(data.response || "I'm here to help with your university queries!");
+      setAiMessage("");
+    } catch (error) {
+      setAiResponse("Sorry, I'm experiencing technical difficulties. Please try again later.");
+    } finally {
+      setIsAiLoading(false);
+    }
+  };
+
+  const handleQuickQuery = async (query: string) => {
+    setAiMessage(query);
+    
+    if (!query.trim()) return;
+    
+    setIsAiLoading(true);
+    try {
+      const response = await fetch('/api/ai/query', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          message: query,
+          context: `Student dashboard query. User: ${userName}. Current academic status: Semester 4, CGPA 8.45, Computer Science Engineering.`
+        })
+      });
+      
+      const data = await response.json();
+      setAiResponse(data.response || "I'm here to help with your university queries!");
+      setAiMessage("");
+    } catch (error) {
+      setAiResponse("Sorry, I'm experiencing technical difficulties. Please try again later.");
+    } finally {
+      setIsAiLoading(false);
+    }
+  };
 
   // Mock leaderboard data
   const leaderboardData = [
@@ -213,25 +272,119 @@ export default function Dashboard() {
             <CardTitle>Quick Actions</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <Button className="w-full justify-start" variant="outline">
+            <Button 
+              className="w-full justify-start" 
+              variant="outline"
+              onClick={() => window.location.href = '/attendance'}
+            >
               <QrCode className="h-4 w-4 mr-2" />
               Scan QR for Attendance
             </Button>
-            <Button className="w-full justify-start" variant="outline">
+            <Button 
+              className="w-full justify-start" 
+              variant="outline"
+              onClick={() => window.location.href = '/academics'}
+            >
               <BookOpen className="h-4 w-4 mr-2" />
               View Assignments
             </Button>
-            <Button className="w-full justify-start" variant="outline">
+            <Button 
+              className="w-full justify-start" 
+              variant="outline"
+              onClick={() => window.location.href = '/fees'}
+            >
               <DollarSign className="h-4 w-4 mr-2" />
               Pay Fees
             </Button>
-            <Button className="w-full justify-start bg-coep-blue text-white hover:bg-blue-700">
+            <Button 
+              className="w-full justify-start bg-coep-blue text-white hover:bg-blue-700"
+              onClick={() => setShowAIChat(true)}
+            >
               <Sparkles className="h-4 w-4 mr-2" />
               AI Assistant
             </Button>
           </CardContent>
         </Card>
       </div>
+
+      {/* AI Assistant Dialog */}
+      <Dialog open={showAIChat} onOpenChange={setShowAIChat}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center space-x-2">
+              <Sparkles className="h-5 w-5 text-blue-600" />
+              <span>AI Assistant</span>
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="bg-gray-50 p-3 rounded-lg">
+              <p className="text-sm text-gray-600">
+                Hi! I'm your COEP AI assistant. I can help you with:
+              </p>
+              <ul className="text-sm text-gray-600 mt-2 space-y-1">
+                <li>• Academic queries and course information</li>
+                <li>• Attendance and grade summaries</li>
+                <li>• Fee status and payment guidance</li>
+                <li>• Library resources and research help</li>
+              </ul>
+            </div>
+            
+            {aiResponse && (
+              <div className="bg-blue-50 p-3 rounded-lg border-l-4 border-blue-500">
+                <p className="text-sm text-blue-800">{aiResponse}</p>
+              </div>
+            )}
+            
+            <div className="flex space-x-2">
+              <Input
+                placeholder="Ask me anything about your academics..."
+                value={aiMessage}
+                onChange={(e) => setAiMessage(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleAiQuery()}
+                className="flex-1"
+              />
+              <Button 
+                onClick={handleAiQuery}
+                disabled={isAiLoading || !aiMessage.trim()}
+                className="bg-coep-blue hover:bg-blue-700"
+              >
+                {isAiLoading ? (
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <Send className="h-4 w-4" />
+                )}
+              </Button>
+            </div>
+            
+            <div className="flex space-x-2">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={() => handleQuickQuery("What are my upcoming assignments?")}
+                className="text-xs"
+              >
+                Assignments
+              </Button>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={() => handleQuickQuery("Show my attendance summary")}
+                className="text-xs"
+              >
+                Attendance
+              </Button>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={() => handleQuickQuery("What fees are pending?")}
+                className="text-xs"
+              >
+                Fees
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Recent Announcements */}
       <Card>

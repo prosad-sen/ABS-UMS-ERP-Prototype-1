@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { setupAuth, isAuthenticated } from "./replitAuth";
+import { AIAssistant } from "./ai-assistant";
 import { 
   insertStudentSchema,
   insertFacultySchema,
@@ -20,6 +21,9 @@ import { z } from "zod";
 export async function registerRoutes(app: Express): Promise<Server> {
   // Auth middleware
   await setupAuth(app);
+  
+  // Initialize AI Assistant
+  const aiAssistant = new AIAssistant();
   
   // Import and seed dummy data
   const { seedDummyData } = await import('./dummy-data');
@@ -458,6 +462,93 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.error("Error verifying QR code:", error);
       res.status(500).json({ message: "Failed to verify QR code" });
     }
+  });
+
+  // AI Assistant Routes
+  app.post('/api/ai/query', async (req, res) => {
+    try {
+      const { message, context } = req.body;
+      const response = await aiAssistant.processQuery({ message, context });
+      res.json(response);
+    } catch (error) {
+      console.error('AI Query Error:', error);
+      res.status(500).json({ 
+        response: "I'm experiencing technical difficulties. Please try again later.",
+        suggestions: ["Check your connection", "Try a simpler query"],
+        actions: []
+      });
+    }
+  });
+
+  app.post('/api/ai/insights', async (req, res) => {
+    try {
+      const { studentData } = req.body;
+      const insights = await aiAssistant.generateInsights(studentData);
+      res.json(insights);
+    } catch (error) {
+      console.error('AI Insights Error:', error);
+      res.status(500).json({ 
+        response: "Unable to generate insights at the moment.",
+        suggestions: ["Try again later"],
+        actions: []
+      });
+    }
+  });
+
+  // QR Code Attendance Routes
+  app.post('/api/attendance/scan', async (req, res) => {
+    try {
+      const { qrData, studentId } = req.body;
+      
+      // Mock QR code validation and attendance marking
+      if (qrData && qrData.includes('COEP_ATTENDANCE')) {
+        // Extract course and session info from QR
+        const courseInfo = qrData.split('_');
+        const courseCode = courseInfo[2] || 'CS301';
+        const sessionDate = new Date().toISOString().split('T')[0];
+        
+        // Mark attendance (in real app, this would update database)
+        const attendanceRecord = {
+          studentId,
+          courseCode,
+          date: sessionDate,
+          status: 'present',
+          timestamp: new Date().toISOString(),
+          method: 'qr_scan'
+        };
+        
+        res.json({
+          success: true,
+          message: `Attendance marked successfully for ${courseCode}`,
+          record: attendanceRecord
+        });
+      } else {
+        res.status(400).json({
+          success: false,
+          message: 'Invalid QR code. Please scan a valid attendance QR code.'
+        });
+      }
+    } catch (error) {
+      console.error('QR Scan Error:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Failed to process QR code scan. Please try again.'
+      });
+    }
+  });
+
+  // Generate mock QR code for testing
+  app.get('/api/attendance/generate-qr/:courseCode', (req, res) => {
+    const { courseCode } = req.params;
+    const timestamp = Date.now();
+    const qrData = `COEP_ATTENDANCE_${courseCode}_${timestamp}`;
+    
+    res.json({
+      qrData,
+      courseCode,
+      timestamp,
+      expiresIn: 900000 // 15 minutes
+    });
   });
 
   const httpServer = createServer(app);
