@@ -33,6 +33,7 @@ import GradeManagement from "@/pages/grading";
 import ExamManagement from "@/pages/exam-management";
 import HostelManagement from "@/pages/hostel-management";
 import TransportManagement from "@/pages/transport-management";
+import FacultyProfile from "@/pages/faculty-profile";
 
 import MainLayout from "@/components/layout/main-layout";
 
@@ -114,6 +115,7 @@ function Router() {
         <Route path="/hostel-management" component={HostelManagement} />
         <Route path="/transport-management" component={TransportManagement} />
         <Route path="/profile" component={Profile} />
+        <Route path="/faculty-profile" component={FacultyProfile} />
       </MainLayout>
       
       <Route component={NotFound} />

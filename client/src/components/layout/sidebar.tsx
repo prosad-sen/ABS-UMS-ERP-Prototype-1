@@ -45,10 +45,10 @@ const getRoleNavigation = (role: string) => {
           description: 'Courses & Curriculum'
         },
         {
-          name: 'Student Analytics',
-          href: '/profile',
+          name: 'Faculty Profile',
+          href: '/faculty-profile',
           icon: User,
-          description: 'Student Performance'
+          description: 'Faculty Profile & Research'
         },
         {
           name: 'Grade Management',
