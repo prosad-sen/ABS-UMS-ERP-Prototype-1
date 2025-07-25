@@ -126,14 +126,14 @@ export default function AIQuickActions({ userRole, userName }: AIQuickActionsPro
               <Button
                 key={index}
                 variant="outline"
-                className="h-auto p-3 text-left justify-start hover:shadow-md transition-all"
+                className="h-auto p-2 md:p-3 text-left justify-start hover:shadow-md transition-all"
                 onClick={() => setShowAIAssistant(true)}
               >
-                <div className={`p-2 rounded-full ${action.color} text-white mr-3`}>
+                <div className={`p-1.5 md:p-2 rounded-full ${action.color} text-white mr-2 md:mr-3 flex-shrink-0`}>
                   {action.icon}
                 </div>
-                <div>
-                  <p className="font-medium text-sm">{action.title}</p>
+                <div className="min-w-0 flex-1">
+                  <p className="font-medium text-xs md:text-sm">{action.title}</p>
                   <p className="text-xs text-gray-500 truncate">{action.action}</p>
                 </div>
               </Button>

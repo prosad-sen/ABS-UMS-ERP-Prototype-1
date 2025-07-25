@@ -226,21 +226,21 @@ export default function AIAssistant({ isOpen, onClose, userRole, userName = "Use
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] p-0">
-        <DialogHeader className="p-6 pb-0">
-          <DialogTitle className="flex items-center space-x-2 text-xl">
+      <DialogContent className="max-w-4xl max-h-[95vh] md:max-h-[90vh] p-0 w-[95vw] md:w-auto">
+        <DialogHeader className="p-4 md:p-6 pb-0">
+          <DialogTitle className="flex items-center space-x-2 text-lg md:text-xl">
             {aiConfig.icon}
-            <span>{aiConfig.title}</span>
-            <Badge variant="secondary" className="ml-2">
+            <span className="truncate">{aiConfig.title}</span>
+            <Badge variant="secondary" className="ml-2 hidden md:inline-flex">
               <Zap className="h-3 w-3 mr-1" />
               Powered by AI
             </Badge>
           </DialogTitle>
         </DialogHeader>
         
-        <div className="flex h-[70vh]">
-          {/* Sidebar with capabilities */}
-          <div className="w-1/3 p-6 border-r bg-gray-50">
+        <div className="flex flex-col md:flex-row h-[75vh] md:h-[70vh]">
+          {/* Sidebar with capabilities - Hidden on mobile, shown in tabs */}
+          <div className="hidden md:block w-1/3 p-6 border-r bg-gray-50 overflow-y-auto">
             <h3 className="font-semibold mb-4 text-sm text-gray-700 uppercase tracking-wide">AI Capabilities</h3>
             <div className="space-y-3 mb-6">
               {aiConfig.capabilities.map((capability, index) => (
@@ -272,24 +272,42 @@ export default function AIAssistant({ isOpen, onClose, userRole, userName = "Use
             </div>
           </div>
 
+          {/* Mobile Quick Actions - Only shown on mobile */}
+          <div className="md:hidden p-4 border-b bg-gray-50">
+            <h3 className="font-semibold mb-3 text-sm text-gray-700">Quick Actions</h3>
+            <div className="grid grid-cols-1 gap-2">
+              {aiConfig.quickActions.slice(0, 3).map((action, index) => (
+                <Button
+                  key={index}
+                  variant="outline"
+                  size="sm"
+                  className="text-left text-xs h-auto p-2 whitespace-normal justify-start"
+                  onClick={() => handleQuickAction(action)}
+                >
+                  {action}
+                </Button>
+              ))}
+            </div>
+          </div>
+
           {/* Chat interface */}
-          <div className="flex-1 flex flex-col">
-            <ScrollArea className="flex-1 p-6">
+          <div className="flex-1 flex flex-col min-h-0">
+            <ScrollArea className="flex-1 p-3 md:p-6">
               {messages.length === 0 ? (
-                <div className="text-center text-gray-500 mt-12">
-                  <Bot className="h-12 w-12 mx-auto mb-4 text-gray-400" />
-                  <p className="text-lg font-medium">Welcome to your AI Assistant!</p>
-                  <p className="text-sm mt-2">Ask me anything or try one of the quick actions.</p>
+                <div className="text-center text-gray-500 mt-8 md:mt-12">
+                  <Bot className="h-10 w-10 md:h-12 md:w-12 mx-auto mb-4 text-gray-400" />
+                  <p className="text-base md:text-lg font-medium">Welcome to your AI Assistant!</p>
+                  <p className="text-xs md:text-sm mt-2">Ask me anything or try one of the quick actions.</p>
                 </div>
               ) : (
-                <div className="space-y-4">
+                <div className="space-y-3 md:space-y-4">
                   {messages.map((message) => (
                     <div
                       key={message.id}
                       className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
                     >
                       <div
-                        className={`max-w-[80%] p-4 rounded-lg ${
+                        className={`max-w-[85%] md:max-w-[80%] p-3 md:p-4 rounded-lg ${
                           message.role === 'user'
                             ? 'bg-blue-600 text-white'
                             : 'bg-gray-100 text-gray-900'
@@ -297,13 +315,13 @@ export default function AIAssistant({ isOpen, onClose, userRole, userName = "Use
                       >
                         <div className="flex items-start space-x-2">
                           {message.role === 'assistant' && (
-                            <Bot className="h-5 w-5 mt-0.5 text-blue-600" />
+                            <Bot className="h-4 w-4 md:h-5 md:w-5 mt-0.5 text-blue-600" />
                           )}
                           {message.role === 'user' && (
-                            <User className="h-5 w-5 mt-0.5" />
+                            <User className="h-4 w-4 md:h-5 md:w-5 mt-0.5" />
                           )}
-                          <div className="flex-1">
-                            <div className="text-sm">
+                          <div className="flex-1 min-w-0">
+                            <div className="text-xs md:text-sm break-words">
                               {formatMessage(message.content)}
                             </div>
                             <div className={`text-xs mt-2 opacity-70`}>
@@ -316,9 +334,9 @@ export default function AIAssistant({ isOpen, onClose, userRole, userName = "Use
                   ))}
                   {isLoading && (
                     <div className="flex justify-start">
-                      <div className="bg-gray-100 p-4 rounded-lg flex items-center space-x-2">
+                      <div className="bg-gray-100 p-3 md:p-4 rounded-lg flex items-center space-x-2">
                         <Loader2 className="h-4 w-4 animate-spin text-blue-600" />
-                        <span className="text-sm text-gray-600">AI is thinking...</span>
+                        <span className="text-xs md:text-sm text-gray-600">AI is thinking...</span>
                       </div>
                     </div>
                   )}
@@ -327,7 +345,7 @@ export default function AIAssistant({ isOpen, onClose, userRole, userName = "Use
             </ScrollArea>
 
             {/* Input area */}
-            <div className="p-6 border-t bg-white">
+            <div className="p-3 md:p-6 border-t bg-white">
               <div className="flex space-x-2">
                 <Input
                   value={inputMessage}
@@ -335,17 +353,17 @@ export default function AIAssistant({ isOpen, onClose, userRole, userName = "Use
                   placeholder="Ask your AI assistant anything..."
                   onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
                   disabled={isLoading}
-                  className="flex-1"
+                  className="flex-1 text-sm"
                 />
                 <Button 
                   onClick={handleSendMessage} 
                   disabled={!inputMessage.trim() || isLoading}
-                  className="bg-blue-600 hover:bg-blue-700"
+                  className="bg-blue-600 hover:bg-blue-700 px-3 md:px-4"
                 >
                   <Send className="h-4 w-4" />
                 </Button>
               </div>
-              <p className="text-xs text-gray-500 mt-2">
+              <p className="text-xs text-gray-500 mt-2 hidden md:block">
                 Powered by advanced AI • Your conversations are secure and personalized
               </p>
             </div>
