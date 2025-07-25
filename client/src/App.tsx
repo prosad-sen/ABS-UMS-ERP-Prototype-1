@@ -18,7 +18,10 @@ import MainLayout from "@/components/layout/main-layout";
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
 
-  if (isLoading) {
+  // Development mode: bypass authentication to show full app
+  const developmentMode = true;
+
+  if (isLoading && !developmentMode) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -31,18 +34,21 @@ function Router() {
 
   return (
     <Switch>
-      {!isAuthenticated ? (
+      {(!isAuthenticated && !developmentMode) ? (
         <Route path="/" component={Landing} />
       ) : (
-        <MainLayout>
-          <Route path="/" component={Dashboard} />
-          <Route path="/attendance" component={Attendance} />
-          <Route path="/academics" component={Academics} />
-          <Route path="/fees" component={Fees} />
-          <Route path="/lms" component={LMS} />
-          <Route path="/library" component={Library} />
-          <Route path="/profile" component={Profile} />
-        </MainLayout>
+        <>
+          <Route path="/" component={Landing} />
+          <MainLayout>
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/attendance" component={Attendance} />
+            <Route path="/academics" component={Academics} />
+            <Route path="/fees" component={Fees} />
+            <Route path="/lms" component={LMS} />
+            <Route path="/library" component={Library} />
+            <Route path="/profile" component={Profile} />
+          </MainLayout>
+        </>
       )}
       <Route component={NotFound} />
     </Switch>

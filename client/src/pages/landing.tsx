@@ -14,8 +14,8 @@ export default function Landing() {
       return;
     }
     
-    // Redirect to login with role parameter
-    window.location.href = `/api/login?role=${selectedRole}`;
+    // For demo: redirect directly to dashboard
+    window.location.href = "/dashboard";
   };
 
   return (
@@ -55,12 +55,18 @@ export default function Landing() {
 
             <div>
               <Label className="block text-sm font-medium text-gray-700 mb-2">Login ID</Label>
-              <Input type="text" placeholder="Enter your login ID" />
+              <Input type="text" placeholder="Demo Mode - Any ID" defaultValue="demo123" />
             </div>
 
             <div>
               <Label className="block text-sm font-medium text-gray-700 mb-2">Password</Label>
-              <Input type="password" placeholder="Enter your password" />
+              <Input type="password" placeholder="Demo Mode - Any Password" defaultValue="password" />
+            </div>
+
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <p className="text-sm text-blue-700">
+                <strong>Demo Mode:</strong> Select any role and click login to explore the system.
+              </p>
             </div>
 
             <Button 
@@ -70,7 +76,10 @@ export default function Landing() {
               Login to Portal
             </Button>
 
-            <div className="text-center">
+            <div className="text-center space-y-2">
+              <a href="/dashboard" className="block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">
+                🚀 Quick Access - Go to Dashboard
+              </a>
               <a href="#" className="text-coep-blue text-sm hover:underline">
                 Forgot Password?
               </a>
