@@ -29,7 +29,8 @@ import {
   Instagram,
   Linkedin,
   Server,
-  MessageSquare
+  MessageSquare,
+  Briefcase
 } from "lucide-react";
 
 export default function Dashboard() {
@@ -318,15 +319,15 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden">
+        <Card className="relative overflow-hidden cursor-pointer hover:shadow-lg transition-shadow" onClick={() => window.location.href = '/student-placements'}>
           <CardContent className="p-4 lg:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs lg:text-sm font-medium text-gray-600">XP Points</p>
-                <p className="text-xl lg:text-2xl font-bold text-gray-800">1,250</p>
-                <Badge className="bg-yellow-100 text-yellow-800 text-xs mt-1">250 to next level</Badge>
+                <p className="text-xs lg:text-sm font-medium text-gray-600">Placement Rate</p>
+                <p className="text-xl lg:text-2xl font-bold text-gray-800">87.3%</p>
+                <Badge className="bg-green-100 text-green-800 text-xs mt-1">View Details →</Badge>
               </div>
-              <Sparkles className="h-6 w-6 lg:h-8 lg:w-8 text-yellow-600" />
+              <Briefcase className="h-6 w-6 lg:h-8 lg:w-8 text-green-600" />
             </div>
           </CardContent>
         </Card>

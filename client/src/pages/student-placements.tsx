@@ -26,7 +26,8 @@ import {
   Award,
   ChevronUp,
   ChevronDown,
-  ExternalLink
+  ExternalLink,
+  BookOpen
 } from "lucide-react";
 
 export default function StudentPlacements() {

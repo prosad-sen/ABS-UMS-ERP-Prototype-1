@@ -19,7 +19,8 @@ import {
   Calendar,
   Target,
   Award,
-  Activity
+  Activity,
+  Briefcase
 } from "lucide-react";
 
 export default function AdminDashboard() {
@@ -181,15 +182,15 @@ export default function AdminDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white">
+        <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white cursor-pointer hover:shadow-xl transition-shadow" onClick={() => window.location.href = '/student-placements'}>
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-green-100">Faculty & Staff</p>
-                <p className="text-2xl font-bold">{(adminData.totalFaculty + adminData.totalStaff).toLocaleString()}</p>
-                <p className="text-green-100 text-sm">379 total employees</p>
+                <p className="text-green-100">Placement Rate</p>
+                <p className="text-2xl font-bold">87.3%</p>
+                <p className="text-green-100 text-sm">View Analytics →</p>
               </div>
-              <GraduationCap className="h-8 w-8 text-green-200" />
+              <Briefcase className="h-8 w-8 text-green-200" />
             </div>
           </CardContent>
         </Card>

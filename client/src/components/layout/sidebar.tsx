@@ -10,7 +10,9 @@ import {
   QrCode, 
   User,
   Cloud,
-  MessageSquare
+  MessageSquare,
+  Briefcase,
+  Users
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -101,6 +103,12 @@ const getRoleNavigation = (role: string) => {
           href: '/admin-reports',
           icon: FileText,
           description: 'Generate Reports'
+        },
+        {
+          name: 'Placement Stats',
+          href: '/student-placements',
+          icon: Briefcase,
+          description: 'University Placements'
         }
       ];
     
@@ -130,6 +138,12 @@ const getRoleNavigation = (role: string) => {
           href: '/board-reports',
           icon: FileText,
           description: 'Executive Reports'
+        },
+        {
+          name: 'Placement Analytics',
+          href: '/student-placements',
+          icon: Briefcase,
+          description: 'Strategic Placement Data'
         }
       ];
     
@@ -199,6 +213,18 @@ const getRoleNavigation = (role: string) => {
           href: '/profile',
           icon: User,
           description: 'Personal Information'
+        },
+        {
+          name: 'Student Clubs',
+          href: '/student-clubs',
+          icon: Users,
+          description: 'Campus Organizations'
+        },
+        {
+          name: 'Placements',
+          href: '/student-placements',
+          icon: Briefcase,
+          description: 'Career Opportunities'
         },
         {
           name: 'Academics',
