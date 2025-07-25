@@ -41,11 +41,11 @@ export default function RoleSelection() {
     },
     {
       id: "admin",
-      title: "Administrator Portal",
+      title: "Administrator/Registrar Portal",
       description: "University-wide management and comprehensive analytics",
       icon: Building,
       color: "bg-purple-600 hover:bg-purple-700",
-      features: ["System Management", "Department Analytics", "Grievance Resolution", "Budget Tracking", "Reports"]
+      features: ["System Management", "Department Analytics", "Placement Stats", "Budget Tracking", "Reports"]
     },
     {
       id: "vc",
@@ -74,6 +74,9 @@ export default function RoleSelection() {
   ];
 
   const handleRoleAccess = (roleId: string) => {
+    // Store the selected role in localStorage for persistence across navigation
+    localStorage.setItem('selectedRole', roleId);
+    localStorage.setItem('userRole', roleId); // Also store as userRole for compatibility
     // Redirect to login page with selected role
     window.location.href = `/login/${roleId}`;
   };

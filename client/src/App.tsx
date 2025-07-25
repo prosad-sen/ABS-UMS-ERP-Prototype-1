@@ -59,9 +59,9 @@ function Router() {
     }
   };
 
-  // Mock user role for development - in production this would come from authentication
-  const mockUserRole = "alumni"; // Change this to test different roles: student, faculty, admin, vc, parent, alumni
-  const DashboardComponent = mockUserRole ? getRoleDashboard(mockUserRole) : Dashboard;
+  // Get user role from localStorage (set during role selection)
+  const storedUserRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole') || "student";
+  const DashboardComponent = storedUserRole ? getRoleDashboard(storedUserRole) : Dashboard;
 
   if (isLoading && !developmentMode) {
     return (

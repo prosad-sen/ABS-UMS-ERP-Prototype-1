@@ -50,7 +50,15 @@ export default function Login({ selectedRole }: LoginProps) {
       sampleCredentials: { username: "faculty001", password: "faculty123" }
     },
     admin: {
-      title: "Administrator Login",
+      title: "Administrator/Registrar Login",
+      subtitle: "Access administrative tools and university management",
+      icon: Shield,
+      color: "text-purple-600",
+      bgGradient: "bg-gradient-to-br from-purple-50 to-violet-100",
+      sampleCredentials: { username: "admin", password: "admin123" }
+    },
+    administrator: {
+      title: "Administrator/Registrar Login",
       subtitle: "Access administrative tools and university management",
       icon: Shield,
       color: "text-purple-600",
@@ -93,12 +101,17 @@ export default function Login({ selectedRole }: LoginProps) {
     // Simulate authentication delay
     await new Promise(resolve => setTimeout(resolve, 1500));
 
-    // Redirect to appropriate dashboard based on role
+    // Store the role in localStorage and redirect to appropriate dashboard
+    localStorage.setItem('userRole', selectedRole);
+    localStorage.setItem('selectedRole', selectedRole);
+    
     const dashboardRoutes = {
       student: "/student-dashboard",
       faculty: "/faculty-dashboard",
-      admin: "/admin-dashboard", 
+      admin: "/admin-dashboard",
+      administrator: "/admin-dashboard", 
       vc: "/vc-dashboard",
+      board: "/vc-dashboard",
       parent: "/parent-dashboard",
       alumni: "/alumni-dashboard"
     };

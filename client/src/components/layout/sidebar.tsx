@@ -275,8 +275,12 @@ const getRoleNavigation = (role: string) => {
 export default function Sidebar() {
   const [location] = useLocation();
   
-  // Get current role from URL for demo purposes
+  // Get current role from localStorage (set during role selection)
   const getCurrentRole = () => {
+    const storedRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole');
+    if (storedRole) return storedRole;
+    
+    // Fallback: derive from URL for backward compatibility 
     if (location.includes('faculty')) return 'faculty';
     if (location.includes('admin')) return 'admin';
     if (location.includes('vc')) return 'vc';
