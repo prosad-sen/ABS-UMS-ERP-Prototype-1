@@ -80,6 +80,88 @@ const getRoleNavigation = (role: string) => {
           description: 'Campus Transportation'
         }
       ];
+
+    case 'admin':
+    case 'administrator':
+    case 'registrar':
+      return [
+        ...baseItems,
+        {
+          name: 'Student Records Management',
+          href: '/admin-student-records',
+          icon: User,
+          description: 'Manage All Student Records'
+        },
+        {
+          name: 'Academic Administration',
+          href: '/admin-academics',
+          icon: GraduationCap,
+          description: 'Academic Programs & Curriculum'
+        },
+        {
+          name: 'Research Administration',
+          href: '/admin-research',
+          icon: BookOpen,
+          description: 'University Research Management'
+        },
+        {
+          name: 'Exam Administration',
+          href: '/admin-exam-management',
+          icon: Calendar,
+          description: 'Examination System Management'
+        }
+      ];
+
+    case 'vc':
+      return [
+        ...baseItems,
+        {
+          name: 'Executive Reports',
+          href: '/vc-reports',
+          icon: FileText,
+          description: 'Board & Governance Reports'
+        },
+        {
+          name: 'Strategic Analytics',
+          href: '/management',
+          icon: BarChart3,
+          description: 'Executive Intelligence Dashboard'
+        }
+      ];
+
+    case 'parent':
+      return [
+        ...baseItems,
+        {
+          name: 'Child Profile',
+          href: '/profile',
+          icon: User,
+          description: 'Child Information'
+        },
+        {
+          name: 'Academic Progress',
+          href: '/academics',
+          icon: GraduationCap,
+          description: 'Grades & Performance'
+        }
+      ];
+
+    case 'alumni':
+      return [
+        ...baseItems,
+        {
+          name: 'Alumni Profile',
+          href: '/profile',
+          icon: User,
+          description: 'Professional Profile'
+        },
+        {
+          name: 'Mentorship Program',
+          href: '/academics',
+          icon: GraduationCap,
+          description: 'Guide Students'
+        }
+      ];
     
     default: // student
       return [

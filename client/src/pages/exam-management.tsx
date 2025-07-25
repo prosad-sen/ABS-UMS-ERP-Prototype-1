@@ -245,9 +245,12 @@ export default function ExamManagement() {
 
       {/* Main Exam Dashboard */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4 bg-white shadow-lg">
+        <TabsList className="grid w-full grid-cols-5 bg-white shadow-lg">
           <TabsTrigger value="schedule" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">
             Exam Schedule
+          </TabsTrigger>
+          <TabsTrigger value="question-papers" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white">
+            Question Papers
           </TabsTrigger>
           <TabsTrigger value="halls" className="data-[state=active]:bg-green-600 data-[state=active]:text-white">
             Exam Halls
@@ -359,6 +362,163 @@ export default function ExamManagement() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="question-papers" className="space-y-6">
+          <div className="bg-white rounded-lg shadow-sm p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-2xl font-bold text-gray-900">Question Paper Management</h3>
+              <Button className="bg-indigo-600 hover:bg-indigo-700">
+                <Plus className="h-4 w-4 mr-2" />
+                Create Question Paper
+              </Button>
+            </div>
+            
+            <div className="space-y-6">
+              {/* Question Paper Templates */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <FileText className="h-5 w-5 mr-2 text-indigo-600" />
+                    Question Paper Templates
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow cursor-pointer">
+                      <h4 className="font-semibold text-gray-900">Theory Exam Template</h4>
+                      <p className="text-sm text-gray-600 mt-1">Standard format for theory examinations</p>
+                      <div className="mt-3 flex space-x-2">
+                        <Button size="sm" variant="outline">Use Template</Button>
+                        <Button size="sm" variant="outline">Preview</Button>
+                      </div>
+                    </div>
+                    
+                    <div className="p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow cursor-pointer">
+                      <h4 className="font-semibold text-gray-900">Practical Exam Template</h4>
+                      <p className="text-sm text-gray-600 mt-1">Template for practical/lab examinations</p>
+                      <div className="mt-3 flex space-x-2">
+                        <Button size="sm" variant="outline">Use Template</Button>
+                        <Button size="sm" variant="outline">Preview</Button>
+                      </div>
+                    </div>
+                    
+                    <div className="p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow cursor-pointer">
+                      <h4 className="font-semibold text-gray-900">MCQ Template</h4>
+                      <p className="text-sm text-gray-600 mt-1">Multiple choice question format</p>
+                      <div className="mt-3 flex space-x-2">
+                        <Button size="sm" variant="outline">Use Template</Button>
+                        <Button size="sm" variant="outline">Preview</Button>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Recent Question Papers */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Recent Question Papers</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                      <div>
+                        <h4 className="font-semibold">Data Structures & Algorithms - Theory</h4>
+                        <p className="text-sm text-gray-600">Computer Engineering • 4th Semester • 100 Marks</p>
+                        <p className="text-xs text-gray-500 mt-1">Created: Dec 15, 2024 • Status: Approved</p>
+                      </div>
+                      <div className="flex space-x-2">
+                        <Button size="sm" variant="outline">
+                          <Eye className="h-4 w-4 mr-1" />
+                          Preview
+                        </Button>
+                        <Button size="sm" variant="outline">
+                          <Edit className="h-4 w-4 mr-1" />
+                          Edit
+                        </Button>
+                        <Button size="sm" className="bg-indigo-600 hover:bg-indigo-700">
+                          <Download className="h-4 w-4 mr-1" />
+                          Download
+                        </Button>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                      <div>
+                        <h4 className="font-semibold">Database Management Systems - Practical</h4>
+                        <p className="text-sm text-gray-600">Computer Engineering • 6th Semester • 50 Marks</p>
+                        <p className="text-xs text-gray-500 mt-1">Created: Dec 12, 2024 • Status: Draft</p>
+                      </div>
+                      <div className="flex space-x-2">
+                        <Button size="sm" variant="outline">
+                          <Eye className="h-4 w-4 mr-1" />
+                          Preview
+                        </Button>
+                        <Button size="sm" variant="outline">
+                          <Edit className="h-4 w-4 mr-1" />
+                          Edit
+                        </Button>
+                        <Button size="sm" disabled>
+                          <Download className="h-4 w-4 mr-1" />
+                          Download
+                        </Button>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                      <div>
+                        <h4 className="font-semibold">Machine Learning - MCQ</h4>
+                        <p className="text-sm text-gray-600">Computer Engineering • 8th Semester • 75 Marks</p>
+                        <p className="text-xs text-gray-500 mt-1">Created: Dec 10, 2024 • Status: Under Review</p>
+                      </div>
+                      <div className="flex space-x-2">
+                        <Button size="sm" variant="outline">
+                          <Eye className="h-4 w-4 mr-1" />
+                          Preview
+                        </Button>
+                        <Button size="sm" variant="outline">
+                          <Edit className="h-4 w-4 mr-1" />
+                          Edit
+                        </Button>
+                        <Button size="sm" disabled>
+                          <Download className="h-4 w-4 mr-1" />
+                          Download
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Question Bank */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Question Bank Statistics</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div className="text-center p-4 bg-blue-50 rounded-lg">
+                      <p className="text-2xl font-bold text-blue-600">1,247</p>
+                      <p className="text-sm text-gray-600">Total Questions</p>
+                    </div>
+                    <div className="text-center p-4 bg-green-50 rounded-lg">
+                      <p className="text-2xl font-bold text-green-600">67</p>
+                      <p className="text-sm text-gray-600">Question Papers</p>
+                    </div>
+                    <div className="text-center p-4 bg-purple-50 rounded-lg">
+                      <p className="text-2xl font-bold text-purple-600">23</p>
+                      <p className="text-sm text-gray-600">Subjects Covered</p>
+                    </div>
+                    <div className="text-center p-4 bg-orange-50 rounded-lg">
+                      <p className="text-2xl font-bold text-orange-600">89%</p>
+                      <p className="text-sm text-gray-600">Question Quality</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </TabsContent>
 

@@ -94,70 +94,70 @@ const getRoleNavigation = (role: string) => {
       return [
         ...baseItems,
         {
-          name: 'Student Records',
-          href: '/profile',
+          name: 'Student Records Management',
+          href: '/admin-student-records',
           icon: User,
-          description: 'Manage Student Records'
+          description: 'Manage All Student Records'
         },
         {
-          name: 'Academic Management',
-          href: '/academics',
+          name: 'Academic Administration',
+          href: '/admin-academics',
           icon: GraduationCap,
-          description: 'Academic Programs'
+          description: 'Academic Programs & Curriculum'
         },
         {
-          name: 'Fee Management',
-          href: '/fees',
+          name: 'Fee Administration',
+          href: '/admin-fees',
           icon: DollarSign,
-          description: 'Financial Records'
+          description: 'Financial Records & Billing'
         },
         {
           name: 'System Reports',
-          href: '/reports',
+          href: '/admin-reports',
           icon: FileText,
           description: 'Administrative Reports'
         },
         {
           name: 'Grievance Management',
-          href: '/grievances',
+          href: '/admin-grievances',
           icon: MessageSquare,
           description: 'Handle Student Issues'
         },
         {
-          name: 'Placement Analytics',
-          href: '/student-placements',
+          name: 'Placement Administration',
+          href: '/admin-placements',
           icon: Briefcase,
-          description: 'University Placements'
+          description: 'Placement Coordination'
         },
         {
-          name: 'Research Analytics',
-          href: '/research',
+          name: 'Research Administration',
+          href: '/admin-research',
           icon: BookOpen,
-          description: 'Research & Innovation'
+          description: 'University Research Management'
         },
         {
-          name: 'Exam Management',
-          href: '/exam-management',
+          name: 'Exam Administration',
+          href: '/admin-exam-management',
           icon: Calendar,
-          description: 'Examination System'
+          description: 'Examination System Management'
         },
         {
-          name: 'Hostel Management',
-          href: '/hostel-management',
+          name: 'Hostel Administration',
+          href: '/admin-hostel-management',
           icon: Users,
-          description: 'Hostel Administration'
+          description: 'Hostel Management & Operations'
         },
         {
-          name: 'Transport Management',
-          href: '/transport-management',
+          name: 'Transport Administration',
+          href: '/admin-transport-management',
           icon: BarChart3,
-          description: 'Campus Transportation'
+          description: 'Campus Transportation Management'
         },
         {
-          name: 'Management Dashboard',
+          name: 'Management Analytics',
           href: '/management',
           icon: BarChart3,
-          description: 'Strategic Analytics'
+          description: 'Strategic Analytics Dashboard'
         }
       ];
     
@@ -166,57 +166,39 @@ const getRoleNavigation = (role: string) => {
         ...baseItems,
         {
           name: 'Executive Reports',
-          href: '/reports',
+          href: '/vc-reports',
           icon: FileText,
-          description: 'Board Reports'
+          description: 'Board & Governance Reports'
         },
         {
-          name: 'Financial Analytics',
-          href: '/fees',
+          name: 'Financial Oversight',
+          href: '/vc-finances',
           icon: DollarSign,
-          description: 'Budget & Revenue'
+          description: 'Budget & Revenue Analytics'
         },
         {
           name: 'Academic Excellence',
-          href: '/academics',
+          href: '/vc-academics',
           icon: GraduationCap,
-          description: 'Academic Performance'
+          description: 'Academic Performance Metrics'
         },
         {
-          name: 'Placement Excellence',
-          href: '/student-placements',
+          name: 'Placement Strategy',
+          href: '/vc-placements',
           icon: Briefcase,
           description: 'Strategic Placement Analytics'
         },
         {
-          name: 'Research Excellence',
-          href: '/research',
+          name: 'Research Leadership',
+          href: '/vc-research',
           icon: BookOpen,
-          description: 'Research & Innovation'
+          description: 'Research & Innovation Strategy'
         },
         {
-          name: 'Exam Management',
-          href: '/exam-management',
-          icon: Calendar,
-          description: 'Examination System'
-        },
-        {
-          name: 'Hostel Management',
-          href: '/hostel-management',
-          icon: Users,
-          description: 'Hostel Administration'
-        },
-        {
-          name: 'Transport Management',
-          href: '/transport-management',
-          icon: BarChart3,
-          description: 'Campus Transportation'
-        },
-        {
-          name: 'Management Analytics',
+          name: 'Strategic Analytics',
           href: '/management',
           icon: BarChart3,
-          description: 'Strategic Intelligence'
+          description: 'Executive Intelligence Dashboard'
         }
       ];
     
