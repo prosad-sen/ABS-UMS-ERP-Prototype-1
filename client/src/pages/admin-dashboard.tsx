@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -30,13 +31,19 @@ import {
   Shield,
   Monitor,
   Database,
-  Star
+  Star,
+  Home
 } from "lucide-react";
 
 export default function AdminDashboard() {
+  const [, setLocation] = useLocation();
   const [selectedTimeframe, setSelectedTimeframe] = useState("month");
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [selectedAnalytics, setSelectedAnalytics] = useState<any>(null);
+
+  const handleLogout = () => {
+    setLocation("/");
+  };
 
   // Admin Dashboard Slider Content
   const adminSliderItems = [
@@ -142,14 +149,25 @@ export default function AdminDashboard() {
           <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">Administrator Dashboard</h1>
           <p className="text-gray-600">Comprehensive university management and analytics</p>
         </div>
-        <div className="flex space-x-2">
-          <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => window.location.href = '/management'}>
-            <BarChart3 className="h-4 w-4 mr-2" />
-            Detailed Analytics
-          </Button>
-          <Button variant="outline" onClick={() => window.location.href = '/reports'}>
-            <FileText className="h-4 w-4 mr-2" />
-            Customized Reports
+        <div className="flex items-center space-x-3">
+          <div className="flex space-x-2">
+            <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => window.location.href = '/management'}>
+              <BarChart3 className="h-4 w-4 mr-2" />
+              Detailed Analytics
+            </Button>
+            <Button variant="outline" onClick={() => window.location.href = '/reports'}>
+              <FileText className="h-4 w-4 mr-2" />
+              Customized Reports
+            </Button>
+          </div>
+          <Button 
+            onClick={handleLogout}
+            variant="outline"
+            size="sm"
+            className="text-gray-600 hover:text-gray-900"
+          >
+            <Home className="h-4 w-4 mr-2" />
+            Back to Main
           </Button>
         </div>
       </div>

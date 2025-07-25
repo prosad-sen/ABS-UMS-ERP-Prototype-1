@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -27,13 +28,19 @@ import {
   Zap,
   Eye,
   PieChart,
-  Activity
+  Activity,
+  Home
 } from "lucide-react";
 
 export default function FacultyDashboard() {
+  const [, setLocation] = useLocation();
   const [selectedClass, setSelectedClass] = useState("CSE-3A");
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [selectedAnalytics, setSelectedAnalytics] = useState<any>(null);
+
+  const handleLogout = () => {
+    setLocation("/");
+  };
 
   // Faculty Dashboard Slider Content
   const facultySliderItems = [
@@ -130,9 +137,20 @@ export default function FacultyDashboard() {
           <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">Faculty Dashboard</h1>
           <p className="text-gray-600">Welcome back, {facultyData.name}</p>
         </div>
-        <div className="flex space-x-2">
-          <Badge variant="outline">{facultyData.department}</Badge>
-          <Badge className="bg-blue-100 text-blue-800">{facultyData.designation}</Badge>
+        <div className="flex items-center space-x-3">
+          <div className="flex space-x-2">
+            <Badge variant="outline">{facultyData.department}</Badge>
+            <Badge className="bg-blue-100 text-blue-800">{facultyData.designation}</Badge>
+          </div>
+          <Button 
+            onClick={handleLogout}
+            variant="outline"
+            size="sm"
+            className="text-gray-600 hover:text-gray-900"
+          >
+            <Home className="h-4 w-4 mr-2" />
+            Back to Main
+          </Button>
         </div>
       </div>
 

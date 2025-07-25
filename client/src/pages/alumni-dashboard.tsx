@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -33,14 +34,20 @@ import {
   ChevronUp,
   ChevronDown,
   Gift,
-  Handshake
+  Handshake,
+  Home
 } from "lucide-react";
 
 export default function AlumniDashboard() {
+  const [, setLocation] = useLocation();
   const [activeTab, setActiveTab] = useState("network");
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [selectedDetailType, setSelectedDetailType] = useState<string>("");
   const [selectedDetailTitle, setSelectedDetailTitle] = useState<string>("");
+
+  const handleLogout = () => {
+    setLocation("/");
+  };
 
   // Alumni Dashboard Slider Content
   const alumniSliderItems = [
@@ -172,9 +179,20 @@ export default function AlumniDashboard() {
           <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">Alumni Network</h1>
           <p className="text-gray-600">Welcome back, {alumniData.name} (Batch {alumniData.graduationYear})</p>
         </div>
-        <div className="flex space-x-2">
-          <Badge variant="outline">{alumniData.currentCompany}</Badge>
-          <Badge className="bg-blue-100 text-blue-800">{alumniData.designation}</Badge>
+        <div className="flex items-center space-x-3">
+          <div className="flex space-x-2">
+            <Badge variant="outline">{alumniData.currentCompany}</Badge>
+            <Badge className="bg-blue-100 text-blue-800">{alumniData.designation}</Badge>
+          </div>
+          <Button 
+            onClick={handleLogout}
+            variant="outline"
+            size="sm"
+            className="text-gray-600 hover:text-gray-900"
+          >
+            <Home className="h-4 w-4 mr-2" />
+            Back to Main
+          </Button>
         </div>
       </div>
 

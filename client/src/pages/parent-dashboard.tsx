@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -20,11 +21,17 @@ import {
   MapPin,
   Clock,
   Award,
-  Users
+  Users,
+  Home
 } from "lucide-react";
 
 export default function ParentDashboard() {
+  const [, setLocation] = useLocation();
   const [selectedChild, setSelectedChild] = useState("child1");
+
+  const handleLogout = () => {
+    setLocation("/");
+  };
 
   // Parent Dashboard Slider Content
   const parentSliderItems = [
@@ -140,9 +147,20 @@ export default function ParentDashboard() {
           <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">Parent Dashboard</h1>
           <p className="text-gray-600">Monitoring {studentData.name}'s academic progress</p>
         </div>
-        <div className="flex space-x-2">
-          <Badge variant="outline">{studentData.class}</Badge>
-          <Badge className="bg-blue-100 text-blue-800">{studentData.department}</Badge>
+        <div className="flex items-center space-x-3">
+          <div className="flex space-x-2">
+            <Badge variant="outline">{studentData.class}</Badge>
+            <Badge className="bg-blue-100 text-blue-800">{studentData.department}</Badge>
+          </div>
+          <Button 
+            onClick={handleLogout}
+            variant="outline"
+            size="sm"
+            className="text-gray-600 hover:text-gray-900"
+          >
+            <Home className="h-4 w-4 mr-2" />
+            Back to Main
+          </Button>
         </div>
       </div>
 

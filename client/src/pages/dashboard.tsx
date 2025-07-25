@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -35,11 +36,14 @@ import {
   Eye,
   BarChart3,
   FileText,
-  Building
+  Building,
+  LogOut,
+  Home
 } from "lucide-react";
 
 export default function Dashboard() {
   const { user } = useAuth();
+  const [, setLocation] = useLocation();
   const [showAIChat, setShowAIChat] = useState(false);
   const [aiMessage, setAiMessage] = useState("");
   const [aiResponse, setAiResponse] = useState("");
@@ -47,6 +51,10 @@ export default function Dashboard() {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [selectedDetailType, setSelectedDetailType] = useState<string>("");
   const [selectedDetailTitle, setSelectedDetailTitle] = useState<string>("");
+
+  const handleLogout = () => {
+    setLocation("/");
+  };
   
   const { data: stats, isLoading: statsLoading } = useQuery({
     queryKey: ["/api/dashboard/stats"],
@@ -198,11 +206,26 @@ export default function Dashboard() {
       <div className="bg-gradient-to-br from-coep-blue via-blue-600 to-purple-600 rounded-xl p-6 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 animate-pulse"></div>
         <div className="relative z-10">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
+          <div className="flex justify-between items-start mb-4">
             <div className="flex-1">
               <h2 className="text-2xl lg:text-3xl font-bold animate-fade-in">🎉 Welcome back, {userName}!</h2>
               <p className="text-blue-100 mt-2 text-lg">Level 12 Champion • 7-day streak • Top 5% performer</p>
-              <div className="mt-4 p-3 bg-white/10 rounded-lg backdrop-blur-sm">
+            </div>
+            <div className="flex items-center space-x-2">
+              <Button 
+                onClick={handleLogout}
+                variant="outline"
+                size="sm"
+                className="bg-white/10 text-white border-white/20 hover:bg-white/20 hover:text-white"
+              >
+                <Home className="h-4 w-4 mr-2" />
+                Back to Main
+              </Button>
+            </div>
+          </div>
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
+            <div className="flex-1">
+              <div className="p-3 bg-white/10 rounded-lg backdrop-blur-sm">
                 <p className="text-sm font-medium">🚀 Upcoming: TechFest 2024 Hackathon</p>
                 <p className="text-xs text-blue-200">Registration closes in 3 days • Win ₹1,00,000</p>
               </div>

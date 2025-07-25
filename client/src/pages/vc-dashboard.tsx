@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -27,15 +28,21 @@ import {
   Star,
   Crown,
   Shield,
-  Zap
+  Zap,
+  Home
 } from "lucide-react";
 
 export default function VCDashboard() {
+  const [, setLocation] = useLocation();
   const [selectedTimeframe, setSelectedTimeframe] = useState("academic-year");
   const [selectedMetric, setSelectedMetric] = useState("overall");
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [selectedDetailType, setSelectedDetailType] = useState<string>("");
   const [selectedDetailTitle, setSelectedDetailTitle] = useState<string>("");
+
+  const handleLogout = () => {
+    setLocation("/");
+  };
 
   // VC Dashboard Slider Content
   const vcSliderItems = [
@@ -165,6 +172,15 @@ export default function VCDashboard() {
               <Shield className="h-4 w-4 mr-1" />
               NAAC A+
             </Badge>
+            <Button 
+              onClick={handleLogout}
+              variant="outline"
+              size="sm"
+              className="text-white border-white hover:bg-white hover:text-gray-900"
+            >
+              <Home className="h-4 w-4 mr-2" />
+              Back to Main
+            </Button>
           </div>
         </div>
       </div>
