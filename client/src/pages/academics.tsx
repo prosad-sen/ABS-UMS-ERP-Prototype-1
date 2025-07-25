@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
+import CourseDetailModal from "@/components/academics/course-detail-modal";
 import { 
   BookOpen, 
   GraduationCap, 
@@ -15,11 +16,14 @@ import {
   Filter,
   Star,
   Award,
-  Target
+  Target,
+  Eye
 } from "lucide-react";
 
 export default function Academics() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [showCourseModal, setShowCourseModal] = useState(false);
 
   // COEP Course Data
   const currentSemester = {
@@ -339,6 +343,30 @@ export default function Academics() {
                             <p className="font-semibold">{course.midterm}%</p>
                           </div>
                         </div>
+                        <div className="mt-3 flex space-x-2">
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => {
+                              setSelectedCourse({
+                                code: course.code,
+                                name: course.name,
+                                professor: course.instructor,
+                                credits: course.credits,
+                                semester: currentSemester.semester,
+                                department: "Computer Science"
+                              });
+                              setShowCourseModal(true);
+                            }}
+                          >
+                            <Eye className="h-4 w-4 mr-2" />
+                            View Details
+                          </Button>
+                          <Button variant="outline" size="sm">
+                            <Download className="h-4 w-4 mr-2" />
+                            Materials
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </CardContent>
@@ -472,6 +500,18 @@ export default function Academics() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* Course Detail Modal */}
+      {selectedCourse && (
+        <CourseDetailModal
+          isOpen={showCourseModal}
+          onClose={() => {
+            setShowCourseModal(false);
+            setSelectedCourse(null);
+          }}
+          course={selectedCourse}
+        />
+      )}
     </div>
   );
 }

@@ -237,12 +237,12 @@ export default function Dashboard() {
         </Card>
       </div>
 
-      {/* Gamification Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <Card className="lg:col-span-2">
-          <CardHeader>
+      {/* Enhanced Gamification Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="overflow-hidden">
+          <CardHeader className="bg-gradient-to-r from-yellow-500 to-orange-600 text-white">
             <CardTitle className="flex items-center space-x-2">
-              <Trophy className="h-5 w-5 text-yellow-600" />
+              <Trophy className="h-5 w-5" />
               <span>Recent Achievements</span>
             </CardTitle>
           </CardHeader>
