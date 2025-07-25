@@ -263,13 +263,27 @@ export default function Dashboard() {
             <span>COEP Updates & Social Feed</span>
           </h2>
           <div className="flex space-x-2">
-            <Button variant="outline" size="sm" className="text-blue-600 border-blue-200 hover:bg-blue-50">
-              <Instagram className="h-4 w-4 mr-1" />
-              Follow
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="text-blue-600 border-blue-200 hover:bg-blue-50"
+              asChild
+            >
+              <a href="https://www.instagram.com/coep_official?igsh=MTA3N3hoM2MycXFqYw==" target="_blank" rel="noopener noreferrer">
+                <Instagram className="h-4 w-4 mr-1" />
+                Follow
+              </a>
             </Button>
-            <Button variant="outline" size="sm" className="text-blue-600 border-blue-200 hover:bg-blue-50">
-              <Linkedin className="h-4 w-4 mr-1" />
-              Connect
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="text-blue-600 border-blue-200 hover:bg-blue-50"
+              asChild
+            >
+              <a href="https://www.linkedin.com/school/coep-technological-university/" target="_blank" rel="noopener noreferrer">
+                <Linkedin className="h-4 w-4 mr-1" />
+                Connect
+              </a>
             </Button>
           </div>
         </div>
