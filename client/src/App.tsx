@@ -111,7 +111,20 @@ function Router() {
       <MainLayout>
         <Route path="/student-dashboard" component={Dashboard} />
         <Route path="/faculty-dashboard" component={FacultyDashboard} />
-        <Route path="/admin-dashboard" component={AdminDashboard} />
+        <Route path="/admin-dashboard" component={() => {
+          console.log('Admin dashboard route accessed');
+          const userRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole');
+          console.log('User role in admin route:', userRole);
+          return <AdminDashboard />;
+        }} />
+        <Route path="/administrator-dashboard" component={() => {
+          console.log('Administrator dashboard route accessed');
+          return <AdminDashboard />;
+        }} />
+        <Route path="/registrar-dashboard" component={() => {
+          console.log('Registrar dashboard route accessed');
+          return <AdminDashboard />;
+        }} />
         <Route path="/vc-dashboard" component={VCDashboard} />
         <Route path="/parent-dashboard" component={ParentDashboard} />
         <Route path="/alumni-dashboard" component={AlumniDashboard} />

@@ -86,10 +86,11 @@ export default function RoleSelection() {
     // Direct redirect to role-specific dashboard (no login required)
     const dashboardRoutes = {
       student: "/student-dashboard",
-      faculty: "/faculty-dashboard",
+      faculty: "/faculty-dashboard", 
       admin: "/admin-dashboard",
       administrator: "/admin-dashboard",
       registrar: "/admin-dashboard",
+      "administrator/registrar": "/admin-dashboard",
       vc: "/vc-dashboard",
       board: "/vc-dashboard",
       parent: "/parent-dashboard",
@@ -162,6 +163,20 @@ export default function RoleSelection() {
                   >
                     Enter {role.title}
                   </Button>
+                  {role.id === 'admin' && (
+                    <Button 
+                      variant="outline"
+                      className="w-full mt-2 text-sm"
+                      onClick={() => {
+                        console.log('Direct admin test');
+                        localStorage.setItem('selectedRole', 'admin');
+                        localStorage.setItem('userRole', 'admin');
+                        window.location.href = "/admin-dashboard";
+                      }}
+                    >
+                      🔧 Test Direct Access
+                    </Button>
+                  )}
                 </CardContent>
               </Card>
             );

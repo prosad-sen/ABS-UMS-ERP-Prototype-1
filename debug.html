@@ -1,9 +1,63 @@
 <!DOCTYPE html>
 <html>
-<head><title>Debug Test</title></head>
+<head>
+    <title>Admin Dashboard Debug Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .btn { padding: 10px 20px; margin: 10px; background: #007bff; color: white; border: none; cursor: pointer; }
+        .log { background: #f8f9fa; padding: 10px; margin: 10px 0; border-left: 4px solid #007bff; }
+    </style>
+</head>
 <body>
-<h1>Direct HTML Test</h1>
-<p>If you can see this, the server is working.</p>
-<script>console.log('JavaScript is working');</script>
+    <h1>COEP Admin Dashboard Access Test</h1>
+    
+    <div class="log">
+        <strong>Testing Direct Admin Dashboard Access</strong><br>
+        Use this page to test if the admin dashboard can be accessed directly.
+    </div>
+    
+    <button class="btn" onclick="testAdminDashboard()">🔧 Test Admin Dashboard</button>
+    <button class="btn" onclick="setAdminRole()">👤 Set Admin Role & Redirect</button>
+    <button class="btn" onclick="checkCurrentRole()">🔍 Check Current Role</button>
+    <button class="btn" onclick="clearStorage()">🗑️ Clear Storage</button>
+    
+    <div id="results"></div>
+    
+    <script>
+        function log(message) {
+            document.getElementById('results').innerHTML += '<div class="log">' + message + '</div>';
+        }
+        
+        function testAdminDashboard() {
+            log('Testing admin dashboard access...');
+            window.location.href = '/admin-dashboard';
+        }
+        
+        function setAdminRole() {
+            localStorage.setItem('selectedRole', 'admin');
+            localStorage.setItem('userRole', 'admin');
+            log('Admin role set. Redirecting to admin dashboard...');
+            setTimeout(() => {
+                window.location.href = '/admin-dashboard';
+            }, 1000);
+        }
+        
+        function checkCurrentRole() {
+            const selectedRole = localStorage.getItem('selectedRole');
+            const userRole = localStorage.getItem('userRole');
+            log('Selected Role: ' + (selectedRole || 'none'));
+            log('User Role: ' + (userRole || 'none'));
+        }
+        
+        function clearStorage() {
+            localStorage.clear();
+            log('Local storage cleared');
+        }
+        
+        // Auto-check on load
+        window.onload = function() {
+            checkCurrentRole();
+        }
+    </script>
 </body>
 </html>
