@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import AnimatedInfoSlider from "@/components/ui/animated-info-slider";
 import { 
   Users, 
@@ -20,11 +21,21 @@ import {
   Target,
   Award,
   Activity,
-  Briefcase
+  Briefcase,
+  Eye,
+  PieChart,
+  Zap,
+  Clock,
+  Shield,
+  Monitor,
+  Database,
+  Star
 } from "lucide-react";
 
 export default function AdminDashboard() {
   const [selectedTimeframe, setSelectedTimeframe] = useState("month");
+  const [showDetailModal, setShowDetailModal] = useState(false);
+  const [selectedAnalytics, setSelectedAnalytics] = useState<any>(null);
 
   // Admin Dashboard Slider Content
   const adminSliderItems = [
@@ -36,7 +47,7 @@ export default function AdminDashboard() {
       color: "text-green-600",
       bgColor: "bg-gradient-to-r from-green-500 to-teal-500",
       stats: { value: "99.8%", label: "System Uptime", trend: "up" as const },
-      action: { label: "View System Analytics", onClick: () => window.location.href = '/management' }
+      action: { label: "View System Analytics", onClick: () => handleSliderAnalytics("system-performance") }
     },
     {
       id: "budget-optimization",
@@ -46,7 +57,7 @@ export default function AdminDashboard() {
       color: "text-blue-600",
       bgColor: "bg-gradient-to-r from-blue-500 to-indigo-500",
       stats: { value: "₹2.4Cr", label: "Cost Savings", trend: "up" as const },
-      action: { label: "View Budget Details", onClick: () => {} }
+      action: { label: "View Budget Details", onClick: () => handleSliderAnalytics("budget-optimization") }
     },
     {
       id: "grievance-resolution",
@@ -56,7 +67,7 @@ export default function AdminDashboard() {
       color: "text-purple-600",
       bgColor: "bg-gradient-to-r from-purple-500 to-pink-500",
       stats: { value: "94%", label: "Resolution Rate", trend: "up" as const },
-      action: { label: "Review Grievances", onClick: () => window.location.href = '/grievances' }
+      action: { label: "Review Grievances", onClick: () => handleSliderAnalytics("grievance-resolution") }
     },
     {
       id: "strategic-initiatives",
@@ -66,9 +77,20 @@ export default function AdminDashboard() {
       color: "text-orange-600",
       bgColor: "bg-gradient-to-r from-orange-500 to-red-500",
       stats: { value: "87%", label: "Transformation Complete", trend: "up" as const },
-      action: { label: "View Strategic Dashboard", onClick: () => {} }
+      action: { label: "View Strategic Dashboard", onClick: () => handleSliderAnalytics("strategic-initiatives") }
     }
   ];
+
+  // Analytics handler functions
+  const handleSliderAnalytics = (type: string) => {
+    setSelectedAnalytics({ type, source: 'slider' });
+    setShowDetailModal(true);
+  };
+
+  const handleQuickActionAnalytics = (type: string) => {
+    setSelectedAnalytics({ type, source: 'quickAction' });
+    setShowDetailModal(true);
+  };
 
   const adminData = {
     totalStudents: 8456,
@@ -169,54 +191,54 @@ export default function AdminDashboard() {
 
       {/* Key Metrics */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+        <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white cursor-pointer hover:shadow-xl transition-all group" onClick={() => handleQuickActionAnalytics("students")}>
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-blue-100">Total Students</p>
                 <p className="text-2xl font-bold">{adminData.totalStudents.toLocaleString()}</p>
-                <p className="text-blue-100 text-sm">+156 this semester</p>
+                <p className="text-blue-100 text-sm group-hover:text-white transition-colors">+156 this semester • Click for details</p>
               </div>
-              <Users className="h-8 w-8 text-blue-200" />
+              <Users className="h-8 w-8 text-blue-200 group-hover:scale-110 transition-transform" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white cursor-pointer hover:shadow-xl transition-shadow" onClick={() => window.location.href = '/student-placements'}>
+        <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white cursor-pointer hover:shadow-xl transition-all group" onClick={() => handleQuickActionAnalytics("placements")}>
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-green-100">Placement Rate</p>
                 <p className="text-2xl font-bold">87.3%</p>
-                <p className="text-green-100 text-sm">View Analytics →</p>
+                <p className="text-green-100 text-sm group-hover:text-white transition-colors">View Analytics →</p>
               </div>
-              <Briefcase className="h-8 w-8 text-green-200" />
+              <Briefcase className="h-8 w-8 text-green-200 group-hover:scale-110 transition-transform" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-r from-orange-500 to-orange-600 text-white">
+        <Card className="bg-gradient-to-r from-orange-500 to-orange-600 text-white cursor-pointer hover:shadow-xl transition-all group" onClick={() => handleQuickActionAnalytics("satisfaction")}>
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-orange-100">Satisfaction Score</p>
                 <p className="text-2xl font-bold">{adminData.satisfactionScore}%</p>
-                <p className="text-orange-100 text-sm">+3% from last term</p>
+                <p className="text-orange-100 text-sm group-hover:text-white transition-colors">+3% from last term • Click for details</p>
               </div>
-              <Award className="h-8 w-8 text-orange-200" />
+              <Award className="h-8 w-8 text-orange-200 group-hover:scale-110 transition-transform" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-r from-purple-500 to-purple-600 text-white">
+        <Card className="bg-gradient-to-r from-purple-500 to-purple-600 text-white cursor-pointer hover:shadow-xl transition-all group" onClick={() => handleQuickActionAnalytics("budget")}>
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-purple-100">Budget Utilization</p>
                 <p className="text-2xl font-bold">{adminData.budgetUtilization}%</p>
-                <p className="text-purple-100 text-sm">Optimal spending</p>
+                <p className="text-purple-100 text-sm group-hover:text-white transition-colors">Optimal spending • View breakdown</p>
               </div>
-              <DollarSign className="h-8 w-8 text-purple-200" />
+              <DollarSign className="h-8 w-8 text-purple-200 group-hover:scale-110 transition-transform" />
             </div>
           </CardContent>
         </Card>
@@ -270,19 +292,19 @@ export default function AdminDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-3">
-                  <Button className="h-16 flex-col space-y-1" variant="outline">
+                  <Button className="h-16 flex-col space-y-1" variant="outline" onClick={() => handleQuickActionAnalytics("manage-users")}>
                     <Users className="h-5 w-5" />
                     <span className="text-sm">Manage Users</span>
                   </Button>
-                  <Button className="h-16 flex-col space-y-1" variant="outline">
+                  <Button className="h-16 flex-col space-y-1" variant="outline" onClick={() => handleQuickActionAnalytics("facilities")}>
                     <Building className="h-5 w-5" />
                     <span className="text-sm">Facilities</span>
                   </Button>
-                  <Button className="h-16 flex-col space-y-1" variant="outline">
+                  <Button className="h-16 flex-col space-y-1" variant="outline" onClick={() => handleQuickActionAnalytics("academic-calendar")}>
                     <Calendar className="h-5 w-5" />
                     <span className="text-sm">Academic Calendar</span>
                   </Button>
-                  <Button className="h-16 flex-col space-y-1" variant="outline">
+                  <Button className="h-16 flex-col space-y-1" variant="outline" onClick={() => handleQuickActionAnalytics("system-settings")}>
                     <Settings className="h-5 w-5" />
                     <span className="text-sm">System Settings</span>
                   </Button>
@@ -423,6 +445,292 @@ export default function AdminDashboard() {
           </div>
         </TabsContent>
       </Tabs>
+
+      {/* Comprehensive Analytics Modal */}
+      <Dialog open={showDetailModal} onOpenChange={setShowDetailModal}>
+        <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center space-x-2">
+              {selectedAnalytics?.type === "system-performance" && <><Activity className="h-6 w-6 text-green-600" /><span>System Performance Analytics</span></>}
+              {selectedAnalytics?.type === "budget-optimization" && <><DollarSign className="h-6 w-6 text-blue-600" /><span>Budget Optimization Details</span></>}
+              {selectedAnalytics?.type === "grievance-resolution" && <><CheckCircle className="h-6 w-6 text-purple-600" /><span>Grievance Resolution Analytics</span></>}
+              {selectedAnalytics?.type === "strategic-initiatives" && <><Target className="h-6 w-6 text-orange-600" /><span>Strategic Goals Dashboard</span></>}
+              {selectedAnalytics?.type === "students" && <><Users className="h-6 w-6 text-blue-600" /><span>Student Analytics Overview</span></>}
+              {selectedAnalytics?.type === "placements" && <><Briefcase className="h-6 w-6 text-green-600" /><span>Placement Analytics Dashboard</span></>}
+              {selectedAnalytics?.type === "satisfaction" && <><Award className="h-6 w-6 text-orange-600" /><span>Satisfaction Metrics Analysis</span></>}
+              {selectedAnalytics?.type === "budget" && <><DollarSign className="h-6 w-6 text-purple-600" /><span>Budget Utilization Breakdown</span></>}
+              {selectedAnalytics?.type === "manage-users" && <><Users className="h-6 w-6 text-blue-600" /><span>User Management Dashboard</span></>}
+              {selectedAnalytics?.type === "facilities" && <><Building className="h-6 w-6 text-green-600" /><span>Facilities Management Portal</span></>}
+              {selectedAnalytics?.type === "academic-calendar" && <><Calendar className="h-6 w-6 text-orange-600" /><span>Academic Calendar Management</span></>}
+              {selectedAnalytics?.type === "system-settings" && <><Settings className="h-6 w-6 text-purple-600" /><span>System Settings Dashboard</span></>}
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="space-y-6">
+            {/* System Performance Analytics */}
+            {selectedAnalytics?.type === "system-performance" && (
+              <div className="space-y-6">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="text-center p-6 bg-green-50 rounded-lg">
+                    <Activity className="h-12 w-12 text-green-600 mx-auto mb-4" />
+                    <p className="text-3xl font-bold text-green-600">99.8%</p>
+                    <p className="text-sm text-gray-600">System Uptime</p>
+                  </div>
+                  <div className="text-center p-6 bg-blue-50 rounded-lg">
+                    <Monitor className="h-12 w-12 text-blue-600 mx-auto mb-4" />
+                    <p className="text-3xl font-bold text-blue-600">2000+</p>
+                    <p className="text-sm text-gray-600">Active Users</p>
+                  </div>
+                  <div className="text-center p-6 bg-purple-50 rounded-lg">
+                    <Database className="h-12 w-12 text-purple-600 mx-auto mb-4" />
+                    <p className="text-3xl font-bold text-purple-600">99.2%</p>
+                    <p className="text-sm text-gray-600">Database Performance</p>
+                  </div>
+                  <div className="text-center p-6 bg-orange-50 rounded-lg">
+                    <Shield className="h-12 w-12 text-orange-600 mx-auto mb-4" />
+                    <p className="text-3xl font-bold text-orange-600">0</p>
+                    <p className="text-sm text-gray-600">Security Incidents</p>
+                  </div>
+                </div>
+                
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Infrastructure Health Report</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="p-4 bg-green-50 rounded-lg">
+                        <h4 className="font-semibold text-green-800 mb-2">Excellent Performance Metrics</h4>
+                        <p className="text-sm text-green-700">University-wide digital infrastructure achieved 99.8% uptime this month, serving over 2000+ concurrent users with minimal latency. Student satisfaction with online services increased by 23%.</p>
+                      </div>
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        <div>
+                          <h5 className="font-medium mb-2">Server Performance</h5>
+                          <div className="space-y-2">
+                            <div className="flex justify-between">
+                              <span>Academic Portal</span>
+                              <span className="text-green-600 font-medium">99.9%</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Student Management System</span>
+                              <span className="text-green-600 font-medium">99.7%</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Library System</span>
+                              <span className="text-green-600 font-medium">99.8%</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div>
+                          <h5 className="font-medium mb-2">Response Times</h5>
+                          <div className="space-y-2">
+                            <div className="flex justify-between">
+                              <span>Page Load Time</span>
+                              <span className="text-blue-600 font-medium">1.2s</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>API Response</span>
+                              <span className="text-blue-600 font-medium">145ms</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Database Query</span>
+                              <span className="text-blue-600 font-medium">89ms</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+
+            {/* Budget Optimization Analytics */}
+            {selectedAnalytics?.type === "budget-optimization" && (
+              <div className="space-y-6">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="text-center p-6 bg-blue-50 rounded-lg">
+                    <DollarSign className="h-12 w-12 text-blue-600 mx-auto mb-4" />
+                    <p className="text-3xl font-bold text-blue-600">₹2.4Cr</p>
+                    <p className="text-sm text-gray-600">Cost Savings</p>
+                  </div>
+                  <div className="text-center p-6 bg-green-50 rounded-lg">
+                    <TrendingUp className="h-12 w-12 text-green-600 mx-auto mb-4" />
+                    <p className="text-3xl font-bold text-green-600">15%</p>
+                    <p className="text-sm text-gray-600">Efficiency Improvement</p>
+                  </div>
+                  <div className="text-center p-6 bg-purple-50 rounded-lg">
+                    <Target className="h-12 w-12 text-purple-600 mx-auto mb-4" />
+                    <p className="text-3xl font-bold text-purple-600">78%</p>
+                    <p className="text-sm text-gray-600">Budget Utilization</p>
+                  </div>
+                  <div className="text-center p-6 bg-orange-50 rounded-lg">
+                    <Award className="h-12 w-12 text-orange-600 mx-auto mb-4" />
+                    <p className="text-3xl font-bold text-orange-600">A+</p>
+                    <p className="text-sm text-gray-600">Financial Rating</p>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Budget Allocation Breakdown</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        <div className="flex justify-between items-center">
+                          <span>Academic Operations</span>
+                          <div className="flex items-center space-x-2">
+                            <Progress value={65} className="w-24" />
+                            <span className="text-sm font-medium">65%</span>
+                          </div>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span>Infrastructure</span>
+                          <div className="flex items-center space-x-2">
+                            <Progress value={20} className="w-24" />
+                            <span className="text-sm font-medium">20%</span>
+                          </div>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span>Research & Development</span>
+                          <div className="flex items-center space-x-2">
+                            <Progress value={10} className="w-24" />
+                            <span className="text-sm font-medium">10%</span>
+                          </div>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span>Student Services</span>
+                          <div className="flex items-center space-x-2">
+                            <Progress value={5} className="w-24" />
+                            <span className="text-sm font-medium">5%</span>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Cost Optimization Initiatives</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-3">
+                        <div className="p-3 bg-green-50 rounded-lg">
+                          <p className="font-medium text-green-800">Energy Efficiency</p>
+                          <p className="text-sm text-green-700">Saved ₹89L through LED conversion and smart HVAC systems</p>
+                        </div>
+                        <div className="p-3 bg-blue-50 rounded-lg">
+                          <p className="font-medium text-blue-800">Digital Transformation</p>
+                          <p className="text-sm text-blue-700">Reduced paperwork costs by ₹45L with online processes</p>
+                        </div>
+                        <div className="p-3 bg-purple-50 rounded-lg">
+                          <p className="font-medium text-purple-800">Resource Sharing</p>
+                          <p className="text-sm text-purple-700">Inter-department collaboration saved ₹1.06Cr</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+            )}
+
+            {/* Strategic Goals Dashboard */}
+            {selectedAnalytics?.type === "strategic-initiatives" && (
+              <div className="space-y-6">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="text-center p-6 bg-orange-50 rounded-lg">
+                    <Target className="h-12 w-12 text-orange-600 mx-auto mb-4" />
+                    <p className="text-3xl font-bold text-orange-600">87%</p>
+                    <p className="text-sm text-gray-600">Digital Transformation</p>
+                  </div>
+                  <div className="text-center p-6 bg-green-50 rounded-lg">
+                    <Star className="h-12 w-12 text-green-600 mx-auto mb-4" />
+                    <p className="text-3xl font-bold text-green-600">A+</p>
+                    <p className="text-sm text-gray-600">Accreditation Status</p>
+                  </div>
+                  <div className="text-center p-6 bg-blue-50 rounded-lg">
+                    <TrendingUp className="h-12 w-12 text-blue-600 mx-auto mb-4" />
+                    <p className="text-3xl font-bold text-blue-600">23%</p>
+                    <p className="text-sm text-gray-600">Satisfaction Increase</p>
+                  </div>
+                  <div className="text-center p-6 bg-purple-50 rounded-lg">
+                    <Award className="h-12 w-12 text-purple-600 mx-auto mb-4" />
+                    <p className="text-3xl font-bold text-purple-600">12</p>
+                    <p className="text-sm text-gray-600">Strategic Initiatives</p>
+                  </div>
+                </div>
+                
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Strategic Goals Progress</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="p-4 bg-orange-50 rounded-lg">
+                        <h4 className="font-semibold text-orange-800 mb-2">Digital Transformation Initiative</h4>
+                        <p className="text-sm text-orange-700 mb-3">87% complete - International accreditation preparation is ahead of schedule with excellent preliminary assessment scores.</p>
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 text-sm">
+                          <div>
+                            <p className="font-medium">Phase 1: Infrastructure</p>
+                            <p className="text-green-600">✓ Completed</p>
+                          </div>
+                          <div>
+                            <p className="font-medium">Phase 2: Training</p>
+                            <p className="text-blue-600">→ In Progress (90%)</p>
+                          </div>
+                          <div>
+                            <p className="font-medium">Phase 3: Assessment</p>
+                            <p className="text-orange-600">→ Next Quarter</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+
+            {/* Quick Action Analytics */}
+            {selectedAnalytics?.type === "students" && (
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="text-center p-6 bg-blue-50 rounded-lg">
+                  <Users className="h-12 w-12 text-blue-600 mx-auto mb-4" />
+                  <p className="text-3xl font-bold text-blue-600">8,456</p>
+                  <p className="text-sm text-gray-600">Total Enrolled</p>
+                </div>
+                <div className="text-center p-6 bg-green-50 rounded-lg">
+                  <TrendingUp className="h-12 w-12 text-green-600 mx-auto mb-4" />
+                  <p className="text-3xl font-bold text-green-600">94%</p>
+                  <p className="text-sm text-gray-600">Retention Rate</p>
+                </div>
+                <div className="text-center p-6 bg-purple-50 rounded-lg">
+                  <Award className="h-12 w-12 text-purple-600 mx-auto mb-4" />
+                  <p className="text-3xl font-bold text-purple-600">8.2</p>
+                  <p className="text-sm text-gray-600">Average CGPA</p>
+                </div>
+                <div className="text-center p-6 bg-orange-50 rounded-lg">
+                  <Star className="h-12 w-12 text-orange-600 mx-auto mb-4" />
+                  <p className="text-3xl font-bold text-orange-600">87%</p>
+                  <p className="text-sm text-gray-600">Satisfaction Score</p>
+                </div>
+              </div>
+            )}
+
+            {selectedAnalytics?.type === "manage-users" && (
+              <div className="text-center p-8">
+                <Users className="h-16 w-16 text-blue-600 mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-gray-900 mb-2">User Management Portal</h3>
+                <p className="text-gray-600 mb-4">Manage 8,456 students, 234 faculty, and 145 staff members across all departments.</p>
+                <Button className="bg-blue-600 hover:bg-blue-700">
+                  <Users className="h-4 w-4 mr-2" />
+                  Access User Management
+                </Button>
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
