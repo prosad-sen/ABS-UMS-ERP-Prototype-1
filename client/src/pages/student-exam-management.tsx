@@ -560,19 +560,19 @@ export default function StudentExamManagement() {
             {selectedExam && (
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="text-center p-4 bg-blue-50 rounded-lg">
-                  <p className="text-2xl font-bold text-blue-600">{selectedExam.date}</p>
+                  <p className="text-2xl font-bold text-blue-600">{(selectedExam as any).date || "TBD"}</p>
                   <p className="text-sm text-gray-600">Exam Date</p>
                 </div>
                 <div className="text-center p-4 bg-green-50 rounded-lg">
-                  <p className="text-2xl font-bold text-green-600">{selectedExam.time}</p>
+                  <p className="text-2xl font-bold text-green-600">{(selectedExam as any).time || "TBD"}</p>
                   <p className="text-sm text-gray-600">Time Slot</p>
                 </div>
                 <div className="text-center p-4 bg-orange-50 rounded-lg">
-                  <p className="text-2xl font-bold text-orange-600">{selectedExam.hall}</p>
+                  <p className="text-2xl font-bold text-orange-600">{(selectedExam as any).hall || "TBD"}</p>
                   <p className="text-sm text-gray-600">Exam Hall</p>
                 </div>
                 <div className="text-center p-4 bg-purple-50 rounded-lg">
-                  <p className="text-2xl font-bold text-purple-600">{selectedExam.seat}</p>
+                  <p className="text-2xl font-bold text-purple-600">{(selectedExam as any).seat || "TBD"}</p>
                   <p className="text-sm text-gray-600">Seat Number</p>
                 </div>
               </div>
