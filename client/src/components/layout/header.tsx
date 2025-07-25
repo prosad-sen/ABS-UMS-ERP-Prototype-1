@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -10,8 +10,35 @@ import {
 } from 'lucide-react';
 
 export default function Header() {
-  const [currentRole, setCurrentRole] = useState("Student");
+  // Get role from localStorage
+  const getUserRole = () => {
+    const storedRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole');
+    if (storedRole) {
+      const roleNames = {
+        student: 'Student',
+        faculty: 'Faculty',
+        admin: 'Administrator/Registrar',
+        administrator: 'Administrator/Registrar',
+        vc: 'VC/Board',
+        board: 'VC/Board',
+        parent: 'Parent',
+        alumni: 'Alumni'
+      };
+      return roleNames[storedRole as keyof typeof roleNames] || 'Student';
+    }
+    return 'Student';
+  };
+
+  const [currentRole, setCurrentRole] = useState(getUserRole());
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Update role when localStorage changes - use useEffect properly
+  React.useEffect(() => {
+    setCurrentRole(getUserRole());
+    const handleStorageChange = () => setCurrentRole(getUserRole());
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   return (
     <header className="fixed top-0 right-0 left-0 lg:left-64 bg-white border-b border-gray-200 z-40">

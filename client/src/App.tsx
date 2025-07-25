@@ -74,6 +74,9 @@ function Router() {
     );
   }
 
+  // Get user role from localStorage to determine routing
+  const userRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole');
+  
   return (
     <Switch>
       {/* Always show role selection and login for development */}
@@ -83,7 +86,19 @@ function Router() {
         {(props: any) => <Login selectedRole={props.params?.role || 'student'} />}
       </Route>
       
-      {/* Role-specific dashboards */}
+      {/* Dynamic dashboard based on stored role */}
+      <Route path="/dashboard">
+        {() => {
+          const DashboardComp = getRoleDashboard(userRole || 'student');
+          return (
+            <MainLayout>
+              <DashboardComp />
+            </MainLayout>
+          );
+        }}
+      </Route>
+      
+      {/* Role-specific dashboards - for direct access */}
       <MainLayout>
         <Route path="/student-dashboard" component={Dashboard} />
         <Route path="/faculty-dashboard" component={FacultyDashboard} />

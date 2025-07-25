@@ -101,7 +101,7 @@ export default function Login({ selectedRole }: LoginProps) {
     // Simulate authentication delay
     await new Promise(resolve => setTimeout(resolve, 1500));
 
-    // Store the role in localStorage and redirect to appropriate dashboard
+    // Store the role in localStorage using utility functions
     localStorage.setItem('userRole', selectedRole);
     localStorage.setItem('selectedRole', selectedRole);
     
@@ -116,7 +116,14 @@ export default function Login({ selectedRole }: LoginProps) {
       alumni: "/alumni-dashboard"
     };
 
-    setLocation(dashboardRoutes[selectedRole as keyof typeof dashboardRoutes] || "/student-dashboard");
+    // Force hard redirect to role-specific dashboard to ensure proper routing
+    const targetRoute = dashboardRoutes[selectedRole as keyof typeof dashboardRoutes] || "/student-dashboard";
+    console.log(`Redirecting ${selectedRole} to ${targetRoute}`);
+    
+    // Use window.location to force a full page refresh and proper routing
+    setTimeout(() => {
+      window.location.href = targetRoute;
+    }, 100);
     setIsLoading(false);
   };
 
