@@ -21,7 +21,8 @@ import {
   Camera,
   Building,
   Users,
-  Globe
+  Globe,
+  Briefcase
 } from "lucide-react";
 
 export default function Profile() {
@@ -127,9 +128,12 @@ export default function Profile() {
 
       {/* Tabbed Content */}
       <Tabs defaultValue="personal" className="space-y-4">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-7">
           <TabsTrigger value="personal">Personal</TabsTrigger>
           <TabsTrigger value="academic">Academic</TabsTrigger>
+          <TabsTrigger value="research">Research</TabsTrigger>
+          <TabsTrigger value="exams">Exams</TabsTrigger>
+          <TabsTrigger value="placements">Placements</TabsTrigger>
           <TabsTrigger value="attendance">Attendance</TabsTrigger>
           <TabsTrigger value="achievements">Achievements</TabsTrigger>
         </TabsList>
@@ -326,6 +330,157 @@ export default function Profile() {
                   </div>
                 </div>
               ))}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="research" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <BookOpen className="h-6 w-6 text-purple-600" />
+                <span>Research Activities</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="p-4 border rounded-lg">
+                  <h3 className="font-semibold text-lg mb-2">Current Projects</h3>
+                  <div className="space-y-3">
+                    <div className="p-3 bg-blue-50 rounded">
+                      <p className="font-medium">AI-based Learning System</p>
+                      <p className="text-sm text-gray-600">Under Prof. Dr. Sharma</p>
+                      <Badge className="mt-1">Ongoing</Badge>
+                    </div>
+                    <div className="p-3 bg-green-50 rounded">
+                      <p className="font-medium">IoT Campus Management</p>
+                      <p className="text-sm text-gray-600">Research Assistant</p>
+                      <Badge className="mt-1 bg-green-100 text-green-800">Phase 2</Badge>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4 border rounded-lg">
+                  <h3 className="font-semibold text-lg mb-2">Publications</h3>
+                  <div className="space-y-3">
+                    <div className="p-3 bg-yellow-50 rounded">
+                      <p className="font-medium text-sm">Machine Learning in Education</p>
+                      <p className="text-xs text-gray-600">Conference Paper - ICML 2024</p>
+                    </div>
+                    <div className="p-3 bg-purple-50 rounded">
+                      <p className="font-medium text-sm">Smart Campus Solutions</p>
+                      <p className="text-xs text-gray-600">Journal - IEEE Access</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="exams" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <Calendar className="h-6 w-6 text-red-600" />
+                <span>Examination Records</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="p-4 border rounded-lg">
+                  <h3 className="font-semibold text-lg mb-2">Upcoming Exams</h3>
+                  <div className="space-y-3">
+                    <div className="p-3 bg-red-50 rounded flex justify-between items-center">
+                      <div>
+                        <p className="font-medium">Database Systems</p>
+                        <p className="text-sm text-gray-600">Dec 15, 2024 - 10:00 AM</p>
+                      </div>
+                      <Badge className="bg-red-100 text-red-800">Theory</Badge>
+                    </div>
+                    <div className="p-3 bg-orange-50 rounded flex justify-between items-center">
+                      <div>
+                        <p className="font-medium">Computer Networks</p>
+                        <p className="text-sm text-gray-600">Dec 18, 2024 - 2:00 PM</p>
+                      </div>
+                      <Badge className="bg-orange-100 text-orange-800">Practical</Badge>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4 border rounded-lg">
+                  <h3 className="font-semibold text-lg mb-2">Previous Results</h3>
+                  <div className="space-y-3">
+                    <div className="p-3 bg-green-50 rounded flex justify-between items-center">
+                      <div>
+                        <p className="font-medium">Operating Systems</p>
+                        <p className="text-sm text-gray-600">Sem 3 - 2023</p>
+                      </div>
+                      <div className="text-right">
+                        <Badge className="bg-green-100 text-green-800">A+</Badge>
+                        <p className="text-sm text-gray-600">92/100</p>
+                      </div>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded flex justify-between items-center">
+                      <div>
+                        <p className="font-medium">Data Structures</p>
+                        <p className="text-sm text-gray-600">Sem 3 - 2023</p>
+                      </div>
+                      <div className="text-right">
+                        <Badge className="bg-blue-100 text-blue-800">A</Badge>
+                        <p className="text-sm text-gray-600">88/100</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="placements" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <Briefcase className="h-6 w-6 text-blue-600" />
+                <span>Placement Activities</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="p-4 border rounded-lg">
+                  <h3 className="font-semibold text-lg mb-2">Application Status</h3>
+                  <div className="space-y-3">
+                    <div className="p-3 bg-blue-50 rounded flex justify-between items-center">
+                      <div>
+                        <p className="font-medium">Microsoft</p>
+                        <p className="text-sm text-gray-600">SDE Role - Applied</p>
+                      </div>
+                      <Badge className="bg-blue-100 text-blue-800">In Progress</Badge>
+                    </div>
+                    <div className="p-3 bg-green-50 rounded flex justify-between items-center">
+                      <div>
+                        <p className="font-medium">Google</p>
+                        <p className="text-sm text-gray-600">SWE Intern - Selected</p>
+                      </div>
+                      <Badge className="bg-green-100 text-green-800">Selected</Badge>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4 border rounded-lg">
+                  <h3 className="font-semibold text-lg mb-2">Upcoming Drives</h3>
+                  <div className="space-y-3">
+                    <div className="p-3 bg-purple-50 rounded">
+                      <p className="font-medium">Amazon</p>
+                      <p className="text-sm text-gray-600">Dec 20, 2024</p>
+                      <Badge className="mt-1 bg-purple-100 text-purple-800">Eligible</Badge>
+                    </div>
+                    <div className="p-3 bg-yellow-50 rounded">
+                      <p className="font-medium">TCS</p>
+                      <p className="text-sm text-gray-600">Dec 25, 2024</p>
+                      <Badge className="mt-1 bg-yellow-100 text-yellow-800">Registered</Badge>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>

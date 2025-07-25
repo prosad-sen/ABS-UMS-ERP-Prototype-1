@@ -33,10 +33,22 @@ const getRoleNavigation = (role: string) => {
       return [
         ...baseItems,
         {
+          name: 'Faculty Profile',
+          href: '/faculty-profile',
+          icon: User,
+          description: 'Faculty Profile & Research'
+        },
+        {
           name: 'Research Management',
           href: '/research',
           icon: BookOpen,
           description: 'Research Projects & Grants'
+        },
+        {
+          name: 'Exam Management',
+          href: '/exam-management',
+          icon: Calendar,
+          description: 'Examination System'
         },
         {
           name: 'Course Management',
@@ -45,16 +57,22 @@ const getRoleNavigation = (role: string) => {
           description: 'Courses & Curriculum'
         },
         {
-          name: 'Faculty Profile',
-          href: '/faculty-profile',
-          icon: User,
-          description: 'Faculty Profile & Research'
-        },
-        {
           name: 'Grade Management',
           href: '/grading',
           icon: FileText,
           description: 'Assignments & Grading'
+        },
+        {
+          name: 'Hostel Management',
+          href: '/hostel-management',
+          icon: Users,
+          description: 'Hostel Administration'
+        },
+        {
+          name: 'Transport Management',
+          href: '/transport-management',
+          icon: BarChart3,
+          description: 'Campus Transportation'
         },
         {
           name: 'Faculty Resources',
@@ -288,22 +306,22 @@ const getRoleNavigation = (role: string) => {
       return [
         ...baseItems,
         {
-          name: 'Profile',
+          name: 'Student Profile',
           href: '/profile',
           icon: User,
-          description: 'Personal Information'
+          description: 'Personal Information & Research'
         },
         {
-          name: 'Student Clubs',
-          href: '/student-clubs',
-          icon: Users,
-          description: 'Campus Organizations'
+          name: 'Research Projects',
+          href: '/research',
+          icon: BookOpen,
+          description: 'Student Research Activities'
         },
         {
-          name: 'Placements',
-          href: '/student-placements',
-          icon: Briefcase,
-          description: 'Career Opportunities'
+          name: 'Exam Management',
+          href: '/exam-management',
+          icon: Calendar,
+          description: 'Examination Schedule & Results'
         },
         {
           name: 'Academics',
@@ -312,10 +330,28 @@ const getRoleNavigation = (role: string) => {
           description: 'Courses & Grades'
         },
         {
+          name: 'Placement Portal',
+          href: '/student-placements',
+          icon: Briefcase,
+          description: 'Career Opportunities'
+        },
+        {
           name: 'Attendance',
           href: '/attendance',
           icon: QrCode,
           description: 'QR Code Scanner'
+        },
+        {
+          name: 'Hostel Services',
+          href: '/hostel-management',
+          icon: Users,
+          description: 'Hostel Applications & Services'
+        },
+        {
+          name: 'Transport Services',
+          href: '/transport-management',
+          icon: BarChart3,
+          description: 'Campus Transportation'
         },
         {
           name: 'Fees',
@@ -346,6 +382,12 @@ const getRoleNavigation = (role: string) => {
           href: '/library',
           icon: Library,
           description: 'Books & Resources'
+        },
+        {
+          name: 'Student Clubs',
+          href: '/student-clubs',
+          icon: Users,
+          description: 'Campus Organizations'
         }
       ];
   }
