@@ -36,6 +36,7 @@ import TransportManagement from "@/pages/transport-management";
 import FacultyProfile from "@/pages/faculty-profile";
 import AdminStudentRecords from "@/pages/admin-student-records";
 import AdminAcademics from "@/pages/admin-academics";
+import AlumniProfile from "@/pages/alumni-profile";
 
 import MainLayout from "@/components/layout/main-layout";
 
@@ -118,9 +119,26 @@ function Router() {
         <Route path="/transport-management" component={TransportManagement} />
         <Route path="/profile" component={() => {
           const userRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole') || "student";
-          return userRole?.toLowerCase() === 'faculty' ? <FacultyProfile /> : <Profile />;
+          console.log('Profile route - detected role:', userRole);
+          
+          switch (userRole?.toLowerCase()) {
+            case 'faculty':
+              return <FacultyProfile />;
+            case 'alumni':
+              return <AlumniProfile />;
+            case 'admin':
+            case 'administrator':
+            case 'registrar':
+            case 'vc':
+            case 'parent':
+              return <Profile />; // Can be customized later for these roles
+            case 'student':
+            default:
+              return <Profile />;
+          }
         }} />
         <Route path="/faculty-profile" component={FacultyProfile} />
+        <Route path="/alumni-profile" component={AlumniProfile} />
         
         {/* Administrator/Registrar specific pages */}
         <Route path="/admin-student-records" component={AdminStudentRecords} />
