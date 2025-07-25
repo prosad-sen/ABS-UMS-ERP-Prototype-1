@@ -27,7 +27,8 @@ import {
   Zap,
   Instagram,
   Linkedin,
-  Server
+  Server,
+  MessageSquare
 } from "lucide-react";
 
 export default function Dashboard() {
@@ -378,6 +379,13 @@ export default function Dashboard() {
             >
               <Server className="h-4 w-4 mr-2" />
               AWS Cloud Labs
+            </Button>
+            <Button 
+              className="w-full justify-start bg-purple-600 text-white hover:bg-purple-700"
+              onClick={() => window.location.href = '/grievances'}
+            >
+              <MessageSquare className="h-4 w-4 mr-2" />
+              Voice Concerns
             </Button>
             <Button 
               className="w-full justify-start bg-coep-blue text-white hover:bg-blue-700"

@@ -14,6 +14,8 @@ import LMS from "@/pages/lms";
 import Library from "@/pages/library";
 import Profile from "@/pages/profile";
 import Labs from "@/pages/labs";
+import Grievances from "@/pages/grievances";
+import ManagementDashboard from "@/pages/management-dashboard";
 import MainLayout from "@/components/layout/main-layout";
 
 function Router() {
@@ -48,6 +50,8 @@ function Router() {
             <Route path="/lms" component={LMS} />
             <Route path="/library" component={Library} />
             <Route path="/labs" component={Labs} />
+            <Route path="/grievances" component={Grievances} />
+            <Route path="/management" component={ManagementDashboard} />
             <Route path="/profile" component={Profile} />
           </MainLayout>
         </>

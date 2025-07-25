@@ -53,6 +53,14 @@ export class AIAssistant {
         };
       }
 
+      if (query.includes("grievance") || query.includes("complaint") || query.includes("issue") || query.includes("problem") || query.includes("concern")) {
+        return {
+          response: "📝 I can help you submit a grievance or track existing ones! The Grievance System allows you to: 1) Submit detailed complaints with AI-powered guidance, 2) Suggest your own solutions, 3) Track resolution progress with estimated timelines, 4) Get immediate support assurance from relevant departments. Your concerns are taken seriously with 71% resolution rate and 8.5 days average resolution time. **Navigate to:** Dashboard → Voice Concerns button or Sidebar → Grievances section.",
+          suggestions: ["Submit a new grievance with detailed description", "Check status of existing complaints", "View department response times", "Get AI guidance for issue resolution"],
+          actions: ["Go to Grievances page from Dashboard", "Submit new grievance with AI assistance", "Track resolution progress and updates", "Contact relevant department directly"]
+        };
+      }
+
       // For other queries, provide general helpful response
       const systemPrompt = `You are a helpful AI assistant for COEP Technological University. Provide practical, specific advice for students about academics, attendance, assignments, fees, and campus life. Be encouraging and specific.`;
 

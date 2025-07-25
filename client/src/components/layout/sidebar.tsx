@@ -9,7 +9,8 @@ import {
   Library, 
   QrCode, 
   User,
-  Cloud
+  Cloud,
+  MessageSquare
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -55,6 +56,12 @@ const navigationItems = [
     href: '/labs',
     icon: Cloud,
     description: 'Cloud Computing Labs'
+  },
+  {
+    name: 'Grievances',
+    href: '/grievances',
+    icon: MessageSquare,
+    description: 'Voice Concerns'
   },
   {
     name: 'Library',
