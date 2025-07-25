@@ -34,8 +34,8 @@ import MainLayout from "@/components/layout/main-layout";
 function Router() {
   const { isAuthenticated, isLoading, user } = useAuth();
 
-  // Development mode: bypass authentication to show full app
-  const developmentMode = true;
+  // Direct role-based access mode (no authentication required)
+  const directAccessMode = true;
 
   // Role-based dashboard routing
   const getRoleDashboard = (userRole: string) => {
@@ -63,7 +63,7 @@ function Router() {
   const storedUserRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole') || "student";
   const DashboardComponent = storedUserRole ? getRoleDashboard(storedUserRole) : Dashboard;
 
-  if (isLoading && !developmentMode) {
+  if (isLoading && !directAccessMode) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -74,31 +74,13 @@ function Router() {
     );
   }
 
-  // Get user role from localStorage to determine routing
-  const userRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole');
-  
   return (
     <Switch>
-      {/* Always show role selection and login for development */}
+      {/* Role selection as main entry point */}
       <Route path="/" component={RoleSelection} />
       <Route path="/landing" component={Landing} />
-      <Route path="/login/:role">
-        {(props: any) => <Login selectedRole={props.params?.role || 'student'} />}
-      </Route>
       
-      {/* Dynamic dashboard based on stored role */}
-      <Route path="/dashboard">
-        {() => {
-          const DashboardComp = getRoleDashboard(userRole || 'student');
-          return (
-            <MainLayout>
-              <DashboardComp />
-            </MainLayout>
-          );
-        }}
-      </Route>
-      
-      {/* Role-specific dashboards - for direct access */}
+      {/* Direct role-based dashboards - no login required */}
       <MainLayout>
         <Route path="/student-dashboard" component={Dashboard} />
         <Route path="/faculty-dashboard" component={FacultyDashboard} />

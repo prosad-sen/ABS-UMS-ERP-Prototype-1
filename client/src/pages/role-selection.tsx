@@ -76,9 +76,22 @@ export default function RoleSelection() {
   const handleRoleAccess = (roleId: string) => {
     // Store the selected role in localStorage for persistence across navigation
     localStorage.setItem('selectedRole', roleId);
-    localStorage.setItem('userRole', roleId); // Also store as userRole for compatibility
-    // Redirect to login page with selected role
-    window.location.href = `/login/${roleId}`;
+    localStorage.setItem('userRole', roleId);
+    
+    // Direct redirect to role-specific dashboard (no login required)
+    const dashboardRoutes = {
+      student: "/student-dashboard",
+      faculty: "/faculty-dashboard",
+      admin: "/admin-dashboard",
+      administrator: "/admin-dashboard",
+      vc: "/vc-dashboard",
+      board: "/vc-dashboard",
+      parent: "/parent-dashboard",
+      alumni: "/alumni-dashboard"
+    };
+    
+    const targetRoute = dashboardRoutes[roleId as keyof typeof dashboardRoutes] || "/student-dashboard";
+    window.location.href = targetRoute;
   };
 
   return (
@@ -108,7 +121,7 @@ export default function RoleSelection() {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">Choose Your Portal</h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Access your personalized dashboard with role-specific features and comprehensive analytics
+            Enter your personalized dashboard with role-specific features and comprehensive analytics
           </p>
         </div>
 
@@ -138,7 +151,7 @@ export default function RoleSelection() {
                     className={`w-full ${role.color} text-white`}
                     onClick={() => handleRoleAccess(role.id)}
                   >
-                    Access {role.title}
+                    Enter {role.title}
                   </Button>
                 </CardContent>
               </Card>
