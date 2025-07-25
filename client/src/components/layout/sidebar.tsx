@@ -396,9 +396,16 @@ const getRoleNavigation = (role: string) => {
 export default function Sidebar() {
   const [location] = useLocation();
   
-  // Get current role from localStorage (set during role selection)
+  // Get current role from multiple sources
   const getCurrentRole = () => {
-    // Check URL path first (most reliable for role-specific pages)
+    // Check localStorage first (most reliable)
+    const storedRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole');
+    if (storedRole) {
+      console.log('Role from localStorage:', storedRole);
+      return storedRole;
+    }
+    
+    // Check URL path as backup
     const path = window.location.pathname;
     if (path.includes('admin-dashboard') || path.includes('admin')) return 'admin';
     if (path.includes('faculty-dashboard') || path.includes('faculty')) return 'faculty';
@@ -406,22 +413,23 @@ export default function Sidebar() {
     if (path.includes('parent-dashboard') || path.includes('parent')) return 'parent';
     if (path.includes('alumni-dashboard') || path.includes('alumni')) return 'alumni';
     
-    // Check wouter location
+    // Check wouter location as last resort
     if (location.includes('faculty')) return 'faculty';
     if (location.includes('admin')) return 'admin';
     if (location.includes('vc')) return 'vc';
     if (location.includes('parent')) return 'parent';
     if (location.includes('alumni')) return 'alumni';
     
-    // Check localStorage as fallback
-    const storedRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole');
-    if (storedRole) return storedRole;
-    
+    console.log('Defaulting to student role');
     return 'student';
   };
   
   const currentRole = getCurrentRole();
   const navigationItems = getRoleNavigation(currentRole);
+  
+  // Debug logging
+  console.log('Current role detected:', currentRole);
+  console.log('Navigation items:', navigationItems.length);
 
   return (
     <aside className="fixed left-0 top-16 z-30 h-[calc(100vh-4rem)] w-64 border-r border-gray-200 bg-white overflow-y-auto hidden lg:block">

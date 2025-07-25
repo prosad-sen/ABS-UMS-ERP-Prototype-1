@@ -2,12 +2,163 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
+import { Link } from 'wouter';
 import { 
   Bell, 
   Menu,
   GraduationCap,
-  X
+  X,
+  BarChart3,
+  BookOpen,
+  Calendar,
+  FileText,
+  Library,
+  DollarSign,
+  Users,
+  QrCode,
+  Cloud,
+  MessageSquare,
+  User,
+  Briefcase
 } from 'lucide-react';
+
+// Import the same navigation logic from sidebar
+const getRoleNavigation = (role: string) => {
+  const baseItems = [
+    {
+      name: 'Dashboard',
+      href: `/${role}-dashboard`,
+      icon: BarChart3,
+      description: 'Overview & Analytics'
+    }
+  ];
+  
+  switch (role?.toLowerCase()) {
+    case 'faculty':
+      return [
+        ...baseItems,
+        {
+          name: 'Faculty Profile',
+          href: '/faculty-profile',
+          icon: User,
+          description: 'Faculty Profile & Research'
+        },
+        {
+          name: 'Research Management',
+          href: '/research',
+          icon: BookOpen,
+          description: 'Research Projects & Grants'
+        },
+        {
+          name: 'Exam Management',
+          href: '/exam-management',
+          icon: Calendar,
+          description: 'Examination System'
+        },
+        {
+          name: 'Course Management',
+          href: '/academics',
+          icon: GraduationCap,
+          description: 'Courses & Curriculum'
+        },
+        {
+          name: 'Grade Management',
+          href: '/grading',
+          icon: FileText,
+          description: 'Assignments & Grading'
+        },
+        {
+          name: 'Hostel Management',
+          href: '/hostel-management',
+          icon: Users,
+          description: 'Hostel Administration'
+        },
+        {
+          name: 'Transport Management',
+          href: '/transport-management',
+          icon: BarChart3,
+          description: 'Campus Transportation'
+        }
+      ];
+    
+    default: // student
+      return [
+        ...baseItems,
+        {
+          name: 'Student Profile',
+          href: '/profile',
+          icon: User,
+          description: 'Personal Information & Research'
+        },
+        {
+          name: 'Research Projects',
+          href: '/research',
+          icon: BookOpen,
+          description: 'Student Research Activities'
+        },
+        {
+          name: 'Exam Management',
+          href: '/exam-management',
+          icon: Calendar,
+          description: 'Examination Schedule & Results'
+        },
+        {
+          name: 'Academics',
+          href: '/academics',
+          icon: GraduationCap,
+          description: 'Courses & Grades'
+        },
+        {
+          name: 'Placement Portal',
+          href: '/student-placements',
+          icon: Briefcase,
+          description: 'Career Opportunities'
+        },
+        {
+          name: 'Attendance',
+          href: '/attendance',
+          icon: QrCode,
+          description: 'QR Code Scanner'
+        },
+        {
+          name: 'Hostel Services',
+          href: '/hostel-management',
+          icon: Users,
+          description: 'Hostel Applications & Services'
+        },
+        {
+          name: 'Transport Services',
+          href: '/transport-management',
+          icon: BarChart3,
+          description: 'Campus Transportation'
+        },
+        {
+          name: 'Fees',
+          href: '/fees',
+          icon: DollarSign,
+          description: 'Payments & Dues'
+        },
+        {
+          name: 'AWS Labs',
+          href: '/labs',
+          icon: Cloud,
+          description: 'Cloud Computing Labs'
+        },
+        {
+          name: 'Grievances',
+          href: '/grievances',
+          icon: MessageSquare,
+          description: 'Voice Concerns'
+        },
+        {
+          name: 'Library',
+          href: '/library',
+          icon: Library,
+          description: 'Books & Resources'
+        }
+      ];
+  }
+};
 
 export default function Header() {
   // Get role from localStorage
@@ -31,13 +182,36 @@ export default function Header() {
 
   const [currentRole, setCurrentRole] = useState(getUserRole());
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  // Get current role for navigation
+  const getCurrentRole = () => {
+    return localStorage.getItem('userRole') || localStorage.getItem('selectedRole') || 'student';
+  };
+  
+  const navigationItems = getRoleNavigation(getCurrentRole());
 
   // Update role when localStorage changes - use useEffect properly
   React.useEffect(() => {
-    setCurrentRole(getUserRole());
-    const handleStorageChange = () => setCurrentRole(getUserRole());
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
+    const updateRole = () => {
+      setCurrentRole(getUserRole());
+    };
+    
+    updateRole(); // Initial update
+    
+    // Listen for storage changes
+    window.addEventListener('storage', updateRole);
+    
+    // Also listen for a custom event when role changes within the same tab
+    window.addEventListener('roleChanged', updateRole);
+    
+    // Periodic check to ensure sync (fallback)
+    const interval = setInterval(updateRole, 1000);
+    
+    return () => {
+      window.removeEventListener('storage', updateRole);
+      window.removeEventListener('roleChanged', updateRole);
+      clearInterval(interval);
+    };
   }, []);
 
   return (
@@ -88,15 +262,22 @@ export default function Header() {
 
       {/* Mobile Navigation Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-200 px-4 py-3">
+        <div className="lg:hidden bg-white border-t border-gray-200 px-4 py-3 max-h-80 overflow-y-auto">
           <div className="space-y-2">
-            <a href="/dashboard" className="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Dashboard</a>
-            <a href="/academics" className="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Academics</a>
-            <a href="/attendance" className="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Attendance</a>
-            <a href="/fees" className="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Fees</a>
-            <a href="/library" className="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Library</a>
-            <a href="/lms" className="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">LMS</a>
-            <a href="/profile" className="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Profile</a>
+            {navigationItems.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="flex items-center px-3 py-2 text-gray-700 hover:bg-gray-100 rounded transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <item.icon className="h-4 w-4 mr-3 text-gray-500" />
+                <div>
+                  <div className="font-medium">{item.name}</div>
+                  <div className="text-xs text-gray-500">{item.description}</div>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       )}

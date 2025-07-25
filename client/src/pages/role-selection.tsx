@@ -78,6 +78,9 @@ export default function RoleSelection() {
     localStorage.setItem('selectedRole', roleId);
     localStorage.setItem('userRole', roleId);
     
+    // Trigger custom event to update header immediately
+    window.dispatchEvent(new Event('roleChanged'));
+    
     // Direct redirect to role-specific dashboard (no login required)
     const dashboardRoutes = {
       student: "/student-dashboard",
