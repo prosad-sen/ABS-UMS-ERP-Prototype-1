@@ -79,6 +79,18 @@ const getRoleNavigation = (role: string) => {
           href: '/transport-management',
           icon: BarChart3,
           description: 'Campus Transportation'
+        },
+        {
+          name: 'Faculty Resources',
+          href: '/library',
+          icon: Library,
+          description: 'Research Resources'
+        },
+        {
+          name: 'Placement Tracking',
+          href: '/student-placements',
+          icon: Briefcase,
+          description: 'Student Career Progress'
         }
       ];
 
@@ -123,6 +135,30 @@ const getRoleNavigation = (role: string) => {
           description: 'Board & Governance Reports'
         },
         {
+          name: 'Financial Oversight',
+          href: '/vc-finances',
+          icon: DollarSign,
+          description: 'Budget & Revenue Analytics'
+        },
+        {
+          name: 'Academic Excellence',
+          href: '/vc-academics',
+          icon: GraduationCap,
+          description: 'Academic Performance Metrics'
+        },
+        {
+          name: 'Placement Strategy',
+          href: '/vc-placements',
+          icon: Briefcase,
+          description: 'Strategic Placement Analytics'
+        },
+        {
+          name: 'Research Leadership',
+          href: '/vc-research',
+          icon: BookOpen,
+          description: 'Research & Innovation Strategy'
+        },
+        {
           name: 'Strategic Analytics',
           href: '/management',
           icon: BarChart3,
@@ -144,6 +180,30 @@ const getRoleNavigation = (role: string) => {
           href: '/academics',
           icon: GraduationCap,
           description: 'Grades & Performance'
+        },
+        {
+          name: 'Attendance View',
+          href: '/attendance',
+          icon: QrCode,
+          description: 'Attendance Records'
+        },
+        {
+          name: 'Fee Payments',
+          href: '/parent-fees',
+          icon: DollarSign,
+          description: 'Payment History'
+        },
+        {
+          name: 'Placement Updates',
+          href: '/student-placements',
+          icon: Briefcase,
+          description: 'Child Placement Status'
+        },
+        {
+          name: 'Parent Communication',
+          href: '/grievances',
+          icon: MessageSquare,
+          description: 'Faculty Messages'
         }
       ];
 
@@ -157,10 +217,34 @@ const getRoleNavigation = (role: string) => {
           description: 'Professional Profile'
         },
         {
+          name: 'Career Network',
+          href: '/alumni-career-network',
+          icon: Users,
+          description: 'Professional Network'
+        },
+        {
           name: 'Mentorship Program',
-          href: '/academics',
+          href: '/alumni-mentorship',
           icon: GraduationCap,
           description: 'Guide Students'
+        },
+        {
+          name: 'Placement Portal',
+          href: '/student-placements',
+          icon: Briefcase,
+          description: 'Industry Opportunities'
+        },
+        {
+          name: 'Alumni Contributions',
+          href: '/alumni-contributions',
+          icon: DollarSign,
+          description: 'Support University'
+        },
+        {
+          name: 'University Updates',
+          href: '/alumni-news-events',
+          icon: Library,
+          description: 'News & Events'
         }
       ];
     
@@ -234,10 +318,22 @@ const getRoleNavigation = (role: string) => {
           description: 'Voice Concerns'
         },
         {
+          name: 'LMS',
+          href: '/lms',
+          icon: FileText,
+          description: 'Learning Management'
+        },
+        {
           name: 'Library',
           href: '/library',
           icon: Library,
           description: 'Books & Resources'
+        },
+        {
+          name: 'Student Clubs',
+          href: '/student-clubs',
+          icon: Users,
+          description: 'Campus Organizations'
         }
       ];
   }
