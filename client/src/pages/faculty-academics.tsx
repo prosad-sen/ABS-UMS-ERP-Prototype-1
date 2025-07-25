@@ -487,19 +487,19 @@ export default function FacultyAcademics() {
             {selectedCourse && (
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="text-center p-4 bg-blue-50 rounded-lg">
-                  <p className="text-2xl font-bold text-blue-600">{selectedCourse.classAverage}</p>
+                  <p className="text-2xl font-bold text-blue-600">{(selectedCourse as any).classAverage}</p>
                   <p className="text-sm text-gray-600">Class Average</p>
                 </div>
                 <div className="text-center p-4 bg-green-50 rounded-lg">
-                  <p className="text-2xl font-bold text-green-600">{selectedCourse.attendance}%</p>
+                  <p className="text-2xl font-bold text-green-600">{(selectedCourse as any).attendance}%</p>
                   <p className="text-sm text-gray-600">Attendance Rate</p>
                 </div>
                 <div className="text-center p-4 bg-orange-50 rounded-lg">
-                  <p className="text-2xl font-bold text-orange-600">{selectedCourse.assignments.submitted}</p>
+                  <p className="text-2xl font-bold text-orange-600">{(selectedCourse as any).assignments.submitted}</p>
                   <p className="text-sm text-gray-600">Submitted Assignments</p>
                 </div>
                 <div className="text-center p-4 bg-purple-50 rounded-lg">
-                  <p className="text-2xl font-bold text-purple-600">{selectedCourse.topPerformer}</p>
+                  <p className="text-2xl font-bold text-purple-600">{(selectedCourse as any).topPerformer}</p>
                   <p className="text-sm text-gray-600">Top Performer</p>
                 </div>
               </div>

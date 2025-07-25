@@ -37,6 +37,8 @@ import FacultyProfile from "@/pages/faculty-profile";
 import AdminStudentRecords from "@/pages/admin-student-records";
 import AdminAcademics from "@/pages/admin-academics";
 import AlumniProfile from "@/pages/alumni-profile";
+import FacultyAcademics from "@/pages/faculty-academics";
+import StudentExamManagement from "@/pages/student-exam-management";
 
 import MainLayout from "@/components/layout/main-layout";
 
@@ -104,7 +106,17 @@ function Router() {
         <Route path="/parent-fees" component={ParentFees} />
         <Route path="/student-clubs" component={StudentClubs} />
         <Route path="/student-placements" component={StudentPlacements} />
-        <Route path="/academics" component={Academics} />
+        <Route path="/academics" component={() => {
+          const userRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole') || "student";
+          
+          switch (userRole?.toLowerCase()) {
+            case 'faculty':
+              return <FacultyAcademics />; // Faculty version
+            case 'student':
+            default:
+              return <Academics />; // Student version
+          }
+        }} />
         <Route path="/fees" component={Fees} />
         <Route path="/lms" component={LMS} />
         <Route path="/library" component={Library} />
@@ -114,7 +126,21 @@ function Router() {
         <Route path="/reports" component={CustomizedReports} />
         <Route path="/research" component={ResearchManagement} />
         <Route path="/grading" component={GradeManagement} />
-        <Route path="/exam-management" component={ExamManagement} />
+        <Route path="/exam-management" component={() => {
+          const userRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole') || "student";
+          
+          switch (userRole?.toLowerCase()) {
+            case 'faculty':
+              return <ExamManagement />; // Faculty version
+            case 'admin':
+            case 'administrator':
+            case 'registrar':
+              return <ExamManagement />; // Admin version
+            case 'student':
+            default:
+              return <StudentExamManagement />; // Student version
+          }
+        }} />
         <Route path="/hostel-management" component={HostelManagement} />
         <Route path="/transport-management" component={TransportManagement} />
         <Route path="/profile" component={() => {
