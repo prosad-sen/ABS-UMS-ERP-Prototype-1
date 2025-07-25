@@ -74,30 +74,8 @@ export default function RoleSelection() {
   ];
 
   const handleRoleAccess = (roleId: string) => {
-    // In production, this would redirect to authentication
-    // For development, we'll redirect to the role-specific dashboard
-    switch (roleId) {
-      case "student":
-        window.location.href = "/student-dashboard";
-        break;
-      case "faculty":
-        window.location.href = "/faculty-dashboard";
-        break;
-      case "admin":
-        window.location.href = "/admin-dashboard";
-        break;
-      case "vc":
-        window.location.href = "/vc-dashboard";
-        break;
-      case "parent":
-        window.location.href = "/parent-dashboard";
-        break;
-      case "alumni":
-        window.location.href = "/alumni-dashboard";
-        break;
-      default:
-        window.location.href = "/dashboard";
-    }
+    // Redirect to login page with selected role
+    window.location.href = `/login/${roleId}`;
   };
 
   return (

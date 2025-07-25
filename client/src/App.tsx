@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { useAuth } from "@/hooks/useAuth";
 import NotFound from "@/pages/not-found";
 import Landing from "@/pages/landing";
+import Login from "@/pages/login";
 import Dashboard from "@/pages/dashboard";
 import Attendance from "@/pages/attendance";
 import Academics from "@/pages/academics";
@@ -77,6 +78,9 @@ function Router() {
         <>
           <Route path="/" component={RoleSelection} />
           <Route path="/landing" component={Landing} />
+          <Route path="/login/:role">
+            {(props: any) => <Login selectedRole={props.params?.role || 'student'} />}
+          </Route>
           <MainLayout>
             <Route path="/dashboard" component={DashboardComponent} />
             <Route path="/student-dashboard" component={Dashboard} />
