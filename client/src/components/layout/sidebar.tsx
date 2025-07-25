@@ -8,7 +8,8 @@ import {
   GraduationCap, 
   Library, 
   QrCode, 
-  User 
+  User,
+  Cloud
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -48,6 +49,12 @@ const navigationItems = [
     href: '/lms',
     icon: FileText,
     description: 'Learning Management'
+  },
+  {
+    name: 'AWS Labs',
+    href: '/labs',
+    icon: Cloud,
+    description: 'Cloud Computing Labs'
   },
   {
     name: 'Library',

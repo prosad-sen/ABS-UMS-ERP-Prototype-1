@@ -13,6 +13,7 @@ import Fees from "@/pages/fees";
 import LMS from "@/pages/lms";
 import Library from "@/pages/library";
 import Profile from "@/pages/profile";
+import Labs from "@/pages/labs";
 import MainLayout from "@/components/layout/main-layout";
 
 function Router() {
@@ -46,6 +47,7 @@ function Router() {
             <Route path="/fees" component={Fees} />
             <Route path="/lms" component={LMS} />
             <Route path="/library" component={Library} />
+            <Route path="/labs" component={Labs} />
             <Route path="/profile" component={Profile} />
           </MainLayout>
         </>

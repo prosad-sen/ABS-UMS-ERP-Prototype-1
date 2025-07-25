@@ -10,6 +10,7 @@ import AchievementBadge from "@/components/gamification/achievement-badge";
 import ProgressRing from "@/components/gamification/progress-ring";
 import Leaderboard from "@/components/gamification/leaderboard";
 import AnimatedInfoSlider from "@/components/dashboard/animated-info-slider";
+import AWSLabSystem from "@/components/labs/aws-lab-system";
 import { 
   Trophy, 
   Target, 
@@ -25,7 +26,8 @@ import {
   Crown,
   Zap,
   Instagram,
-  Linkedin
+  Linkedin,
+  Server
 } from "lucide-react";
 
 export default function Dashboard() {
@@ -371,6 +373,13 @@ export default function Dashboard() {
               Pay Fees
             </Button>
             <Button 
+              className="w-full justify-start bg-orange-600 text-white hover:bg-orange-700"
+              onClick={() => window.location.href = '/labs'}
+            >
+              <Server className="h-4 w-4 mr-2" />
+              AWS Cloud Labs
+            </Button>
+            <Button 
               className="w-full justify-start bg-coep-blue text-white hover:bg-blue-700"
               onClick={() => setShowAIChat(true)}
             >
@@ -379,6 +388,9 @@ export default function Dashboard() {
             </Button>
           </CardContent>
         </Card>
+
+        {/* AWS Labs Widget */}
+        <AWSLabSystem compact={true} />
       </div>
 
       {/* AI Assistant Dialog */}
