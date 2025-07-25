@@ -39,6 +39,8 @@ import AdminAcademics from "@/pages/admin-academics";
 import AlumniProfile from "@/pages/alumni-profile";
 import FacultyAcademics from "@/pages/faculty-academics";
 import StudentExamManagement from "@/pages/student-exam-management";
+import VCAcademics from "@/pages/vc-academics";
+import VCFinances from "@/pages/vc-finances";
 
 import MainLayout from "@/components/layout/main-layout";
 
@@ -180,8 +182,8 @@ function Router() {
         
         {/* VC/Board specific pages */}
         <Route path="/vc-reports" component={CustomizedReports} />
-        <Route path="/vc-finances" component={Fees} />
-        <Route path="/vc-academics" component={Academics} />
+        <Route path="/vc-finances" component={VCFinances} />
+        <Route path="/vc-academics" component={VCAcademics} />
         <Route path="/vc-placements" component={StudentPlacements} />
         <Route path="/vc-research" component={ResearchManagement} />
       </MainLayout>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { Link } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { 
   Bell, 
   Menu,
@@ -19,7 +19,8 @@ import {
   Cloud,
   MessageSquare,
   User,
-  Briefcase
+  Briefcase,
+  Home
 } from 'lucide-react';
 
 // Import the same navigation logic from sidebar
@@ -243,6 +244,8 @@ const getRoleNavigation = (role: string) => {
 };
 
 export default function Header() {
+  const [, setLocation] = useLocation();
+  
   // Get role from localStorage
   const getUserRole = () => {
     const storedRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole');
@@ -262,8 +265,58 @@ export default function Header() {
     return 'Student';
   };
 
+  // Get role-specific profile data
+  const getRoleProfileData = () => {
+    const role = localStorage.getItem('userRole') || localStorage.getItem('selectedRole') || 'student';
+    
+    const profileData = {
+      student: {
+        name: "Rahul Sharma",
+        id: "2024001",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+      },
+      faculty: {
+        name: "Dr. Priya Patel",
+        id: "FAC001",
+        image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face"
+      },
+      admin: {
+        name: "Mr. Amit Kumar",
+        id: "ADM001",
+        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+      },
+      administrator: {
+        name: "Mr. Amit Kumar",
+        id: "ADM001",
+        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+      },
+      vc: {
+        name: "Dr. Rajesh Gupta",
+        id: "VC001",
+        image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=face"
+      },
+      parent: {
+        name: "Mrs. Sunita Sharma",
+        id: "PAR001",
+        image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
+      },
+      alumni: {
+        name: "Mr. Vikash Singh",
+        id: "ALU2018",
+        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face"
+      }
+    };
+    
+    return profileData[role as keyof typeof profileData] || profileData.student;
+  };
+
   const [currentRole, setCurrentRole] = useState(getUserRole());
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const profileData = getRoleProfileData();
+
+  const handleBackToMain = () => {
+    setLocation("/");
+  };
   
   // Get current role for navigation
   const getCurrentRole = () => {
@@ -312,8 +365,21 @@ export default function Header() {
         </button>
 
         <div className="flex-1 lg:flex-none">
-          <h1 className="text-lg lg:text-xl font-semibold text-gray-800">COEP UMS</h1>
-          <p className="text-xs lg:text-sm text-gray-600 hidden sm:block">College of Engineering Pune</p>
+          <div className="flex items-center space-x-2">
+            <div>
+              <h1 className="text-lg lg:text-xl font-semibold text-gray-800">COEP UMS</h1>
+              <p className="text-xs lg:text-sm text-gray-600 hidden sm:block">College of Engineering Pune</p>
+            </div>
+            <Button 
+              onClick={handleBackToMain}
+              variant="ghost" 
+              size="sm"
+              className="text-gray-600 hover:text-gray-900 hidden lg:flex"
+            >
+              <Home className="h-4 w-4 mr-1" />
+              Main
+            </Button>
+          </div>
         </div>
         
         <div className="flex items-center space-x-2 lg:space-x-4">
@@ -331,12 +397,12 @@ export default function Header() {
           
           <div className="flex items-center space-x-2">
             <Avatar className="h-8 w-8 lg:h-10 lg:w-10">
-              <AvatarImage src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User" />
-              <AvatarFallback>JD</AvatarFallback>
+              <AvatarImage src={profileData.image} alt={profileData.name} />
+              <AvatarFallback>{profileData.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
             </Avatar>
             <div className="hidden lg:block">
-              <p className="text-sm font-medium text-gray-700">John Doe</p>
-              <p className="text-xs text-gray-500">Student ID: 2024001</p>
+              <p className="text-sm font-medium text-gray-700">{profileData.name}</p>
+              <p className="text-xs text-gray-500">ID: {profileData.id}</p>
             </div>
           </div>
         </div>
@@ -346,6 +412,24 @@ export default function Header() {
       {isMobileMenuOpen && (
         <div className="lg:hidden bg-white border-t border-gray-200 px-4 py-3 max-h-80 overflow-y-auto">
           <div className="space-y-2">
+            {/* Back to Main Button for Mobile */}
+            <button
+              onClick={() => {
+                handleBackToMain();
+                setIsMobileMenuOpen(false);
+              }}
+              className="flex items-center px-3 py-2 text-gray-700 hover:bg-gray-100 rounded transition-colors w-full text-left"
+            >
+              <Home className="h-4 w-4 mr-3 text-gray-500" />
+              <div>
+                <div className="font-medium">Back to Main</div>
+                <div className="text-xs text-gray-500">Return to Landing Page</div>
+              </div>
+            </button>
+            
+            {/* Divider */}
+            <div className="border-t border-gray-200 my-2"></div>
+            
             {navigationItems.map((item) => (
               <Link
                 key={item.name}
