@@ -118,6 +118,24 @@ const getRoleNavigation = (role: string) => {
           description: 'Research & Innovation'
         },
         {
+          name: 'Exam Management',
+          href: '/exam-management',
+          icon: Calendar,
+          description: 'Examination System'
+        },
+        {
+          name: 'Hostel Management',
+          href: '/hostel-management',
+          icon: Users,
+          description: 'Hostel Administration'
+        },
+        {
+          name: 'Transport Management',
+          href: '/transport-management',
+          icon: BarChart3,
+          description: 'Campus Transportation'
+        },
+        {
           name: 'Management Dashboard',
           href: '/management',
           icon: BarChart3,
@@ -157,6 +175,24 @@ const getRoleNavigation = (role: string) => {
           href: '/research',
           icon: BookOpen,
           description: 'Research & Innovation'
+        },
+        {
+          name: 'Exam Management',
+          href: '/exam-management',
+          icon: Calendar,
+          description: 'Examination System'
+        },
+        {
+          name: 'Hostel Management',
+          href: '/hostel-management',
+          icon: Users,
+          description: 'Hostel Administration'
+        },
+        {
+          name: 'Transport Management',
+          href: '/transport-management',
+          icon: BarChart3,
+          description: 'Campus Transportation'
         },
         {
           name: 'Management Analytics',

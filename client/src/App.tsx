@@ -30,6 +30,9 @@ import StudentClubs from "@/pages/student-clubs";
 import StudentPlacements from "@/pages/student-placements";
 import ResearchManagement from "@/pages/research";
 import GradeManagement from "@/pages/grading";
+import ExamManagement from "@/pages/exam-management";
+import HostelManagement from "@/pages/hostel-management";
+import TransportManagement from "@/pages/transport-management";
 
 import MainLayout from "@/components/layout/main-layout";
 
@@ -107,6 +110,9 @@ function Router() {
         <Route path="/reports" component={CustomizedReports} />
         <Route path="/research" component={ResearchManagement} />
         <Route path="/grading" component={GradeManagement} />
+        <Route path="/exam-management" component={ExamManagement} />
+        <Route path="/hostel-management" component={HostelManagement} />
+        <Route path="/transport-management" component={TransportManagement} />
         <Route path="/profile" component={Profile} />
       </MainLayout>
       
