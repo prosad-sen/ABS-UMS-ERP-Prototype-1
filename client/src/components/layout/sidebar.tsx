@@ -27,45 +27,46 @@ const getRoleNavigation = (role: string) => {
     }
   ];
   
-  switch (role) {
+  // Force correct role-specific navigation
+  switch (role?.toLowerCase()) {
     case 'faculty':
       return [
         ...baseItems,
         {
-          name: 'My Courses',
-          href: '/academics',
+          name: 'Research Management',
+          href: '/research',
           icon: BookOpen,
-          description: 'Course Management'
+          description: 'Research Projects & Grants'
         },
         {
-          name: 'Student Progress',
+          name: 'Course Management',
+          href: '/academics',
+          icon: GraduationCap,
+          description: 'Courses & Curriculum'
+        },
+        {
+          name: 'Student Analytics',
           href: '/profile',
           icon: User,
-          description: 'Track Students'
+          description: 'Student Performance'
         },
         {
-          name: 'Attendance',
-          href: '/faculty-attendance',
-          icon: QrCode,
-          description: 'Mark Attendance'
-        },
-        {
-          name: 'Grading',
-          href: '/academics',
+          name: 'Grade Management',
+          href: '/grading',
           icon: FileText,
-          description: 'Grade Assignments'
+          description: 'Assignments & Grading'
         },
         {
           name: 'Faculty Resources',
           href: '/library',
           icon: Library,
-          description: 'Teaching Resources'
+          description: 'Research Resources'
         },
         {
-          name: 'Student Placements',
+          name: 'Placement Tracking',
           href: '/student-placements',
           icon: Briefcase,
-          description: 'Track Student Career Progress'
+          description: 'Student Career Progress'
         }
       ];
     
@@ -111,6 +112,12 @@ const getRoleNavigation = (role: string) => {
           description: 'University Placements'
         },
         {
+          name: 'Research Analytics',
+          href: '/research',
+          icon: BookOpen,
+          description: 'Research & Innovation'
+        },
+        {
           name: 'Management Dashboard',
           href: '/management',
           icon: BarChart3,
@@ -144,6 +151,12 @@ const getRoleNavigation = (role: string) => {
           href: '/student-placements',
           icon: Briefcase,
           description: 'Strategic Placement Analytics'
+        },
+        {
+          name: 'Research Excellence',
+          href: '/research',
+          icon: BookOpen,
+          description: 'Research & Innovation'
         },
         {
           name: 'Management Analytics',
@@ -307,15 +320,17 @@ export default function Sidebar() {
   
   // Get current role from localStorage (set during role selection)
   const getCurrentRole = () => {
-    const storedRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole');
-    if (storedRole) return storedRole;
-    
-    // Fallback: derive from URL for backward compatibility 
+    // First check URL-based role detection (most reliable)
     if (location.includes('faculty')) return 'faculty';
     if (location.includes('admin')) return 'admin';
     if (location.includes('vc')) return 'vc';
     if (location.includes('parent')) return 'parent';
     if (location.includes('alumni')) return 'alumni';
+    
+    // Then check localStorage
+    const storedRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole');
+    if (storedRole) return storedRole;
+    
     return 'student';
   };
   
