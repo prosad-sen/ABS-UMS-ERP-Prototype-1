@@ -1,228 +1,350 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useAuth } from "@/hooks/useAuth";
-import QRScanner from "@/components/qr-scanner";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { QrCode, Calendar, Clock, TrendingUp, CheckCircle, XCircle, AlertCircle } from "lucide-react";
 
 export default function Attendance() {
-  const { user } = useAuth();
-  const [showScanner, setShowScanner] = useState(false);
+  const [isScanning, setIsScanning] = useState(false);
 
-  const { data: attendance, isLoading } = useQuery({
-    queryKey: ["/api/attendance"],
-    enabled: !!user,
-  });
+  // Mock attendance data
+  const attendanceStats = {
+    overall: 87.5,
+    present: 98,
+    absent: 14,
+    total: 112,
+    streak: 7
+  };
 
-  const { data: attendanceStats } = useQuery({
-    queryKey: ["/api/attendance/stats"],
-    enabled: !!user,
-  });
+  const todayLectures = [
+    {
+      subject: "Data Structures",
+      code: "CS-101",
+      time: "9:00 AM - 10:30 AM",
+      instructor: "Dr. Priya Mehta",
+      room: "CS-101",
+      status: "open",
+      attended: false
+    },
+    {
+      subject: "Engineering Math",
+      code: "MATH-201", 
+      time: "11:00 AM - 12:30 PM",
+      instructor: "Prof. Rajesh Kumar",
+      room: "MATH-101",
+      status: "attended",
+      attended: true
+    },
+    {
+      subject: "Database Systems",
+      code: "CS-301",
+      time: "2:00 PM - 3:30 PM", 
+      instructor: "Dr. Sneha Patil",
+      room: "CS-102",
+      status: "upcoming",
+      attended: false
+    }
+  ];
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-center">
-          <div className="w-8 h-8 border-4 border-coep-blue border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading attendance...</p>
-        </div>
-      </div>
-    );
-  }
+  const subjectAttendance = [
+    {
+      subject: "Data Structures",
+      code: "CS-101",
+      percentage: 92,
+      present: 23,
+      total: 25,
+      status: "excellent"
+    },
+    {
+      subject: "Engineering Math", 
+      code: "MATH-201",
+      percentage: 76,
+      present: 19,
+      total: 25,
+      status: "warning"
+    },
+    {
+      subject: "Database Systems",
+      code: "CS-301", 
+      percentage: 88,
+      present: 22,
+      total: 25,
+      status: "good"
+    },
+    {
+      subject: "Computer Networks",
+      code: "CS-302",
+      percentage: 84,
+      present: 21,
+      total: 25, 
+      status: "good"
+    }
+  ];
+
+  const attendanceHistory = [
+    { date: "2024-03-15", subject: "Data Structures", status: "present", time: "9:00 AM" },
+    { date: "2024-03-15", subject: "Math", status: "present", time: "11:00 AM" },
+    { date: "2024-03-14", subject: "Database", status: "absent", time: "2:00 PM" },
+    { date: "2024-03-14", subject: "Networks", status: "present", time: "3:30 PM" },
+    { date: "2024-03-13", subject: "Data Structures", status: "present", time: "9:00 AM" }
+  ];
+
+  const handleQRScan = () => {
+    setIsScanning(true);
+    setTimeout(() => {
+      setIsScanning(false);
+      // Mock attendance marking
+    }, 3000);
+  };
 
   return (
-    <div className="space-y-6">
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">Attendance Management</h2>
-        <p className="text-gray-600">Scan QR codes to mark your attendance or view attendance records</p>
+    <div className="space-y-6 p-3 lg:p-6">
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
+        <div>
+          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">Attendance</h1>
+          <p className="text-gray-600">Track your class attendance and maintain academic requirements</p>
+        </div>
+        <Button onClick={handleQRScan} disabled={isScanning} className="bg-coep-blue hover:bg-blue-700">
+          <QrCode className="h-4 w-4 mr-2" />
+          {isScanning ? 'Scanning...' : 'Scan QR Code'}
+        </Button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        {/* QR Scanner */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg font-semibold text-gray-800">QR Code Scanner</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {showScanner ? (
-              <div className="space-y-4">
-                <QRScanner 
-                  onScan={(data) => {
-                    console.log("QR scanned:", data);
-                    setShowScanner(false);
-                  }}
-                  onError={(error) => {
-                    console.error("QR scan error:", error);
-                  }}
-                />
-                <Button 
-                  variant="outline" 
-                  onClick={() => setShowScanner(false)}
-                  className="w-full"
-                >
-                  Cancel Scanner
-                </Button>
-              </div>
-            ) : (
-              <div className="text-center">
-                <div className="w-64 h-64 bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                  <div className="text-center">
-                    <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M3 11h8V3H3v8zm2-6h4v4H5V5zM13 3v8h8V3h-8zm6 6h-4V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4z"/>
-                      <path d="M18 13h-2v2h2v-2zM20 15h-2v2h2v-2zM22 17h-2v2h2v-2zM16 15h-2v2h2v-2zM14 17h-2v2h2v-2z"/>
-                    </svg>
-                    <p className="text-gray-600 mb-4">Point camera at QR code</p>
-                    <Button 
-                      onClick={() => setShowScanner(true)}
-                      className="bg-coep-blue hover:bg-coep-light-blue"
-                    >
-                      <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                      </svg>
-                      Start Scanner
-                    </Button>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-500">Make sure the QR code displayed by your instructor is clearly visible</p>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
-        {/* Current Lecture Info */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg font-semibold text-gray-800">Current Lecture</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="bg-blue-50 p-4 rounded-lg">
-              <div className="flex items-center space-x-3 mb-3">
-                <div className="w-12 h-12 bg-coep-blue rounded-lg flex items-center justify-center">
-                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20 6h-2V4c0-1.1-.9-2-2-2s-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/>
-                  </svg>
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-800">Data Structures</p>
-                  <p className="text-sm text-gray-600">CS-101 • 9:00 AM - 10:30 AM</p>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-700">Instructor: Dr. Priya Mehta</p>
-                  <p className="text-sm text-gray-700">Room: CS-101</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-xs text-gray-500">Attendance Window</p>
-                  <p className="text-sm font-semibold text-success-green">Open (15 min left)</p>
-                </div>
+      {/* Current Lecture Alert */}
+      <Card className="border-l-4 border-l-green-500 bg-green-50">
+        <CardContent className="p-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <CheckCircle className="h-8 w-8 text-green-600" />
+              <div>
+                <h3 className="font-semibold text-green-800">Current Lecture</h3>
+                <p className="text-green-700">Data Structures - CS-101 • 9:00 AM - 10:30 AM</p>
+                <p className="text-sm text-green-600">Instructor: Dr. Priya Mehta • Room: CS-101</p>
               </div>
             </div>
-
-            {/* CCTV Photo Attendance */}
-            <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-              <h4 className="font-medium text-gray-800 mb-2">Photo Verification</h4>
-              <div className="flex items-center space-x-3">
-                <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
-                  <svg className="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-700">CCTV Photo captured</p>
-                  <p className="text-xs text-success-green">✓ Verified at 9:05 AM</p>
-                </div>
-              </div>
+            <div className="text-center">
+              <Badge className="bg-green-600 text-white mb-2">Open (15 min left)</Badge>
+              <p className="text-xs text-green-600">Attendance Window</p>
             </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Attendance Summary */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg font-semibold text-gray-800">Attendance Summary</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {/* Subject-wise Attendance */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <div className="flex items-center justify-between mb-2">
-                <p className="font-medium text-gray-800">Data Structures</p>
-                <span className="text-success-green font-semibold">92%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div className="bg-success-green h-2 rounded-full" style={{ width: '92%' }}></div>
-              </div>
-              <p className="text-xs text-gray-600 mt-1">23/25 classes attended</p>
-            </div>
-
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <div className="flex items-center justify-between mb-2">
-                <p className="font-medium text-gray-800">Engineering Math</p>
-                <span className="text-warning-amber font-semibold">76%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div className="bg-warning-amber h-2 rounded-full" style={{ width: '76%' }}></div>
-              </div>
-              <p className="text-xs text-gray-600 mt-1">19/25 classes attended</p>
-            </div>
-
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <div className="flex items-center justify-between mb-2">
-                <p className="font-medium text-gray-800">Computer Networks</p>
-                <span className="text-success-green font-semibold">88%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div className="bg-success-green h-2 rounded-full" style={{ width: '88%' }}></div>
-              </div>
-              <p className="text-xs text-gray-600 mt-1">22/25 classes attended</p>
-            </div>
-          </div>
-
-          {/* Recent Attendance */}
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Date</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Subject</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Time</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Status</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Method</th>
-                </tr>
-              </thead>
-              <tbody>
-                {attendance && attendance.length > 0 ? (
-                  attendance.slice(0, 10).map((record: any) => (
-                    <tr key={record.id} className="border-b border-gray-100">
-                      <td className="py-3 px-4">{new Date(record.date).toLocaleDateString()}</td>
-                      <td className="py-3 px-4">{record.course?.courseName || 'Unknown Course'}</td>
-                      <td className="py-3 px-4">{record.time || '-'}</td>
-                      <td className="py-3 px-4">
-                        <Badge 
-                          variant={record.status === 'present' ? 'default' : 'destructive'}
-                          className={record.status === 'present' ? 'bg-success-green' : ''}
-                        >
-                          {record.status}
-                        </Badge>
-                      </td>
-                      <td className="py-3 px-4">{record.method === 'qr' ? 'QR + Photo' : record.method}</td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan={5} className="py-8 text-center text-gray-500">
-                      No attendance records found
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
           </div>
         </CardContent>
       </Card>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6">
+        <Card>
+          <CardContent className="p-4 lg:p-6 text-center">
+            <TrendingUp className="h-8 w-8 lg:h-12 lg:w-12 mx-auto text-green-600 mb-2 lg:mb-4" />
+            <h3 className="text-xl lg:text-2xl font-bold text-gray-900">{attendanceStats.overall}%</h3>
+            <p className="text-sm text-gray-600">Overall Attendance</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4 lg:p-6 text-center">
+            <CheckCircle className="h-8 w-8 lg:h-12 lg:w-12 mx-auto text-blue-600 mb-2 lg:mb-4" />
+            <h3 className="text-xl lg:text-2xl font-bold text-gray-900">{attendanceStats.present}</h3>
+            <p className="text-sm text-gray-600">Classes Attended</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4 lg:p-6 text-center">
+            <XCircle className="h-8 w-8 lg:h-12 lg:w-12 mx-auto text-red-600 mb-2 lg:mb-4" />
+            <h3 className="text-xl lg:text-2xl font-bold text-gray-900">{attendanceStats.absent}</h3>
+            <p className="text-sm text-gray-600">Classes Missed</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4 lg:p-6 text-center">
+            <Calendar className="h-8 w-8 lg:h-12 lg:w-12 mx-auto text-orange-600 mb-2 lg:mb-4" />
+            <h3 className="text-xl lg:text-2xl font-bold text-gray-900">{attendanceStats.streak}</h3>
+            <p className="text-sm text-gray-600">Day Streak</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Tabs defaultValue="today" className="space-y-4">
+        <TabsList className="grid w-full grid-cols-4">
+          <TabsTrigger value="today">Today</TabsTrigger>
+          <TabsTrigger value="subjects">By Subject</TabsTrigger>
+          <TabsTrigger value="history">History</TabsTrigger>
+          <TabsTrigger value="qr">QR Scanner</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="today" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Today's Schedule - March 15, 2024</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {todayLectures.map((lecture, index) => (
+                <Card key={index} className={`border-l-4 ${
+                  lecture.status === 'attended' ? 'border-l-green-500 bg-green-50' :
+                  lecture.status === 'open' ? 'border-l-blue-500 bg-blue-50' :
+                  'border-l-gray-500 bg-gray-50'
+                }`}>
+                  <CardContent className="p-4">
+                    <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-2 lg:space-y-0">
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-lg">{lecture.subject} ({lecture.code})</h3>
+                        <p className="text-gray-600 text-sm">Instructor: {lecture.instructor}</p>
+                        <div className="flex items-center space-x-4 text-sm text-gray-600 mt-1">
+                          <span><Clock className="h-4 w-4 inline mr-1" />{lecture.time}</span>
+                          <span>Room: {lecture.room}</span>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        {lecture.status === 'attended' && (
+                          <Badge className="bg-green-600 text-white">
+                            <CheckCircle className="h-3 w-3 mr-1" />
+                            Attended
+                          </Badge>
+                        )}
+                        {lecture.status === 'open' && (
+                          <Badge className="bg-blue-600 text-white">
+                            <AlertCircle className="h-3 w-3 mr-1" />
+                            Open (15 min left)
+                          </Badge>
+                        )}
+                        {lecture.status === 'upcoming' && (
+                          <Badge variant="secondary">
+                            <Clock className="h-3 w-3 mr-1" />
+                            Upcoming
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="subjects" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Subject-wise Attendance</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {subjectAttendance.map((subject, index) => (
+                <div key={index} className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h4 className="font-medium">{subject.subject} ({subject.code})</h4>
+                      <p className="text-sm text-gray-600">{subject.present}/{subject.total} classes attended</p>
+                    </div>
+                    <div className="text-right">
+                      <span className={`text-2xl font-bold ${
+                        subject.status === 'excellent' ? 'text-green-600' :
+                        subject.status === 'warning' ? 'text-orange-600' :
+                        'text-blue-600'
+                      }`}>
+                        {subject.percentage}%
+                      </span>
+                      <Badge className={`ml-2 ${
+                        subject.status === 'excellent' ? 'bg-green-100 text-green-800' :
+                        subject.status === 'warning' ? 'bg-orange-100 text-orange-800' :
+                        'bg-blue-100 text-blue-800'
+                      }`}>
+                        {subject.status === 'excellent' ? 'Excellent' :
+                         subject.status === 'warning' ? 'Below 75%' : 'Good'}
+                      </Badge>
+                    </div>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div 
+                      className={`h-2 rounded-full transition-all duration-500 ${
+                        subject.status === 'excellent' ? 'bg-green-500' :
+                        subject.status === 'warning' ? 'bg-orange-500' :
+                        'bg-blue-500'
+                      }`}
+                      style={{ width: `${subject.percentage}%` }}
+                    ></div>
+                  </div>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="history" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Recent Attendance History</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {attendanceHistory.map((record, index) => (
+                  <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div className="flex items-center space-x-3">
+                      {record.status === 'present' ? (
+                        <CheckCircle className="h-5 w-5 text-green-600" />
+                      ) : (
+                        <XCircle className="h-5 w-5 text-red-600" />
+                      )}
+                      <div>
+                        <p className="font-medium">{record.subject}</p>
+                        <p className="text-sm text-gray-600">{record.date} • {record.time}</p>
+                      </div>
+                    </div>
+                    <Badge variant={record.status === 'present' ? 'default' : 'destructive'}>
+                      {record.status === 'present' ? 'Present' : 'Absent'}
+                    </Badge>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="qr" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>QR Code Attendance Scanner</CardTitle>
+              <p className="text-sm text-gray-600">
+                Scan the QR code displayed by your instructor to mark attendance
+              </p>
+            </CardHeader>
+            <CardContent className="text-center space-y-6">
+              <div className="w-64 h-64 mx-auto bg-gray-100 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300">
+                {isScanning ? (
+                  <div className="text-center">
+                    <div className="w-12 h-12 border-4 border-coep-blue border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-gray-600">Scanning QR Code...</p>
+                  </div>
+                ) : (
+                  <div className="text-center">
+                    <QrCode className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+                    <p className="text-gray-600">Click scan to activate camera</p>
+                  </div>
+                )}
+              </div>
+              
+              <div className="space-y-4">
+                <Button 
+                  onClick={handleQRScan} 
+                  disabled={isScanning}
+                  className="bg-coep-blue hover:bg-blue-700 px-8 py-3"
+                >
+                  <QrCode className="h-5 w-5 mr-2" />
+                  {isScanning ? 'Scanning...' : 'Start QR Scan'}
+                </Button>
+                
+                <div className="text-sm text-gray-600 space-y-2">
+                  <p><strong>Instructions:</strong></p>
+                  <ul className="text-left max-w-md mx-auto space-y-1">
+                    <li>• Make sure you're in the classroom during lecture time</li>
+                    <li>• Point your camera at the QR code on the instructor's screen</li>
+                    <li>• Keep the QR code within the scanner frame</li>
+                    <li>• Attendance will be marked automatically upon successful scan</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

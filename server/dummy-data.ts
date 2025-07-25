@@ -287,13 +287,24 @@ export async function seedDummyData() {
         const hasGraduated = yearsPassed >= 4;
         if (hasGraduated) currentSemester = 8;
         
-        // Create user record
+        // Create user record with Indian student profile images
+        const indianStudentImages = [
+          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+          'https://images.unsplash.com/photo-1494790108755-2616c728a018?w=150&h=150&fit=crop&crop=face',
+          'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face',
+          'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+          'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face',
+          'https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=150&h=150&fit=crop&crop=face',
+          'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&h=150&fit=crop&crop=face',
+          'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&crop=face'
+        ];
+        
         studentUsers.push({
           id: `student_${studentCounter}`,
           email: email,
           firstName: firstName,
           lastName: lastName,
-          profileImageUrl: `https://api.dicebear.com/7.x/avataaars/svg?seed=${firstName}${lastName}`,
+          profileImageUrl: indianStudentImages[studentCounter % indianStudentImages.length],
           role: 'student',
           createdAt: new Date(),
           updatedAt: new Date()

@@ -42,9 +42,7 @@ export default function Dashboard() {
     );
   }
 
-  const userName = user?.firstName 
-    ? `${user.firstName} ${user.lastName || ''}`.trim()
-    : user?.email?.split('@')[0] || 'Student';
+  const userName = 'Student';
 
   // Mock leaderboard data
   const leaderboardData = [
