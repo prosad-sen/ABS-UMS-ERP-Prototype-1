@@ -222,18 +222,79 @@ export async function handleAIChat(req: ChatRequest): Promise<ChatResponse> {
   } catch (error) {
     console.error('AI Chat Error:', error);
     
-    // Provide helpful error responses based on role
-    const fallbackResponses = {
-      student: "I'm having trouble accessing the AI system right now. For immediate academic support, please contact your faculty advisor or visit the academic resource center.",
-      faculty: "The AI teaching assistant is temporarily unavailable. Please check the faculty portal for alternative resources or contact IT support.",
-      admin: "AI analytics are currently offline. Please refer to the manual reporting dashboard or contact the system administrator.",
-      parent: "I'm experiencing technical difficulties. For urgent matters regarding your child's education, please contact the school directly.",
-      default: "I'm currently experiencing technical issues. Please try again later or connect with university support for assistance."
+    // Provide intelligent role-based responses even without OpenAI
+    const roleBasedResponses = {
+      student: getStudentResponse(req.message),
+      faculty: getFacultyResponse(req.message),
+      admin: getAdminResponse(req.message),
+      parent: getParentResponse(req.message),
+      alumni: getAlumniResponse(req.message),
+      vc: getVCResponse(req.message),
+      default: "I'm currently experiencing technical issues with the AI service. The system administrator has been notified. Please try again later or contact university support for assistance."
     };
 
     return {
-      response: fallbackResponses[req.userRole as keyof typeof fallbackResponses] || fallbackResponses.default,
+      response: roleBasedResponses[req.userRole as keyof typeof roleBasedResponses] || roleBasedResponses.default,
       type: 'text'
     };
   }
+}
+
+// Intelligent fallback responses for different roles
+function getStudentResponse(message: string): string {
+  const lowerMessage = message.toLowerCase();
+  
+  if (lowerMessage.includes('course') || lowerMessage.includes('subject') || lowerMessage.includes('recommend')) {
+    return "💡 **Course Guidance Available** \n\nWhile the AI assistant is temporarily offline, here are some helpful resources:\n\n• Visit the Academic Office for personalized course recommendations\n• Check the COEP Course Catalog for detailed program requirements\n• Consult with your faculty advisor during office hours\n• Use the Student Portal to view prerequisite requirements\n\n*The AI system will be back online soon with enhanced academic planning features.*";
+  }
+  
+  if (lowerMessage.includes('grade') || lowerMessage.includes('cgpa') || lowerMessage.includes('performance')) {
+    return "📊 **Academic Performance Insights** \n\nYour grade analysis is available through:\n\n• Student Dashboard - View current semester performance\n• Academic Records section - Track CGPA trends\n• Faculty feedback in individual course portals\n• Schedule a meeting with your academic counselor\n\n*AI-powered grade predictions and improvement suggestions will be available once the system is restored.*";
+  }
+  
+  if (lowerMessage.includes('placement') || lowerMessage.includes('job') || lowerMessage.includes('career')) {
+    return "🎯 **Career Development Support** \n\nWhile waiting for AI-powered career guidance:\n\n• Visit the Placement Cell for current job opportunities\n• Check your Placement Dashboard for interview schedules\n• Attend career workshops and skill development sessions\n• Connect with alumni through the networking portal\n\n*Advanced career matching and industry insights will resume with AI restoration.*";
+  }
+  
+  return "🎓 **Student Support Available** \n\nThe AI assistant is temporarily offline, but comprehensive support is still available:\n\n• Academic queries → Faculty Office Hours\n• Technical issues → IT Help Desk\n• Administrative matters → Student Services\n• Emergency support → 24/7 Campus Support\n\n*Enhanced AI features are being restored and will be available soon.*";
+}
+
+function getFacultyResponse(message: string): string {
+  const lowerMessage = message.toLowerCase();
+  
+  if (lowerMessage.includes('student') || lowerMessage.includes('grade') || lowerMessage.includes('performance')) {
+    return "👨‍🏫 **Teaching Analytics Available** \n\nWhile AI analytics are being restored:\n\n• Access individual student records through the Faculty Portal\n• Review assignment submissions and grades in Course Management\n• Use the built-in gradebook for performance tracking\n• Generate reports through the Manual Analytics section\n\n*AI-powered student risk identification and intervention suggestions will resume shortly.*";
+  }
+  
+  if (lowerMessage.includes('curriculum') || lowerMessage.includes('course') || lowerMessage.includes('syllabus')) {
+    return "📚 **Curriculum Development Support** \n\nResource alternatives while AI is offline:\n\n• Access curriculum templates in the Faculty Resource Center\n• Review peer feedback and course evaluations\n• Consult with the Academic Planning Committee\n• Use existing course analytics for improvement insights\n\n*Advanced curriculum optimization and learning outcome analysis will return with AI restoration.*";
+  }
+  
+  return "🔬 **Faculty Resources Available** \n\nThe AI teaching assistant is temporarily unavailable. Alternative support:\n\n• Faculty Portal → Manual analytics and reports\n• IT Support → Technical assistance for online tools\n• Academic Office → Curriculum and policy guidance\n• Peer Collaboration → Faculty discussion forums\n\n*Enhanced AI teaching tools are being restored and will be back online soon.*";
+}
+
+function getAdminResponse(message: string): string {
+  const lowerMessage = message.toLowerCase();
+  
+  if (lowerMessage.includes('analytics') || lowerMessage.includes('report') || lowerMessage.includes('data')) {
+    return "📈 **Administrative Analytics Available** \n\nWhile AI analytics are being restored:\n\n• Access manual reporting dashboard for current data\n• Review semester statistics through the Admin Portal\n• Generate custom reports using the Report Builder\n• Consult historical data through the Archive System\n\n*Predictive analytics and automated insights will resume with AI restoration.*";
+  }
+  
+  if (lowerMessage.includes('budget') || lowerMessage.includes('financial') || lowerMessage.includes('cost')) {
+    return "💰 **Financial Management Tools** \n\nBudget analysis alternatives:\n\n• Financial Dashboard → Current expenditure tracking\n• Budget Planning Module → Resource allocation tools\n• Accounting Department → Detailed financial reports\n• Board Reports → Executive financial summaries\n\n*AI-powered budget optimization and forecasting will be available once the system is restored.*";
+  }
+  
+  return "⚙️ **Administrative Support Available** \n\nAI decision support is temporarily offline. Available resources:\n\n• Management Dashboard → Key performance indicators\n• Manual Analytics → Department-wise reports\n• Policy Database → University regulations and procedures\n• Executive Reports → Strategic planning documents\n\n*Advanced AI analytics and strategic recommendations will resume shortly.*";
+}
+
+function getParentResponse(message: string): string {
+  return "👨‍👩‍👧‍👦 **Parent Portal Support** \n\nWhile the AI assistant is being restored:\n\n• View your child's academic progress in the Parent Dashboard\n• Check attendance records and fee payment status\n• Schedule meetings with faculty through the appointment system\n• Access important announcements and event notifications\n\n*AI-powered insights about your child's academic journey will be available soon.*";
+}
+
+function getAlumniResponse(message: string): string {
+  return "🎓 **Alumni Network Support** \n\nThe AI career assistant is temporarily offline. Available features:\n\n• Alumni Directory → Connect with fellow graduates\n• Job Board → Current career opportunities\n• Networking Events → Upcoming alumni gatherings\n• Mentorship Program → Guide current students\n\n*Enhanced AI-powered career matching and networking suggestions will resume shortly.*";
+}
+
+function getVCResponse(message: string): string {
+  return "🏛️ **Executive Decision Support** \n\nWhile AI strategic analytics are being restored:\n\n• Executive Dashboard → Key institutional metrics\n• Board Reports → Comprehensive performance summaries\n• Strategic Planning Module → Long-term goals and initiatives\n• Institutional Research → Data-driven insights\n\n*Advanced AI recommendations and predictive analytics for strategic decision-making will be available once the system is restored.*";
 }
