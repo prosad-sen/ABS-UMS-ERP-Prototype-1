@@ -34,6 +34,8 @@ import ExamManagement from "@/pages/exam-management";
 import HostelManagement from "@/pages/hostel-management";
 import TransportManagement from "@/pages/transport-management";
 import FacultyProfile from "@/pages/faculty-profile";
+import AdminStudentRecords from "@/pages/admin-student-records";
+import AdminAcademics from "@/pages/admin-academics";
 
 import MainLayout from "@/components/layout/main-layout";
 
@@ -119,6 +121,25 @@ function Router() {
           return userRole?.toLowerCase() === 'faculty' ? <FacultyProfile /> : <Profile />;
         }} />
         <Route path="/faculty-profile" component={FacultyProfile} />
+        
+        {/* Administrator/Registrar specific pages */}
+        <Route path="/admin-student-records" component={AdminStudentRecords} />
+        <Route path="/admin-academics" component={AdminAcademics} />
+        <Route path="/admin-fees" component={Fees} />
+        <Route path="/admin-reports" component={CustomizedReports} />
+        <Route path="/admin-grievances" component={Grievances} />
+        <Route path="/admin-placements" component={StudentPlacements} />
+        <Route path="/admin-research" component={ResearchManagement} />
+        <Route path="/admin-exam-management" component={ExamManagement} />
+        <Route path="/admin-hostel-management" component={HostelManagement} />
+        <Route path="/admin-transport-management" component={TransportManagement} />
+        
+        {/* VC/Board specific pages */}
+        <Route path="/vc-reports" component={CustomizedReports} />
+        <Route path="/vc-finances" component={Fees} />
+        <Route path="/vc-academics" component={Academics} />
+        <Route path="/vc-placements" component={StudentPlacements} />
+        <Route path="/vc-research" component={ResearchManagement} />
       </MainLayout>
       
       <Route component={NotFound} />

@@ -280,7 +280,7 @@ export default function Dashboard() {
 
       {/* Quick Stats Cards with Gamification */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6">
-        <Card className="relative overflow-hidden">
+        <Card className="relative overflow-hidden cursor-pointer hover:shadow-lg transition-all" onClick={() => window.location.href = '/attendance'}>
           <CardContent className="p-4 lg:p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -290,10 +290,14 @@ export default function Dashboard() {
               </div>
               <QrCode className="h-6 w-6 lg:h-8 lg:w-8 text-green-600" />
             </div>
+            <Button size="sm" className="w-full mt-3 bg-green-600 hover:bg-green-700">
+              <Eye className="h-3 w-3 mr-1" />
+              View Details
+            </Button>
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden">
+        <Card className="relative overflow-hidden cursor-pointer hover:shadow-lg transition-all" onClick={() => window.location.href = '/academics'}>
           <CardContent className="p-4 lg:p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -303,10 +307,14 @@ export default function Dashboard() {
               </div>
               <TrendingUp className="h-6 w-6 lg:h-8 lg:w-8 text-blue-600" />
             </div>
+            <Button size="sm" className="w-full mt-3 bg-blue-600 hover:bg-blue-700">
+              <BarChart3 className="h-3 w-3 mr-1" />
+              View Analytics
+            </Button>
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden">
+        <Card className="relative overflow-hidden cursor-pointer hover:shadow-lg transition-all" onClick={() => window.location.href = '/lms'}>
           <CardContent className="p-4 lg:p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -316,10 +324,14 @@ export default function Dashboard() {
               </div>
               <BookOpen className="h-6 w-6 lg:h-8 lg:w-8 text-orange-600" />
             </div>
+            <Button size="sm" className="w-full mt-3 bg-orange-600 hover:bg-orange-700">
+              <FileText className="h-3 w-3 mr-1" />
+              View LMS
+            </Button>
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden cursor-pointer hover:shadow-lg transition-shadow" onClick={() => window.location.href = '/student-placements'}>
+        <Card className="relative overflow-hidden cursor-pointer hover:shadow-lg transition-all" onClick={() => window.location.href = '/student-placements'}>
           <CardContent className="p-4 lg:p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -329,6 +341,10 @@ export default function Dashboard() {
               </div>
               <Briefcase className="h-6 w-6 lg:h-8 lg:w-8 text-green-600" />
             </div>
+            <Button size="sm" className="w-full mt-3 bg-green-600 hover:bg-green-700">
+              <Building className="h-3 w-3 mr-1" />
+              Placement Portal
+            </Button>
           </CardContent>
         </Card>
       </div>

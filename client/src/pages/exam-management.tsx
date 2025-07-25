@@ -20,7 +20,10 @@ import {
   Edit,
   Plus,
   Search,
-  Filter
+  Filter,
+  Upload,
+  Settings,
+  BarChart3
 } from "lucide-react";
 
 export default function ExamManagement() {
@@ -492,13 +495,13 @@ export default function ExamManagement() {
                 </CardContent>
               </Card>
 
-              {/* Question Bank */}
+              {/* Question Bank & Advanced Features */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Question Bank Statistics</CardTitle>
+                  <CardTitle>Question Bank & Advanced Features</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
                     <div className="text-center p-4 bg-blue-50 rounded-lg">
                       <p className="text-2xl font-bold text-blue-600">1,247</p>
                       <p className="text-sm text-gray-600">Total Questions</p>
@@ -514,6 +517,149 @@ export default function ExamManagement() {
                     <div className="text-center p-4 bg-orange-50 rounded-lg">
                       <p className="text-2xl font-bold text-orange-600">89%</p>
                       <p className="text-sm text-gray-600">Question Quality</p>
+                    </div>
+                  </div>
+                  
+                  {/* Advanced Features */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <h4 className="font-semibold text-gray-900">Question Paper Creation</h4>
+                      <div className="space-y-2">
+                        <Button variant="outline" className="w-full justify-start">
+                          <FileText className="h-4 w-4 mr-2" />
+                          AI-Powered Question Generation
+                        </Button>
+                        <Button variant="outline" className="w-full justify-start">
+                          <Edit className="h-4 w-4 mr-2" />
+                          Custom Question Builder
+                        </Button>
+                        <Button variant="outline" className="w-full justify-start">
+                          <Settings className="h-4 w-4 mr-2" />
+                          Difficulty Level Balancing
+                        </Button>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-3">
+                      <h4 className="font-semibold text-gray-900">Answer Sheet Processing</h4>
+                      <div className="space-y-2">
+                        <Button variant="outline" className="w-full justify-start">
+                          <Upload className="h-4 w-4 mr-2" />
+                          Bulk Answer Sheet Upload
+                        </Button>
+                        <Button variant="outline" className="w-full justify-start">
+                          <CheckCircle className="h-4 w-4 mr-2" />
+                          AI-Powered Auto Correction
+                        </Button>
+                        <Button variant="outline" className="w-full justify-start">
+                          <BarChart3 className="h-4 w-4 mr-2" />
+                          Automatic Results Generation
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Answer Sheet Correction System */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <CheckCircle className="h-5 w-5 mr-2 text-green-600" />
+                    Answer Sheet Correction & Upload System
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-6">
+                    {/* Upload Section */}
+                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                      <Upload className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Upload Answer Sheets</h3>
+                      <p className="text-gray-600 mb-4">Drag and drop PDF files or click to browse</p>
+                      <Button className="bg-blue-600 hover:bg-blue-700">
+                        <Upload className="h-4 w-4 mr-2" />
+                        Choose Files
+                      </Button>
+                    </div>
+                    
+                    {/* Processing Status */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-semibold text-yellow-800">Processing</p>
+                            <p className="text-sm text-yellow-600">45 sheets</p>
+                          </div>
+                          <Clock className="h-8 w-8 text-yellow-600" />
+                        </div>
+                      </div>
+                      
+                      <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-semibold text-green-800">Completed</p>
+                            <p className="text-sm text-green-600">156 sheets</p>
+                          </div>
+                          <CheckCircle className="h-8 w-8 text-green-600" />
+                        </div>
+                      </div>
+                      
+                      <div className="p-4 bg-red-50 rounded-lg border border-red-200">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-semibold text-red-800">Needs Review</p>
+                            <p className="text-sm text-red-600">12 sheets</p>
+                          </div>
+                          <AlertCircle className="h-8 w-8 text-red-600" />
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Auto-Correction Features */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <h4 className="font-semibold text-gray-900 mb-3">AI Correction Features</h4>
+                        <div className="space-y-2">
+                          <div className="flex items-center p-3 bg-blue-50 rounded">
+                            <CheckCircle className="h-5 w-5 text-blue-600 mr-3" />
+                            <span className="text-sm">Handwriting Recognition</span>
+                          </div>
+                          <div className="flex items-center p-3 bg-green-50 rounded">
+                            <CheckCircle className="h-5 w-5 text-green-600 mr-3" />
+                            <span className="text-sm">Multiple Choice Detection</span>
+                          </div>
+                          <div className="flex items-center p-3 bg-purple-50 rounded">
+                            <CheckCircle className="h-5 w-5 text-purple-600 mr-3" />
+                            <span className="text-sm">Mathematical Expression Analysis</span>
+                          </div>
+                          <div className="flex items-center p-3 bg-orange-50 rounded">
+                            <CheckCircle className="h-5 w-5 text-orange-600 mr-3" />
+                            <span className="text-sm">Plagiarism Detection</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <h4 className="font-semibold text-gray-900 mb-3">Results Generation</h4>
+                        <div className="space-y-2">
+                          <Button variant="outline" className="w-full justify-start">
+                            <BarChart3 className="h-4 w-4 mr-2" />
+                            Generate Grade Reports
+                          </Button>
+                          <Button variant="outline" className="w-full justify-start">
+                            <FileText className="h-4 w-4 mr-2" />
+                            Export Result Sheets
+                          </Button>
+                          <Button variant="outline" className="w-full justify-start">
+                            <Download className="h-4 w-4 mr-2" />
+                            Download Analytics
+                          </Button>
+                          <Button className="w-full bg-green-600 hover:bg-green-700">
+                            <CheckCircle className="h-4 w-4 mr-2" />
+                            Publish Results
+                          </Button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </CardContent>

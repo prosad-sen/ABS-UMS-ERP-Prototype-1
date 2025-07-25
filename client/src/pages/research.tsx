@@ -22,6 +22,10 @@ import {
 
 export default function ResearchManagement() {
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState("projects");
+  
+  // Get user role to customize content
+  const userRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole') || "student";
 
   const researchMetrics = {
     activeProjects: 47,
