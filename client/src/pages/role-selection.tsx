@@ -1,0 +1,267 @@
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { 
+  GraduationCap, 
+  Users, 
+  BookOpen, 
+  Trophy,
+  ChevronRight,
+  UserCheck,
+  Building,
+  Crown,
+  Heart,
+  Briefcase,
+  Calendar,
+  Award,
+  Star,
+  Globe
+} from "lucide-react";
+
+export default function RoleSelection() {
+  const [selectedRole, setSelectedRole] = useState("");
+
+  const userRoles = [
+    {
+      id: "student",
+      title: "Student Portal",
+      description: "Access courses, assignments, grades, and campus services",
+      icon: GraduationCap,
+      color: "bg-blue-600 hover:bg-blue-700",
+      features: ["Academic Records", "Attendance Tracking", "Fee Management", "AWS Labs", "Grievance System"]
+    },
+    {
+      id: "faculty",
+      title: "Faculty Dashboard",
+      description: "Manage courses, grade assignments, and track student progress",
+      icon: UserCheck,
+      color: "bg-green-600 hover:bg-green-700",
+      features: ["Course Management", "Grade Assignments", "Take Attendance", "Student Analytics", "Schedule Management"]
+    },
+    {
+      id: "admin",
+      title: "Administrator Portal",
+      description: "University-wide management and comprehensive analytics",
+      icon: Building,
+      color: "bg-purple-600 hover:bg-purple-700",
+      features: ["System Management", "Department Analytics", "Grievance Resolution", "Budget Tracking", "Reports"]
+    },
+    {
+      id: "vc",
+      title: "VC/Board Portal",
+      description: "Executive analytics and strategic decision support",
+      icon: Crown,
+      color: "bg-orange-600 hover:bg-orange-700",
+      features: ["Strategic Analytics", "Financial Overview", "Performance KPIs", "Competitive Analysis", "Governance"]
+    },
+    {
+      id: "parent",
+      title: "Parent Dashboard",
+      description: "Monitor your child's academic progress and activities",
+      icon: Heart,
+      color: "bg-red-600 hover:bg-red-700",
+      features: ["Academic Progress", "Attendance Monitor", "Fee Status", "Faculty Contact", "Event Calendar"]
+    },
+    {
+      id: "alumni",
+      title: "Alumni Network",
+      description: "Professional networking and university engagement",
+      icon: Briefcase,
+      color: "bg-teal-600 hover:bg-teal-700",
+      features: ["Job Opportunities", "Mentorship", "Networking", "Donations", "Alumni Events"]
+    }
+  ];
+
+  const handleRoleAccess = (roleId: string) => {
+    // In production, this would redirect to authentication
+    // For development, we'll redirect to the role-specific dashboard
+    switch (roleId) {
+      case "student":
+        window.location.href = "/student-dashboard";
+        break;
+      case "faculty":
+        window.location.href = "/faculty-dashboard";
+        break;
+      case "admin":
+        window.location.href = "/admin-dashboard";
+        break;
+      case "vc":
+        window.location.href = "/vc-dashboard";
+        break;
+      case "parent":
+        window.location.href = "/parent-dashboard";
+        break;
+      case "alumni":
+        window.location.href = "/alumni-dashboard";
+        break;
+      default:
+        window.location.href = "/dashboard";
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      {/* Header */}
+      <div className="bg-white shadow-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="text-center">
+            <div className="flex items-center justify-center mb-4">
+              <GraduationCap className="h-12 w-12 text-blue-600 mr-4" />
+              <div>
+                <h1 className="text-4xl font-bold text-gray-900">COEP Technological University</h1>
+                <p className="text-lg text-gray-600">University Management System</p>
+              </div>
+            </div>
+            <div className="flex justify-center space-x-2">
+              <Badge className="bg-green-100 text-green-800">NAAC A+</Badge>
+              <Badge className="bg-blue-100 text-blue-800">Est. 1854</Badge>
+              <Badge className="bg-purple-100 text-purple-800">8,500+ Students</Badge>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Choose Your Portal</h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Access your personalized dashboard with role-specific features and comprehensive analytics
+          </p>
+        </div>
+
+        {/* Role Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+          {userRoles.map((role) => {
+            const IconComponent = role.icon;
+            return (
+              <Card key={role.id} className="relative hover:shadow-xl transition-all duration-300 border-2 hover:border-blue-300">
+                <CardHeader className="text-center">
+                  <div className={`w-16 h-16 ${role.color} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                    <IconComponent className="h-8 w-8 text-white" />
+                  </div>
+                  <CardTitle className="text-xl font-bold">{role.title}</CardTitle>
+                  <p className="text-gray-600">{role.description}</p>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2 mb-6">
+                    {role.features.map((feature, index) => (
+                      <div key={index} className="flex items-center text-sm text-gray-700">
+                        <ChevronRight className="h-4 w-4 text-green-600 mr-2" />
+                        {feature}
+                      </div>
+                    ))}
+                  </div>
+                  <Button 
+                    className={`w-full ${role.color} text-white`}
+                    onClick={() => handleRoleAccess(role.id)}
+                  >
+                    Access {role.title}
+                  </Button>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+
+        {/* University Stats */}
+        <div className="bg-white rounded-lg shadow-lg p-8 mb-12">
+          <h3 className="text-2xl font-bold text-center mb-8">University Excellence</h3>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-blue-600 mb-2">8,500+</div>
+              <div className="text-gray-600">Students</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-green-600 mb-2">380+</div>
+              <div className="text-gray-600">Faculty & Staff</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-purple-600 mb-2">94%</div>
+              <div className="text-gray-600">Placement Rate</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-orange-600 mb-2">₹15.2L</div>
+              <div className="text-gray-600">Avg. Package</div>
+            </div>
+          </div>
+        </div>
+
+        {/* System Features */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Trophy className="h-6 w-6 text-yellow-600 mr-2" />
+                Key Features
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <div className="flex items-center">
+                  <Star className="h-4 w-4 text-yellow-500 mr-2" />
+                  <span className="text-sm">AI-Powered Student Assistance</span>
+                </div>
+                <div className="flex items-center">
+                  <Star className="h-4 w-4 text-yellow-500 mr-2" />
+                  <span className="text-sm">AWS Cloud Labs Integration</span>
+                </div>
+                <div className="flex items-center">
+                  <Star className="h-4 w-4 text-yellow-500 mr-2" />
+                  <span className="text-sm">QR Code Attendance System</span>
+                </div>
+                <div className="flex items-center">
+                  <Star className="h-4 w-4 text-yellow-500 mr-2" />
+                  <span className="text-sm">Comprehensive Analytics Dashboard</span>
+                </div>
+                <div className="flex items-center">
+                  <Star className="h-4 w-4 text-yellow-500 mr-2" />
+                  <span className="text-sm">Student Grievance & Feedback System</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Globe className="h-6 w-6 text-blue-600 mr-2" />
+                System Information
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div>
+                  <div className="text-sm font-medium text-gray-700">Last Updated</div>
+                  <div className="text-sm text-gray-600">March 2024</div>
+                </div>
+                <div>
+                  <div className="text-sm font-medium text-gray-700">System Status</div>
+                  <Badge className="bg-green-100 text-green-800">All Systems Operational</Badge>
+                </div>
+                <div>
+                  <div className="text-sm font-medium text-gray-700">Support</div>
+                  <div className="text-sm text-gray-600">24/7 Technical Support</div>
+                </div>
+                <div>
+                  <div className="text-sm font-medium text-gray-700">Platform</div>
+                  <div className="text-sm text-gray-600">Multi-device Responsive</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="bg-gray-800 text-white py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-gray-300">
+            © 2024 COEP Technological University. All rights reserved. | University Management System
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -16,13 +16,47 @@ import Profile from "@/pages/profile";
 import Labs from "@/pages/labs";
 import Grievances from "@/pages/grievances";
 import ManagementDashboard from "@/pages/management-dashboard";
+import FacultyDashboard from "@/pages/faculty-dashboard";
+import AdminDashboard from "@/pages/admin-dashboard";
+import VCDashboard from "@/pages/vc-dashboard";
+import ParentDashboard from "@/pages/parent-dashboard";
+import AlumniDashboard from "@/pages/alumni-dashboard";
+import RoleSelection from "@/pages/role-selection";
+import CustomizedReports from "@/pages/customized-reports";
+
 import MainLayout from "@/components/layout/main-layout";
 
 function Router() {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading, user } = useAuth();
 
   // Development mode: bypass authentication to show full app
   const developmentMode = true;
+
+  // Role-based dashboard routing
+  const getRoleDashboard = (userRole: string) => {
+    switch (userRole?.toLowerCase()) {
+      case 'faculty':
+        return FacultyDashboard;
+      case 'administrator':
+      case 'admin':
+        return AdminDashboard;
+      case 'vc':
+      case 'board':
+      case 'board-member':
+        return VCDashboard;
+      case 'parent':
+        return ParentDashboard;
+      case 'alumni':
+        return AlumniDashboard;
+      case 'student':
+      default:
+        return Dashboard;
+    }
+  };
+
+  // Mock user role for development - in production this would come from authentication
+  const mockUserRole = "student"; // Change this to test different roles: student, faculty, admin, vc, parent, alumni
+  const DashboardComponent = mockUserRole ? getRoleDashboard(mockUserRole) : Dashboard;
 
   if (isLoading && !developmentMode) {
     return (
@@ -41,9 +75,16 @@ function Router() {
         <Route path="/" component={Landing} />
       ) : (
         <>
-          <Route path="/" component={Landing} />
+          <Route path="/" component={RoleSelection} />
+          <Route path="/landing" component={Landing} />
           <MainLayout>
-            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/dashboard" component={DashboardComponent} />
+            <Route path="/student-dashboard" component={Dashboard} />
+            <Route path="/faculty-dashboard" component={FacultyDashboard} />
+            <Route path="/admin-dashboard" component={AdminDashboard} />
+            <Route path="/vc-dashboard" component={VCDashboard} />
+            <Route path="/parent-dashboard" component={ParentDashboard} />
+            <Route path="/alumni-dashboard" component={AlumniDashboard} />
             <Route path="/attendance" component={Attendance} />
             <Route path="/academics" component={Academics} />
             <Route path="/fees" component={Fees} />
@@ -52,6 +93,7 @@ function Router() {
             <Route path="/labs" component={Labs} />
             <Route path="/grievances" component={Grievances} />
             <Route path="/management" component={ManagementDashboard} />
+            <Route path="/reports" component={CustomizedReports} />
             <Route path="/profile" component={Profile} />
           </MainLayout>
         </>
