@@ -844,14 +844,7 @@ export default function StudentPlacements() {
         </TabsContent>
       </Tabs>
 
-      {/* Detailed Stats Modal */}
-      <DetailedStatsModal
-        isOpen={showDetailModal}
-        onClose={() => setShowDetailModal(false)}
-        title={selectedDetailTitle}
-        type={selectedDetailType as any}
-        data={{}}
-      />
+      {/* Modal content can be added here when needed */}
     </div>
   );
 }
