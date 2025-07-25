@@ -30,7 +30,11 @@ import {
   Linkedin,
   Server,
   MessageSquare,
-  Briefcase
+  Briefcase,
+  Eye,
+  BarChart3,
+  FileText,
+  Building
 } from "lucide-react";
 
 export default function Dashboard() {
@@ -278,11 +282,11 @@ export default function Dashboard() {
         </Card>
       </div>
 
-      {/* Quick Stats Cards with Gamification */}
+      {/* Enhanced Quick Stats Cards with Drill-down */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6">
-        <Card className="relative overflow-hidden cursor-pointer hover:shadow-lg transition-all" onClick={() => window.location.href = '/attendance'}>
+        <Card className="relative overflow-hidden cursor-pointer hover:shadow-lg transition-all group" onClick={() => window.location.href = '/attendance'}>
           <CardContent className="p-4 lg:p-6">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-3">
               <div>
                 <p className="text-xs lg:text-sm font-medium text-gray-600">Attendance</p>
                 <p className="text-xl lg:text-2xl font-bold text-gray-800">85%</p>
@@ -290,16 +294,32 @@ export default function Dashboard() {
               </div>
               <QrCode className="h-6 w-6 lg:h-8 lg:w-8 text-green-600" />
             </div>
-            <Button size="sm" className="w-full mt-3 bg-green-600 hover:bg-green-700">
+            
+            {/* Mini Analytics Preview */}
+            <div className="space-y-1 mb-3">
+              <div className="flex justify-between text-xs text-gray-500">
+                <span>This Week</span>
+                <span className="text-green-600 font-medium">92%</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-1">
+                <div className="bg-green-600 h-1 rounded-full" style={{width: '92%'}}></div>
+              </div>
+              <div className="flex justify-between text-xs text-gray-500">
+                <span>Missed: 2 classes</span>
+                <span>Streak: 8 days</span>
+              </div>
+            </div>
+            
+            <Button size="sm" className="w-full bg-green-600 hover:bg-green-700 group-hover:bg-green-700">
               <Eye className="h-3 w-3 mr-1" />
-              View Details
+              View Analytics
             </Button>
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden cursor-pointer hover:shadow-lg transition-all" onClick={() => window.location.href = '/academics'}>
+        <Card className="relative overflow-hidden cursor-pointer hover:shadow-lg transition-all group" onClick={() => window.location.href = '/academics'}>
           <CardContent className="p-4 lg:p-6">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-3">
               <div>
                 <p className="text-xs lg:text-sm font-medium text-gray-600">CGPA</p>
                 <p className="text-xl lg:text-2xl font-bold text-gray-800">8.4</p>
@@ -307,16 +327,32 @@ export default function Dashboard() {
               </div>
               <TrendingUp className="h-6 w-6 lg:h-8 lg:w-8 text-blue-600" />
             </div>
-            <Button size="sm" className="w-full mt-3 bg-blue-600 hover:bg-blue-700">
+            
+            {/* Academic Performance Preview */}
+            <div className="space-y-1 mb-3">
+              <div className="flex justify-between text-xs text-gray-500">
+                <span>Current Sem</span>
+                <span className="text-blue-600 font-medium">8.7</span>
+              </div>
+              <div className="flex justify-between text-xs text-gray-500">
+                <span>Best: 9.2</span>
+                <span>Rank: 15/120</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-1">
+                <div className="bg-blue-600 h-1 rounded-full" style={{width: '84%'}}></div>
+              </div>
+            </div>
+            
+            <Button size="sm" className="w-full bg-blue-600 hover:bg-blue-700 group-hover:bg-blue-700">
               <BarChart3 className="h-3 w-3 mr-1" />
-              View Analytics
+              Grade Analysis
             </Button>
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden cursor-pointer hover:shadow-lg transition-all" onClick={() => window.location.href = '/lms'}>
+        <Card className="relative overflow-hidden cursor-pointer hover:shadow-lg transition-all group" onClick={() => window.location.href = '/lms'}>
           <CardContent className="p-4 lg:p-6">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-3">
               <div>
                 <p className="text-xs lg:text-sm font-medium text-gray-600">Assignments</p>
                 <p className="text-xl lg:text-2xl font-bold text-gray-800">12/15</p>
@@ -324,26 +360,58 @@ export default function Dashboard() {
               </div>
               <BookOpen className="h-6 w-6 lg:h-8 lg:w-8 text-orange-600" />
             </div>
-            <Button size="sm" className="w-full mt-3 bg-orange-600 hover:bg-orange-700">
+            
+            {/* Assignment Analytics Preview */}
+            <div className="space-y-1 mb-3">
+              <div className="flex justify-between text-xs text-gray-500">
+                <span>Due This Week</span>
+                <span className="text-orange-600 font-medium">3</span>
+              </div>
+              <div className="flex justify-between text-xs text-gray-500">
+                <span>Submitted</span>
+                <span>Pending</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-1">
+                <div className="bg-orange-600 h-1 rounded-full" style={{width: '80%'}}></div>
+              </div>
+            </div>
+            
+            <Button size="sm" className="w-full bg-orange-600 hover:bg-orange-700 group-hover:bg-orange-700">
               <FileText className="h-3 w-3 mr-1" />
-              View LMS
+              Assignment Hub
             </Button>
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden cursor-pointer hover:shadow-lg transition-all" onClick={() => window.location.href = '/student-placements'}>
+        <Card className="relative overflow-hidden cursor-pointer hover:shadow-lg transition-all group" onClick={() => window.location.href = '/student-placements'}>
           <CardContent className="p-4 lg:p-6">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-3">
               <div>
                 <p className="text-xs lg:text-sm font-medium text-gray-600">Placement Rate</p>
                 <p className="text-xl lg:text-2xl font-bold text-gray-800">87.3%</p>
-                <Badge className="bg-green-100 text-green-800 text-xs mt-1">View Details →</Badge>
+                <Badge className="bg-green-100 text-green-800 text-xs mt-1">Top Companies</Badge>
               </div>
               <Briefcase className="h-6 w-6 lg:h-8 lg:w-8 text-green-600" />
             </div>
-            <Button size="sm" className="w-full mt-3 bg-green-600 hover:bg-green-700">
-              <Building className="h-3 w-3 mr-1" />
-              Placement Portal
+            
+            {/* Placement Analytics Preview */}
+            <div className="space-y-1 mb-3">
+              <div className="flex justify-between text-xs text-gray-500">
+                <span>Highest Package</span>
+                <span className="text-green-600 font-medium">₹45 LPA</span>
+              </div>
+              <div className="flex justify-between text-xs text-gray-500">
+                <span>Average: ₹12.5 LPA</span>
+                <span>Offers: 423</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-1">
+                <div className="bg-green-600 h-1 rounded-full" style={{width: '87%'}}></div>
+              </div>
+            </div>
+            
+            <Button size="sm" className="w-full bg-green-600 hover:bg-green-700 group-hover:bg-green-700">
+              <TrendingUp className="h-3 w-3 mr-1" />
+              Career Portal
             </Button>
           </CardContent>
         </Card>

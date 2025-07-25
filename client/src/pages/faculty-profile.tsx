@@ -38,7 +38,7 @@ export default function FacultyProfile() {
     lastName: "Sharma",
     email: "priya.sharma@coeptech.ac.in",
     phone: "+91 9876543210",
-    profileImageUrl: "https://images.unsplash.com/photo-1494790108755-2616b612b5bc?w=150&h=150&fit=crop&crop=face",
+    profileImageUrl: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=150&h=150&fit=crop&crop=face",
     employeeId: "COEP-FAC-2019-045",
     designation: "Associate Professor",
     department: "Computer Science & Engineering",

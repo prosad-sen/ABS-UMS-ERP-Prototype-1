@@ -36,7 +36,7 @@ export default function AlumniProfile() {
     lastName: "Patel",
     email: "priya.patel@alumni.coep.ac.in",
     phone: "+91 9876543210",
-    profileImageUrl: "https://images.unsplash.com/photo-1494790108755-2616b25c7a98?w=150&h=150&fit=crop&crop=face",
+    profileImageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
     rollNumber: "2018045",
     program: "B.Tech",
     branch: "Computer Science & Engineering",
@@ -152,20 +152,20 @@ export default function AlumniProfile() {
 
         {/* Alumni Tabs */}
         <Tabs defaultValue="professional" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5 bg-white shadow-lg">
-            <TabsTrigger value="professional" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white">
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 bg-white shadow-lg gap-1">
+            <TabsTrigger value="professional" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white text-xs md:text-sm px-2 md:px-4">
               Professional
             </TabsTrigger>
-            <TabsTrigger value="achievements" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">
+            <TabsTrigger value="achievements" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white text-xs md:text-sm px-2 md:px-4">
               Achievements
             </TabsTrigger>
-            <TabsTrigger value="mentorship" className="data-[state=active]:bg-green-600 data-[state=active]:text-white">
+            <TabsTrigger value="mentorship" className="data-[state=active]:bg-green-600 data-[state=active]:text-white text-xs md:text-sm px-2 md:px-4">
               Mentorship
             </TabsTrigger>
-            <TabsTrigger value="contributions" className="data-[state=active]:bg-orange-600 data-[state=active]:text-white">
+            <TabsTrigger value="contributions" className="data-[state=active]:bg-orange-600 data-[state=active]:text-white text-xs md:text-sm px-2 md:px-4">
               Contributions
             </TabsTrigger>
-            <TabsTrigger value="personal" className="data-[state=active]:bg-pink-600 data-[state=active]:text-white">
+            <TabsTrigger value="personal" className="data-[state=active]:bg-pink-600 data-[state=active]:text-white text-xs md:text-sm px-2 md:px-4 col-span-2 md:col-span-1">
               Personal
             </TabsTrigger>
           </TabsList>

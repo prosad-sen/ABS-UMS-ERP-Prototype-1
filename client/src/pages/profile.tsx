@@ -27,6 +27,8 @@ import {
 
 export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
+  
+  console.log('Profile component rendering for student');
 
   // Mock student data - in real app this would come from API
   const studentData = {
