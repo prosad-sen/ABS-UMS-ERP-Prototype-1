@@ -72,36 +72,35 @@ function Router() {
 
   return (
     <Switch>
-      {(!isAuthenticated && !developmentMode) ? (
-        <Route path="/" component={Landing} />
-      ) : (
-        <>
-          <Route path="/" component={RoleSelection} />
-          <Route path="/landing" component={Landing} />
-          <Route path="/login/:role">
-            {(props: any) => <Login selectedRole={props.params?.role || 'student'} />}
-          </Route>
-          <MainLayout>
-            <Route path="/dashboard" component={DashboardComponent} />
-            <Route path="/student-dashboard" component={Dashboard} />
-            <Route path="/faculty-dashboard" component={FacultyDashboard} />
-            <Route path="/admin-dashboard" component={AdminDashboard} />
-            <Route path="/vc-dashboard" component={VCDashboard} />
-            <Route path="/parent-dashboard" component={ParentDashboard} />
-            <Route path="/alumni-dashboard" component={AlumniDashboard} />
-            <Route path="/attendance" component={Attendance} />
-            <Route path="/academics" component={Academics} />
-            <Route path="/fees" component={Fees} />
-            <Route path="/lms" component={LMS} />
-            <Route path="/library" component={Library} />
-            <Route path="/labs" component={Labs} />
-            <Route path="/grievances" component={Grievances} />
-            <Route path="/management" component={ManagementDashboard} />
-            <Route path="/reports" component={CustomizedReports} />
-            <Route path="/profile" component={Profile} />
-          </MainLayout>
-        </>
-      )}
+      {/* Always show role selection and login for development */}
+      <Route path="/" component={RoleSelection} />
+      <Route path="/landing" component={Landing} />
+      <Route path="/login/:role">
+        {(props: any) => <Login selectedRole={props.params?.role || 'student'} />}
+      </Route>
+      
+      {/* Role-specific dashboards */}
+      <MainLayout>
+        <Route path="/student-dashboard" component={Dashboard} />
+        <Route path="/faculty-dashboard" component={FacultyDashboard} />
+        <Route path="/admin-dashboard" component={AdminDashboard} />
+        <Route path="/vc-dashboard" component={VCDashboard} />
+        <Route path="/parent-dashboard" component={ParentDashboard} />
+        <Route path="/alumni-dashboard" component={AlumniDashboard} />
+        
+        {/* Common pages */}
+        <Route path="/attendance" component={Attendance} />
+        <Route path="/academics" component={Academics} />
+        <Route path="/fees" component={Fees} />
+        <Route path="/lms" component={LMS} />
+        <Route path="/library" component={Library} />
+        <Route path="/labs" component={Labs} />
+        <Route path="/grievances" component={Grievances} />
+        <Route path="/management" component={ManagementDashboard} />
+        <Route path="/reports" component={CustomizedReports} />
+        <Route path="/profile" component={Profile} />
+      </MainLayout>
+      
       <Route component={NotFound} />
     </Switch>
   );
