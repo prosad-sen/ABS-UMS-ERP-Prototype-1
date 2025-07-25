@@ -95,7 +95,7 @@ export default function Login({ selectedRole }: LoginProps) {
 
     // Redirect to appropriate dashboard based on role
     const dashboardRoutes = {
-      student: "/dashboard",
+      student: "/student-dashboard",
       faculty: "/faculty-dashboard",
       admin: "/admin-dashboard", 
       vc: "/vc-dashboard",
@@ -103,7 +103,7 @@ export default function Login({ selectedRole }: LoginProps) {
       alumni: "/alumni-dashboard"
     };
 
-    setLocation(dashboardRoutes[selectedRole as keyof typeof dashboardRoutes] || "/dashboard");
+    setLocation(dashboardRoutes[selectedRole as keyof typeof dashboardRoutes] || "/student-dashboard");
     setIsLoading(false);
   };
 
