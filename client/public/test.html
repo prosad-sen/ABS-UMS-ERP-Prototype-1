@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COEP UMS Test</title>
+    <style>
+        body {
+            margin: 0; padding: 40px; font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            min-height: 100vh; color: white; text-align: center;
+        }
+        .container { background: rgba(255,255,255,0.95); color: #333; 
+            padding: 40px; border-radius: 20px; margin: 0 auto; max-width: 600px; }
+        h1 { color: #1e40af; margin-bottom: 30px; }
+        .success { background: #dcfce7; color: #16a34a; padding: 20px; 
+            border-radius: 10px; margin: 20px 0; font-weight: bold; }
+        button { background: #1e40af; color: white; border: none; 
+            padding: 15px 30px; border-radius: 10px; font-size: 16px; 
+            cursor: pointer; margin: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 COEP University Management System</h1>
+        <div class="success">✅ Application Successfully Loaded Through Replit Preview!</div>
+        <p><strong>College of Engineering, Pune</strong></p>
+        <p>This confirms that the Replit preview system is working correctly.</p>
+        <button onclick="window.location.href='/'">Go to Main Application</button>
+        <button onclick="alert('🎉 Interactive functionality confirmed!')">Test Interaction</button>
+        <p style="margin-top: 30px; font-size: 14px; color: #6b7280;">
+            Server Status: ✅ Online | Port: ${window.location.port || '5000'} | 
+            Time: <span id="time"></span>
+        </p>
+    </div>
+    <script>
+        document.getElementById('time').textContent = new Date().toLocaleString();
+        console.log('✅ COEP UMS: JavaScript is working correctly');
+    </script>
+</body>
+</html>

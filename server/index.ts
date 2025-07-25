@@ -67,5 +67,7 @@ app.use((req, res, next) => {
     reusePort: true,
   }, () => {
     log(`serving on port ${port}`);
+    log(`🌐 Access your application through Replit's Preview tab`);
+    log(`🔗 The preview window should show the COEP University Management System`);
   });
 })();
