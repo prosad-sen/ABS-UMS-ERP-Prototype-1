@@ -26,6 +26,8 @@ import RoleSelection from "@/pages/role-selection";
 import CustomizedReports from "@/pages/customized-reports";
 import FacultyAttendance from "@/pages/faculty-attendance";
 import ParentFees from "@/pages/parent-fees";
+import StudentClubs from "@/pages/student-clubs";
+import StudentPlacements from "@/pages/student-placements";
 
 import MainLayout from "@/components/layout/main-layout";
 
@@ -58,7 +60,7 @@ function Router() {
   };
 
   // Mock user role for development - in production this would come from authentication
-  const mockUserRole = "student"; // Change this to test different roles: student, faculty, admin, vc, parent, alumni
+  const mockUserRole = "alumni"; // Change this to test different roles: student, faculty, admin, vc, parent, alumni
   const DashboardComponent = mockUserRole ? getRoleDashboard(mockUserRole) : Dashboard;
 
   if (isLoading && !developmentMode) {
@@ -94,6 +96,8 @@ function Router() {
         <Route path="/attendance" component={Attendance} />
         <Route path="/faculty-attendance" component={FacultyAttendance} />
         <Route path="/parent-fees" component={ParentFees} />
+        <Route path="/student-clubs" component={StudentClubs} />
+        <Route path="/student-placements" component={StudentPlacements} />
         <Route path="/academics" component={Academics} />
         <Route path="/fees" component={Fees} />
         <Route path="/lms" component={LMS} />

@@ -62,6 +62,8 @@ const getRoleNavigation = (role: string) => {
       ];
     
     case 'admin':
+    case 'administrator':
+    case 'registrar':
       return [
         ...baseItems,
         {
@@ -69,6 +71,12 @@ const getRoleNavigation = (role: string) => {
           href: '/user-management',
           icon: User,
           description: 'Manage Users'
+        },
+        {
+          name: 'Placements',
+          href: '/admin-placements',
+          icon: GraduationCap,
+          description: 'Placement Management'
         },
         {
           name: 'System Analytics',
