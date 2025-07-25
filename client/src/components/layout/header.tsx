@@ -112,6 +112,30 @@ const getRoleNavigation = (role: string) => {
           description: 'Academic Programs & Curriculum'
         },
         {
+          name: 'Fee Administration',
+          href: '/admin-fees',
+          icon: DollarSign,
+          description: 'Financial Records & Billing'
+        },
+        {
+          name: 'System Reports',
+          href: '/admin-reports',
+          icon: FileText,
+          description: 'Administrative Reports'
+        },
+        {
+          name: 'Grievance Management',
+          href: '/admin-grievances',
+          icon: MessageSquare,
+          description: 'Handle Student Issues'
+        },
+        {
+          name: 'Placement Administration',
+          href: '/admin-placements',
+          icon: Briefcase,
+          description: 'Placement Coordination'
+        },
+        {
           name: 'Research Administration',
           href: '/admin-research',
           icon: BookOpen,
@@ -122,6 +146,24 @@ const getRoleNavigation = (role: string) => {
           href: '/admin-exam-management',
           icon: Calendar,
           description: 'Examination System Management'
+        },
+        {
+          name: 'Hostel Administration',
+          href: '/admin-hostel-management',
+          icon: Users,
+          description: 'Hostel Management & Operations'
+        },
+        {
+          name: 'Transport Administration',
+          href: '/admin-transport-management',
+          icon: BarChart3,
+          description: 'Campus Transportation Management'
+        },
+        {
+          name: 'Management Analytics',
+          href: '/management',
+          icon: BarChart3,
+          description: 'Strategic Analytics Dashboard'
         }
       ];
 

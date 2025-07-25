@@ -163,24 +163,6 @@ export default function RoleSelection() {
                   >
                     Enter {role.title}
                   </Button>
-                  {role.id === 'admin' && (
-                    <Button 
-                      variant="outline"
-                      className="w-full mt-2 text-sm"
-                      onClick={() => {
-                        alert('Direct admin test clicked!');
-                        console.log('Direct admin test clicked!');
-                        localStorage.setItem('selectedRole', 'admin');
-                        localStorage.setItem('userRole', 'admin');
-                        console.log('Role set, navigating to admin dashboard...');
-                        setTimeout(() => {
-                          window.location.href = "/admin-dashboard";
-                        }, 500);
-                      }}
-                    >
-                      🔧 Test Direct Access
-                    </Button>
-                  )}
                 </CardContent>
               </Card>
             );
