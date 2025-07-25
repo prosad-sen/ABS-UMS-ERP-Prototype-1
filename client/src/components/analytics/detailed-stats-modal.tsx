@@ -28,7 +28,7 @@ interface DetailedStatsModalProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
-  type: 'student-progress' | 'research-grant' | 'teaching-excellence' | 'system-performance' | 'budget-optimization' | 'global-ranking' | 'financial-performance' | 'mentorship' | 'network' | 'fundraising' | 'placements';
+  type: 'student-progress' | 'research-grant' | 'teaching-excellence' | 'system-performance' | 'budget-optimization' | 'global-ranking' | 'financial-performance' | 'mentorship' | 'network' | 'fundraising' | 'placements' | 'research-excellence' | 'industry-partnerships' | 'sustainability-leadership';
   data: any;
 }
 
@@ -803,6 +803,138 @@ export default function DetailedStatsModal({
                     </CardContent>
                   </Card>
                 ))}
+              </div>
+            </TabsContent>
+          </Tabs>
+        );
+
+      case 'research-excellence':
+        return (
+          <Tabs defaultValue="overview" className="space-y-4">
+            <TabsList className="grid grid-cols-2 sm:grid-cols-4 w-full text-xs sm:text-sm">
+              <TabsTrigger value="overview" className="px-2 py-1">Research Output</TabsTrigger>
+              <TabsTrigger value="patents" className="px-2 py-1">Patents & IP</TabsTrigger>
+              <TabsTrigger value="funding" className="px-2 py-1">Funding</TabsTrigger>
+              <TabsTrigger value="collaborations" className="px-2 py-1">Collaborations</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="overview" className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <Card className="bg-gradient-to-br from-purple-500 to-indigo-600 text-white">
+                  <CardContent className="p-4">
+                    <div className="text-center">
+                      <Trophy className="h-12 w-12 mx-auto mb-3" />
+                      <h3 className="text-3xl font-bold">67</h3>
+                      <p className="text-purple-100">Patents Published</p>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card className="bg-gradient-to-br from-green-500 to-emerald-600 text-white">
+                  <CardContent className="p-4">
+                    <div className="text-center">
+                      <DollarSign className="h-12 w-12 mx-auto mb-3" />
+                      <h3 className="text-3xl font-bold">₹12.3Cr</h3>
+                      <p className="text-green-100">Research Grants</p>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card className="bg-gradient-to-br from-blue-500 to-cyan-600 text-white">
+                  <CardContent className="p-4">
+                    <div className="text-center">
+                      <Building className="h-12 w-12 mx-auto mb-3" />
+                      <h3 className="text-3xl font-bold">245</h3>
+                      <p className="text-blue-100">Publications</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </TabsContent>
+          </Tabs>
+        );
+
+      case 'industry-partnerships':
+        return (
+          <Tabs defaultValue="overview" className="space-y-4">
+            <TabsList className="grid grid-cols-2 sm:grid-cols-4 w-full text-xs sm:text-sm">
+              <TabsTrigger value="overview" className="px-2 py-1">Partnership Overview</TabsTrigger>
+              <TabsTrigger value="companies" className="px-2 py-1">Top Partners</TabsTrigger>
+              <TabsTrigger value="placements" className="px-2 py-1">Placement Impact</TabsTrigger>
+              <TabsTrigger value="revenue" className="px-2 py-1">Revenue Streams</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="overview" className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <Card className="bg-gradient-to-br from-blue-500 to-cyan-600 text-white">
+                  <CardContent className="p-4">
+                    <div className="text-center">
+                      <Building className="h-12 w-12 mx-auto mb-3" />
+                      <h3 className="text-3xl font-bold">156</h3>
+                      <p className="text-blue-100">Industry Partners</p>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card className="bg-gradient-to-br from-green-500 to-emerald-600 text-white">
+                  <CardContent className="p-4">
+                    <div className="text-center">
+                      <Award className="h-12 w-12 mx-auto mb-3" />
+                      <h3 className="text-3xl font-bold">94.2%</h3>
+                      <p className="text-green-100">Placement Rate</p>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card className="bg-gradient-to-br from-purple-500 to-indigo-600 text-white">
+                  <CardContent className="p-4">
+                    <div className="text-center">
+                      <DollarSign className="h-12 w-12 mx-auto mb-3" />
+                      <h3 className="text-3xl font-bold">₹15.2L</h3>
+                      <p className="text-purple-100">Avg Package</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </TabsContent>
+          </Tabs>
+        );
+
+      case 'sustainability-leadership':
+        return (
+          <Tabs defaultValue="overview" className="space-y-4">
+            <TabsList className="grid grid-cols-2 sm:grid-cols-4 w-full text-xs sm:text-sm">
+              <TabsTrigger value="overview" className="px-2 py-1">Green Metrics</TabsTrigger>
+              <TabsTrigger value="energy" className="px-2 py-1">Energy Efficiency</TabsTrigger>
+              <TabsTrigger value="waste" className="px-2 py-1">Waste Management</TabsTrigger>
+              <TabsTrigger value="initiatives" className="px-2 py-1">Green Initiatives</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="overview" className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <Card className="bg-gradient-to-br from-green-500 to-emerald-600 text-white">
+                  <CardContent className="p-4">
+                    <div className="text-center">
+                      <Award className="h-12 w-12 mx-auto mb-3" />
+                      <h3 className="text-3xl font-bold">85%</h3>
+                      <p className="text-green-100">Sustainability Score</p>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card className="bg-gradient-to-br from-blue-500 to-cyan-600 text-white">
+                  <CardContent className="p-4">
+                    <div className="text-center">
+                      <DollarSign className="h-12 w-12 mx-auto mb-3" />
+                      <h3 className="text-3xl font-bold">₹1.2Cr</h3>
+                      <p className="text-blue-100">Energy Savings</p>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card className="bg-gradient-to-br from-orange-500 to-red-600 text-white">
+                  <CardContent className="p-4">
+                    <div className="text-center">
+                      <TrendingDown className="h-12 w-12 mx-auto mb-3" />
+                      <h3 className="text-3xl font-bold">34%</h3>
+                      <p className="text-orange-100">Carbon Reduction</p>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             </TabsContent>
           </Tabs>

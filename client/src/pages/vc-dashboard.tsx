@@ -82,7 +82,25 @@ export default function VCDashboard() {
       color: "text-purple-600",
       bgColor: "bg-gradient-to-r from-purple-500 to-indigo-500",
       stats: { value: "67", label: "Patents Published", trend: "up" as const },
-      action: { label: "Research Portfolio", onClick: () => {} }
+      action: { label: "Research Portfolio", onClick: () => {
+        setSelectedDetailType("research-excellence");
+        setSelectedDetailTitle("Research & Innovation Leadership");
+        setShowDetailModal(true);
+      }}
+    },
+    {
+      id: "sustainability-leadership",
+      title: "Sustainability & Green Campus Initiative",
+      description: "COEP leads with 85% sustainability score. Solar power initiatives reduced energy costs by ₹1.2Cr annually. Carbon footprint reduced by 34% through green technology adoption.",
+      icon: Shield,
+      color: "text-green-600",
+      bgColor: "bg-gradient-to-r from-green-600 to-teal-600",
+      stats: { value: "85%", label: "Sustainability Score", trend: "up" as const },
+      action: { label: "Green Campus Report", onClick: () => {
+        setSelectedDetailType("sustainability-leadership");
+        setSelectedDetailTitle("Sustainability & Green Campus Initiative");
+        setShowDetailModal(true);
+      }}
     },
     {
       id: "industry-partnerships",
@@ -92,7 +110,11 @@ export default function VCDashboard() {
       color: "text-blue-600",
       bgColor: "bg-gradient-to-r from-blue-500 to-cyan-500",
       stats: { value: "156", label: "Industry Partners", trend: "up" as const },
-      action: { label: "Partnership Details", onClick: () => {} }
+      action: { label: "Partnership Details", onClick: () => {
+        setSelectedDetailType("industry-partnerships");
+        setSelectedDetailTitle("Strategic Industry Alliances");
+        setShowDetailModal(true);
+      }}
     }
   ];
 
@@ -176,7 +198,7 @@ export default function VCDashboard() {
               onClick={handleLogout}
               variant="outline"
               size="sm"
-              className="text-white border-white hover:bg-white hover:text-gray-900"
+              className="text-white border-white hover:bg-white hover:text-gray-900 bg-white/10 backdrop-blur-sm"
             >
               <Home className="h-4 w-4 mr-2" />
               Back to Main
