@@ -60,6 +60,12 @@ const getRoleNavigation = (role: string) => {
           href: '/faculty-schedule',
           icon: Calendar,
           description: 'Class Schedule'
+        },
+        {
+          name: 'Student Placements',
+          href: '/student-placements',
+          icon: Briefcase,
+          description: 'Track Student Career Progress'
         }
       ];
     
@@ -105,7 +111,7 @@ const getRoleNavigation = (role: string) => {
           description: 'Generate Reports'
         },
         {
-          name: 'Placement Stats',
+          name: 'Placement Analytics',
           href: '/student-placements',
           icon: Briefcase,
           description: 'University Placements'
@@ -120,6 +126,12 @@ const getRoleNavigation = (role: string) => {
           href: '/strategic-kpis',
           icon: BarChart3,
           description: 'Key Metrics'
+        },
+        {
+          name: 'Placement Excellence',
+          href: '/student-placements',
+          icon: Briefcase,
+          description: 'Strategic Placement Analytics'
         },
         {
           name: 'Financial Overview',
@@ -138,12 +150,6 @@ const getRoleNavigation = (role: string) => {
           href: '/board-reports',
           icon: FileText,
           description: 'Executive Reports'
-        },
-        {
-          name: 'Placement Analytics',
-          href: '/student-placements',
-          icon: Briefcase,
-          description: 'Strategic Placement Data'
         }
       ];
     
@@ -167,6 +173,12 @@ const getRoleNavigation = (role: string) => {
           href: '/parent-fees',
           icon: DollarSign,
           description: 'Payment History'
+        },
+        {
+          name: 'Placement Updates',
+          href: '/student-placements',
+          icon: Briefcase,
+          description: 'Child Placement Status'
         },
         {
           name: 'Communication',
@@ -196,6 +208,12 @@ const getRoleNavigation = (role: string) => {
           href: '/mentorship',
           icon: GraduationCap,
           description: 'Guide Students'
+        },
+        {
+          name: 'Placement Portal',
+          href: '/student-placements',
+          icon: Briefcase,
+          description: 'Industry Opportunities'
         },
         {
           name: 'Donations',
