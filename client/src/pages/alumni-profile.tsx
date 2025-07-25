@@ -32,9 +32,9 @@ export default function AlumniProfile() {
   // Alumni-specific data
   const alumniData = {
     id: "ALM20180045",
-    firstName: "Priya",
+    firstName: "Rajesh",
     lastName: "Patel",
-    email: "priya.patel@alumni.coep.ac.in",
+    email: "rajesh.patel@alumni.coep.ac.in",
     phone: "+91 9876543210",
     profileImageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
     rollNumber: "2018045",

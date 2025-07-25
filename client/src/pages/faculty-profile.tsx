@@ -34,11 +34,11 @@ export default function FacultyProfile() {
   // Faculty data - this would come from API based on authenticated faculty user
   const facultyData = {
     id: "COEP-FAC-2019-045",
-    firstName: "Dr. Priya",
-    lastName: "Sharma",
-    email: "priya.sharma@coeptech.ac.in",
+    firstName: "Prof. Amit",
+    lastName: "Kumar",
+    email: "amit.kumar@coeptech.ac.in",
     phone: "+91 9876543210",
-    profileImageUrl: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=150&h=150&fit=crop&crop=face",
+    profileImageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
     employeeId: "COEP-FAC-2019-045",
     designation: "Associate Professor",
     department: "Computer Science & Engineering",
