@@ -46,6 +46,7 @@ import AlumniCareerNetwork from "@/pages/alumni-career-network";
 import AlumniMentorship from "@/pages/alumni-mentorship";
 import AlumniContributions from "@/pages/alumni-contributions";
 import AlumniNewsEvents from "@/pages/alumni-news-events";
+import SimpleAdminTest from "@/pages/simple-admin-test";
 
 import MainLayout from "@/components/layout/main-layout";
 
@@ -125,6 +126,7 @@ function Router() {
           console.log('Registrar dashboard route accessed');
           return <AdminDashboard />;
         }} />
+        <Route path="/admin-test" component={SimpleAdminTest} />
         <Route path="/vc-dashboard" component={VCDashboard} />
         <Route path="/parent-dashboard" component={ParentDashboard} />
         <Route path="/alumni-dashboard" component={AlumniDashboard} />

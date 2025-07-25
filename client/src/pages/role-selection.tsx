@@ -168,10 +168,14 @@ export default function RoleSelection() {
                       variant="outline"
                       className="w-full mt-2 text-sm"
                       onClick={() => {
-                        console.log('Direct admin test');
+                        alert('Direct admin test clicked!');
+                        console.log('Direct admin test clicked!');
                         localStorage.setItem('selectedRole', 'admin');
                         localStorage.setItem('userRole', 'admin');
-                        window.location.href = "/admin-dashboard";
+                        console.log('Role set, navigating to admin dashboard...');
+                        setTimeout(() => {
+                          window.location.href = "/admin-dashboard";
+                        }, 500);
                       }}
                     >
                       🔧 Test Direct Access

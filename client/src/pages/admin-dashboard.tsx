@@ -32,7 +32,8 @@ import {
   Monitor,
   Database,
   Star,
-  Home
+  Home,
+  X
 } from "lucide-react";
 
 export default function AdminDashboard() {
