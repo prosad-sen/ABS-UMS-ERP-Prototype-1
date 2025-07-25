@@ -114,7 +114,10 @@ function Router() {
         <Route path="/exam-management" component={ExamManagement} />
         <Route path="/hostel-management" component={HostelManagement} />
         <Route path="/transport-management" component={TransportManagement} />
-        <Route path="/profile" component={Profile} />
+        <Route path="/profile" component={() => {
+          const userRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole') || "student";
+          return userRole?.toLowerCase() === 'faculty' ? <FacultyProfile /> : <Profile />;
+        }} />
         <Route path="/faculty-profile" component={FacultyProfile} />
       </MainLayout>
       
