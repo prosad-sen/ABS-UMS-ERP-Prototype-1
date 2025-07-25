@@ -472,21 +472,26 @@ export default function AdminDashboard() {
 
       {/* Comprehensive Analytics Modal */}
       <Dialog open={showDetailModal} onOpenChange={setShowDetailModal}>
-        <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="flex items-center space-x-2">
-              {selectedAnalytics?.type === "system-performance" && <><Activity className="h-6 w-6 text-green-600" /><span>System Performance Analytics</span></>}
-              {selectedAnalytics?.type === "budget-optimization" && <><DollarSign className="h-6 w-6 text-blue-600" /><span>Budget Optimization Details</span></>}
-              {selectedAnalytics?.type === "grievance-resolution" && <><CheckCircle className="h-6 w-6 text-purple-600" /><span>Grievance Resolution Analytics</span></>}
-              {selectedAnalytics?.type === "strategic-initiatives" && <><Target className="h-6 w-6 text-orange-600" /><span>Strategic Goals Dashboard</span></>}
-              {selectedAnalytics?.type === "students" && <><Users className="h-6 w-6 text-blue-600" /><span>Student Analytics Overview</span></>}
-              {selectedAnalytics?.type === "placements" && <><Briefcase className="h-6 w-6 text-green-600" /><span>Placement Analytics Dashboard</span></>}
-              {selectedAnalytics?.type === "satisfaction" && <><Award className="h-6 w-6 text-orange-600" /><span>Satisfaction Metrics Analysis</span></>}
-              {selectedAnalytics?.type === "budget" && <><DollarSign className="h-6 w-6 text-purple-600" /><span>Budget Utilization Breakdown</span></>}
-              {selectedAnalytics?.type === "manage-users" && <><Users className="h-6 w-6 text-blue-600" /><span>User Management Dashboard</span></>}
-              {selectedAnalytics?.type === "facilities" && <><Building className="h-6 w-6 text-green-600" /><span>Facilities Management Portal</span></>}
-              {selectedAnalytics?.type === "academic-calendar" && <><Calendar className="h-6 w-6 text-orange-600" /><span>Academic Calendar Management</span></>}
-              {selectedAnalytics?.type === "system-settings" && <><Settings className="h-6 w-6 text-purple-600" /><span>System Settings Dashboard</span></>}
+        <DialogContent className="w-[95vw] max-w-6xl h-[90vh] max-h-[90vh] overflow-y-auto p-2 sm:p-6">
+          <DialogHeader className="pb-3">
+            <DialogTitle className="flex items-center justify-between">
+              <div className="flex items-center space-x-2 truncate pr-2">
+                {selectedAnalytics?.type === "system-performance" && <><Activity className="h-6 w-6 text-green-600" /><span>System Performance Analytics</span></>}
+                {selectedAnalytics?.type === "budget-optimization" && <><DollarSign className="h-6 w-6 text-blue-600" /><span className="hidden sm:inline">Budget Optimization Details</span><span className="sm:hidden">Budget Details</span></>}
+                {selectedAnalytics?.type === "grievance-resolution" && <><CheckCircle className="h-6 w-6 text-purple-600" /><span className="hidden sm:inline">Grievance Resolution Analytics</span><span className="sm:hidden">Grievances</span></>}
+                {selectedAnalytics?.type === "strategic-initiatives" && <><Target className="h-6 w-6 text-orange-600" /><span className="hidden sm:inline">Strategic Goals Dashboard</span><span className="sm:hidden">Strategic Goals</span></>}
+                {selectedAnalytics?.type === "students" && <><Users className="h-6 w-6 text-blue-600" /><span className="hidden sm:inline">Student Analytics Overview</span><span className="sm:hidden">Students</span></>}
+                {selectedAnalytics?.type === "placements" && <><Briefcase className="h-6 w-6 text-green-600" /><span className="hidden sm:inline">Placement Analytics Dashboard</span><span className="sm:hidden">Placements</span></>}
+                {selectedAnalytics?.type === "satisfaction" && <><Award className="h-6 w-6 text-orange-600" /><span className="hidden sm:inline">Satisfaction Metrics Analysis</span><span className="sm:hidden">Satisfaction</span></>}
+                {selectedAnalytics?.type === "budget" && <><DollarSign className="h-6 w-6 text-purple-600" /><span className="hidden sm:inline">Budget Utilization Breakdown</span><span className="sm:hidden">Budget</span></>}
+                {selectedAnalytics?.type === "manage-users" && <><Users className="h-6 w-6 text-blue-600" /><span className="hidden sm:inline">User Management Dashboard</span><span className="sm:hidden">Users</span></>}
+                {selectedAnalytics?.type === "facilities" && <><Building className="h-6 w-6 text-green-600" /><span className="hidden sm:inline">Facilities Management Portal</span><span className="sm:hidden">Facilities</span></>}
+                {selectedAnalytics?.type === "academic-calendar" && <><Calendar className="h-6 w-6 text-orange-600" /><span className="hidden sm:inline">Academic Calendar Management</span><span className="sm:hidden">Calendar</span></>}
+                {selectedAnalytics?.type === "system-settings" && <><Settings className="h-6 w-6 text-purple-600" /><span className="hidden sm:inline">System Settings Dashboard</span><span className="sm:hidden">Settings</span></>}
+              </div>
+              <Button variant="ghost" size="sm" onClick={() => setShowDetailModal(false)} className="flex-shrink-0">
+                <X className="h-4 w-4" />
+              </Button>
             </DialogTitle>
           </DialogHeader>
           
@@ -494,7 +499,7 @@ export default function AdminDashboard() {
             {/* System Performance Analytics */}
             {selectedAnalytics?.type === "system-performance" && (
               <div className="space-y-6">
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                   <div className="text-center p-6 bg-green-50 rounded-lg">
                     <Activity className="h-12 w-12 text-green-600 mx-auto mb-4" />
                     <p className="text-3xl font-bold text-green-600">99.8%</p>
@@ -572,7 +577,7 @@ export default function AdminDashboard() {
             {/* Budget Optimization Analytics */}
             {selectedAnalytics?.type === "budget-optimization" && (
               <div className="space-y-6">
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                   <div className="text-center p-6 bg-blue-50 rounded-lg">
                     <DollarSign className="h-12 w-12 text-blue-600 mx-auto mb-4" />
                     <p className="text-3xl font-bold text-blue-600">₹2.4Cr</p>
@@ -595,7 +600,7 @@ export default function AdminDashboard() {
                   </div>
                 </div>
                 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 gap-4 sm:gap-6">
                   <Card>
                     <CardHeader>
                       <CardTitle>Budget Allocation Breakdown</CardTitle>
@@ -605,7 +610,7 @@ export default function AdminDashboard() {
                         <div className="flex justify-between items-center">
                           <span>Academic Operations</span>
                           <div className="flex items-center space-x-2">
-                            <Progress value={65} className="w-24" />
+                            <Progress value={65} className="w-16 sm:w-24" />
                             <span className="text-sm font-medium">65%</span>
                           </div>
                         </div>

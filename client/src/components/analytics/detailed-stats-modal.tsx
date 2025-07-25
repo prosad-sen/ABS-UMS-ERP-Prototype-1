@@ -45,15 +45,15 @@ export default function DetailedStatsModal({
       case 'student-progress':
         return (
           <Tabs defaultValue="overview" className="space-y-4">
-            <TabsList className="grid grid-cols-4 w-full">
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="performance">Performance</TabsTrigger>
-              <TabsTrigger value="trends">Trends</TabsTrigger>
-              <TabsTrigger value="recommendations">Actions</TabsTrigger>
+            <TabsList className="grid grid-cols-2 sm:grid-cols-4 w-full text-xs sm:text-sm">
+              <TabsTrigger value="overview" className="px-2 py-1">Overview</TabsTrigger>
+              <TabsTrigger value="performance" className="px-2 py-1">Performance</TabsTrigger>
+              <TabsTrigger value="trends" className="px-2 py-1">Trends</TabsTrigger>
+              <TabsTrigger value="recommendations" className="px-2 py-1">Actions</TabsTrigger>
             </TabsList>
             
-            <TabsContent value="overview" className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+            <TabsContent value="overview" className="space-y-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <Card>
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between">
@@ -820,17 +820,17 @@ export default function DetailedStatsModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
+      <DialogContent className="w-[95vw] max-w-4xl h-[90vh] max-h-[90vh] overflow-y-auto p-2 sm:p-6">
+        <DialogHeader className="pb-3">
           <div className="flex items-center justify-between">
-            <DialogTitle className="text-xl font-bold">{title}</DialogTitle>
-            <Button variant="ghost" size="sm" onClick={onClose}>
+            <DialogTitle className="text-lg sm:text-xl font-bold truncate pr-2">{title}</DialogTitle>
+            <Button variant="ghost" size="sm" onClick={onClose} className="flex-shrink-0">
               <X className="h-4 w-4" />
             </Button>
           </div>
         </DialogHeader>
         
-        <div className="mt-4">
+        <div className="mt-2 overflow-y-auto">
           {getDetailedContent()}
         </div>
       </DialogContent>
