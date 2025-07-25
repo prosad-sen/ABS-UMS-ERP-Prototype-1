@@ -34,7 +34,7 @@ interface Grievance {
   title: string;
   description: string;
   category: string;
-  priority: 'low' | 'medium' | 'high' | 'urgent';
+  priority: 'low' | 'medium' | 'high' | 'critical';
   status: 'submitted' | 'under-review' | 'in-progress' | 'resolved' | 'closed';
   submittedBy: string;
   submittedAt: string;
@@ -47,6 +47,8 @@ interface Grievance {
   comments: number;
   estimatedResolutionTime: string;
   department: string;
+  type: 'electrical' | 'plumbing' | 'civil' | 'applications' | 'appliances' | 'academic' | 'infrastructure' | 'other';
+  daysOpen: number;
 }
 
 export default function Grievances() {
@@ -63,16 +65,33 @@ export default function Grievances() {
   });
   const [aiGuidanceLoading, setAiGuidanceLoading] = useState(false);
   const [aiGuidance, setAiGuidance] = useState("");
+  const [filters, setFilters] = useState({
+    priority: 'all',
+    status: 'all',
+    category: 'all',
+    sortBy: 'date',
+    sortOrder: 'desc'
+  });
   const { toast } = useToast();
 
-  // Mock data for grievances
+  // Get current user role
+  const getCurrentRole = () => {
+    return localStorage.getItem('userRole') || localStorage.getItem('selectedRole') || 'student';
+  };
+  
+  const currentRole = getCurrentRole();
+  const isAdmin = ['admin', 'administrator', 'registrar'].includes(currentRole.toLowerCase());
+
+  // Enhanced mock data for grievances with admin management features
   const grievancesData: Grievance[] = [
     {
       id: "GRV-001",
       title: "Wi-Fi Connectivity Issues in Computer Lab",
       description: "Frequent disconnections and slow internet speed in Lab 301 affecting online coding sessions and research work.",
       category: "Infrastructure",
-      priority: "high",
+      priority: "critical",
+      type: "infrastructure",
+      daysOpen: 12,
       status: "in-progress",
       submittedBy: "Rahul Sharma (2024001)",
       submittedAt: "2024-03-20T10:30:00Z",
@@ -90,6 +109,8 @@ export default function Grievances() {
       description: "Limited parking causing students to park far away, creating safety concerns especially for evening classes.",
       category: "Campus Facilities",
       priority: "medium",
+      type: "infrastructure",
+      daysOpen: 8,
       status: "under-review",
       submittedBy: "Priya Patel (2024002)",
       submittedAt: "2024-03-18T14:15:00Z",
@@ -106,6 +127,8 @@ export default function Grievances() {
       description: "Current library hours (9 AM - 6 PM) insufficient for research work and exam preparation, especially during exam periods.",
       category: "Academic Support",
       priority: "medium",
+      type: "academic",
+      daysOpen: 0,
       status: "resolved",
       submittedBy: "Arjun Singh (2024003)",
       submittedAt: "2024-03-15T09:00:00Z",
@@ -124,6 +147,8 @@ export default function Grievances() {
       description: "Reports of food quality issues and need for more healthy, affordable options in campus canteens.",
       category: "Health & Safety",
       priority: "high",
+      type: "other",
+      daysOpen: 4,
       status: "submitted",
       submittedBy: "Sneha Desai (2024004)",
       submittedAt: "2024-03-22T11:45:00Z",
@@ -133,6 +158,43 @@ export default function Grievances() {
       comments: 9,
       estimatedResolutionTime: "10-15 days",
       department: "Campus Services"
+    },
+    {
+      id: "GRV-005",
+      title: "Electrical Issues in Hostel Block A",
+      description: "Frequent power outages and voltage fluctuations affecting study schedules and damaging electronic devices.",
+      category: "Infrastructure",
+      priority: "critical",
+      type: "electrical",
+      daysOpen: 18,
+      status: "in-progress",
+      submittedBy: "Karan Mehta (2024005)",
+      submittedAt: "2024-03-08T16:20:00Z",
+      assignedTo: "Electrical Maintenance",
+      studentSolution: "Install UPS systems, upgrade electrical panels, and implement load balancing.",
+      aiGuidance: "Critical infrastructure issue. Requires immediate electrical audit and panel upgrade. Budget: ₹8,50,000. Safety risk level: High.",
+      upvotes: 89,
+      comments: 23,
+      estimatedResolutionTime: "7-10 days",
+      department: "Maintenance"
+    },
+    {
+      id: "GRV-006",
+      title: "Leaking Pipes in Academic Block B",
+      description: "Water leakage from ceiling pipes causing damage to classrooms and disrupting lectures.",
+      category: "Infrastructure",
+      priority: "high",
+      type: "plumbing",
+      daysOpen: 6,
+      status: "under-review",
+      submittedBy: "Asha Reddy (2024006)",
+      submittedAt: "2024-03-20T09:15:00Z",
+      studentSolution: "Replace old pipes with PVC, waterproof ceiling, and install drainage system.",
+      aiGuidance: "Plumbing assessment required. Estimated repair cost: ₹1,25,000. Preventive maintenance recommended to avoid future issues.",
+      upvotes: 56,
+      comments: 14,
+      estimatedResolutionTime: "5-8 days",
+      department: "Maintenance"
     }
   ];
 
@@ -164,13 +226,62 @@ export default function Grievances() {
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'urgent': return 'bg-red-100 text-red-800 border-red-200';
+      case 'critical': return 'bg-red-100 text-red-800 border-red-200';
       case 'high': return 'bg-orange-100 text-orange-800 border-orange-200';
       case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
       case 'low': return 'bg-green-100 text-green-800 border-green-200';
       default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
+
+  // Filter and sort grievances for admin view
+  const getFilteredGrievances = () => {
+    let filtered = [...grievancesData];
+
+    // Apply filters
+    if (filters.priority !== 'all') {
+      filtered = filtered.filter(g => g.priority === filters.priority);
+    }
+    if (filters.status !== 'all') {
+      filtered = filtered.filter(g => g.status === filters.status);
+    }
+    if (filters.category !== 'all') {
+      filtered = filtered.filter(g => g.category === filters.category);
+    }
+
+    // Apply sorting
+    filtered.sort((a, b) => {
+      let aValue, bValue;
+      switch (filters.sortBy) {
+        case 'priority':
+          const priorityOrder = { 'critical': 4, 'high': 3, 'medium': 2, 'low': 1 };
+          aValue = priorityOrder[a.priority as keyof typeof priorityOrder] || 0;
+          bValue = priorityOrder[b.priority as keyof typeof priorityOrder] || 0;
+          break;
+        case 'date':
+          aValue = new Date(a.submittedAt).getTime();
+          bValue = new Date(b.submittedAt).getTime();
+          break;
+        case 'daysOpen':
+          aValue = a.daysOpen;
+          bValue = b.daysOpen;
+          break;
+        default:
+          aValue = a.submittedAt;
+          bValue = b.submittedAt;
+      }
+
+      if (filters.sortOrder === 'asc') {
+        return aValue > bValue ? 1 : -1;
+      } else {
+        return aValue < bValue ? 1 : -1;
+      }
+    });
+
+    return filtered;
+  };
+
+  const filteredGrievances = getFilteredGrievances();
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -261,17 +372,110 @@ The system will automatically track your grievance and provide updates via email
       {/* Header */}
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
         <div>
-          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">Student Grievances & Feedback</h1>
-          <p className="text-gray-600">Voice your concerns and help improve campus life</p>
+          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">
+            {isAdmin ? 'Grievance Management System' : 'Student Grievances & Feedback'}
+          </h1>
+          <p className="text-gray-600">
+            {isAdmin ? 'Manage and resolve student grievances efficiently' : 'Voice your concerns and help improve campus life'}
+          </p>
         </div>
-        <Button 
-          onClick={() => setShowSubmitForm(true)}
-          className="bg-blue-600 hover:bg-blue-700"
-        >
-          <MessageSquare className="h-4 w-4 mr-2" />
-          Submit Grievance
-        </Button>
+        
+        {!isAdmin && (
+          <Button 
+            onClick={() => setShowSubmitForm(true)}
+            className="bg-blue-600 hover:bg-blue-700"
+          >
+            <MessageSquare className="h-4 w-4 mr-2" />
+            Submit Grievance
+          </Button>
+        )}
+
+        {isAdmin && (
+          <div className="flex flex-wrap items-center gap-2">
+            <Badge className="bg-red-100 text-red-800">
+              Critical: {grievancesData.filter(g => g.priority === 'critical').length}
+            </Badge>
+            <Badge className="bg-orange-100 text-orange-800">
+              High: {grievancesData.filter(g => g.priority === 'high').length}
+            </Badge>
+            <Badge className="bg-yellow-100 text-yellow-800">
+              Pending &gt;7 days: {grievancesData.filter(g => g.daysOpen > 7).length}
+            </Badge>
+          </div>
+        )}
       </div>
+
+      {/* Admin Filters & Controls */}
+      {isAdmin && (
+        <Card className="p-4">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+            <Select value={filters.priority} onValueChange={(value) => setFilters({...filters, priority: value})}>
+              <SelectTrigger>
+                <SelectValue placeholder="Priority Level" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Priorities</SelectItem>
+                <SelectItem value="critical">Critical</SelectItem>
+                <SelectItem value="high">High</SelectItem>
+                <SelectItem value="medium">Medium</SelectItem>
+                <SelectItem value="low">Low</SelectItem>
+              </SelectContent>
+            </Select>
+
+            <Select value={filters.status} onValueChange={(value) => setFilters({...filters, status: value})}>
+              <SelectTrigger>
+                <SelectValue placeholder="Status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Status</SelectItem>
+                <SelectItem value="submitted">Submitted</SelectItem>
+                <SelectItem value="under-review">Under Review</SelectItem>
+                <SelectItem value="in-progress">In Progress</SelectItem>
+                <SelectItem value="resolved">Resolved</SelectItem>
+                <SelectItem value="closed">Closed</SelectItem>
+              </SelectContent>
+            </Select>
+
+            <Select value={filters.category} onValueChange={(value) => setFilters({...filters, category: value})}>
+              <SelectTrigger>
+                <SelectValue placeholder="Type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Types</SelectItem>
+                <SelectItem value="electrical">Electrical</SelectItem>
+                <SelectItem value="plumbing">Plumbing</SelectItem>
+                <SelectItem value="civil">Civil</SelectItem>
+                <SelectItem value="applications">Applications</SelectItem>
+                <SelectItem value="appliances">Appliances</SelectItem>
+                <SelectItem value="academic">Academic</SelectItem>
+                <SelectItem value="infrastructure">Infrastructure</SelectItem>
+                <SelectItem value="other">Other</SelectItem>
+              </SelectContent>
+            </Select>
+
+            <Select value={filters.sortBy} onValueChange={(value) => setFilters({...filters, sortBy: value})}>
+              <SelectTrigger>
+                <SelectValue placeholder="Sort By" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="date">Date Submitted</SelectItem>
+                <SelectItem value="priority">Priority Level</SelectItem>
+                <SelectItem value="daysOpen">Days Open</SelectItem>
+              </SelectContent>
+            </Select>
+
+            <Select value={filters.sortOrder} onValueChange={(value) => setFilters({...filters, sortOrder: value})}>
+              <SelectTrigger>
+                <SelectValue placeholder="Order" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="desc">Highest First</SelectItem>
+                <SelectItem value="asc">Lowest First</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </Card>
+      )}
 
       {/* Statistics Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
@@ -321,7 +525,7 @@ The system will automatically track your grievance and provide updates via email
 
       {/* Grievances List */}
       <div className="grid grid-cols-1 gap-4">
-        {grievancesData.map((grievance) => (
+        {filteredGrievances.map((grievance) => (
           <Card key={grievance.id} className="hover:shadow-lg transition-all duration-200">
             <CardContent className="p-6">
               <div className="flex flex-col lg:flex-row justify-between items-start space-y-4 lg:space-y-0">
@@ -343,6 +547,11 @@ The system will automatically track your grievance and provide updates via email
                     <span>{grievance.category}</span>
                     <span>{grievance.department}</span>
                     <span>{new Date(grievance.submittedAt).toLocaleDateString()}</span>
+                    {isAdmin && (
+                      <span className="text-orange-600 font-medium">
+                        Days Open: {grievance.daysOpen}
+                      </span>
+                    )}
                     <div className="flex items-center space-x-1">
                       <ThumbsUp className="h-4 w-4" />
                       <span>{grievance.upvotes}</span>
@@ -366,6 +575,38 @@ The system will automatically track your grievance and provide updates via email
                     <Eye className="h-4 w-4 mr-1" />
                     View Details
                   </Button>
+                  
+                  {isAdmin && grievance.status !== 'resolved' && grievance.status !== 'closed' && (
+                    <div className="flex flex-col space-y-1">
+                      <Button 
+                        size="sm"
+                        variant="default"
+                        className="bg-blue-600 hover:bg-blue-700 text-white text-xs"
+                        onClick={() => {
+                          toast({
+                            title: "Status Updated",
+                            description: `Grievance ${grievance.id} moved to In Progress`,
+                          });
+                        }}
+                      >
+                        Move to Progress
+                      </Button>
+                      <Button 
+                        size="sm"
+                        variant="default"
+                        className="bg-green-600 hover:bg-green-700 text-white text-xs"
+                        onClick={() => {
+                          toast({
+                            title: "Grievance Resolved",
+                            description: `Grievance ${grievance.id} marked as resolved`,
+                          });
+                        }}
+                      >
+                        Mark Resolved
+                      </Button>
+                    </div>
+                  )}
+                  
                   <div className="text-xs text-gray-500 text-center">
                     ETA: {grievance.estimatedResolutionTime}
                   </div>
