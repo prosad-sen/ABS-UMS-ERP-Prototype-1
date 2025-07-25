@@ -10,8 +10,8 @@ export default function MainLayout({ children }: MainLayoutProps) {
     <div className="min-h-screen bg-gray-50">
       <Header />
       <Sidebar />
-      <main className="pl-64 pt-16">
-        <div className="p-6">
+      <main className="lg:pl-64 pt-16">
+        <div className="p-3 lg:p-6">
           {children}
         </div>
       </main>

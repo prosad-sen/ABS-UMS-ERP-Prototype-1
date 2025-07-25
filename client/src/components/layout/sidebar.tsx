@@ -61,7 +61,7 @@ export default function Sidebar() {
   const [location] = useLocation();
 
   return (
-    <aside className="fixed left-0 top-16 z-30 h-[calc(100vh-4rem)] w-64 border-r border-gray-200 bg-white overflow-y-auto">
+    <aside className="fixed left-0 top-16 z-30 h-[calc(100vh-4rem)] w-64 border-r border-gray-200 bg-white overflow-y-auto hidden lg:block">
       <div className="p-6">
         <nav className="space-y-2">
           {navigationItems.map((item) => {

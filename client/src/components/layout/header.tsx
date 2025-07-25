@@ -1,108 +1,78 @@
-import { useAuth } from '@/hooks/useAuth';
-import type { User } from '@shared/schema';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { Badge } from '@/components/ui/badge';
 import { 
   Bell, 
-  Settings, 
-  LogOut, 
-  User as UserIcon,
-  GraduationCap
+  Menu,
+  GraduationCap,
+  X
 } from 'lucide-react';
 
 export default function Header() {
-  const { user, isAuthenticated } = useAuth();
-
-  const userData = user as User | undefined;
-  const displayName = userData?.firstName ? `${userData.firstName} ${userData.lastName || ''}`.trim() : 'Student';
-  const userEmail = userData?.email || '';
+  const [currentRole, setCurrentRole] = useState("Student");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 bg-white border-b border-gray-200 h-16">
-      <div className="flex items-center justify-between h-full px-6">
-        {/* Logo and Title */}
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-coep-blue rounded-lg flex items-center justify-center">
-              <GraduationCap className="h-5 w-5 text-white" />
-            </div>
-            <div>
-              <h1 className="text-lg font-bold text-gray-900">COEP UMS</h1>
-              <p className="text-xs text-gray-600">University Management System</p>
+    <header className="fixed top-0 right-0 left-0 lg:left-64 bg-white border-b border-gray-200 z-40">
+      <div className="flex items-center justify-between px-3 lg:px-6 py-3 lg:py-4">
+        {/* Mobile Menu Button */}
+        <button 
+          className="lg:hidden p-2"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? (
+            <X className="w-6 h-6 text-gray-600" />
+          ) : (
+            <Menu className="w-6 h-6 text-gray-600" />
+          )}
+        </button>
+
+        <div className="flex-1 lg:flex-none">
+          <h1 className="text-lg lg:text-xl font-semibold text-gray-800">COEP UMS</h1>
+          <p className="text-xs lg:text-sm text-gray-600 hidden sm:block">College of Engineering Pune</p>
+        </div>
+        
+        <div className="flex items-center space-x-2 lg:space-x-4">
+          {/* Role Badge */}
+          <Badge className="bg-coep-blue text-white px-2 lg:px-3 py-1 text-xs lg:text-sm font-medium">
+            {currentRole}
+          </Badge>
+          
+          <div className="relative">
+            <Button variant="ghost" size="sm" className="p-1 lg:p-2">
+              <Bell className="h-4 w-4 lg:h-5 lg:w-5" />
+              <span className="absolute -top-1 -right-1 h-3 w-3 lg:h-4 lg:w-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">3</span>
+            </Button>
+          </div>
+          
+          <div className="flex items-center space-x-2">
+            <Avatar className="h-8 w-8 lg:h-10 lg:w-10">
+              <AvatarImage src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User" />
+              <AvatarFallback>JD</AvatarFallback>
+            </Avatar>
+            <div className="hidden lg:block">
+              <p className="text-sm font-medium text-gray-700">John Doe</p>
+              <p className="text-xs text-gray-500">Student ID: 2024001</p>
             </div>
           </div>
         </div>
-
-        {/* Right side - User menu */}
-        <div className="flex items-center gap-4">
-          {/* Notifications */}
-          <Button variant="ghost" size="sm" className="relative">
-            <Bell className="h-5 w-5" />
-            <span className="absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full text-xs"></span>
-          </Button>
-
-          {/* User Menu */}
-          {isAuthenticated ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="flex items-center gap-3 pl-2 pr-4">
-                  <Avatar className="h-8 w-8">
-                    <AvatarImage src={userData?.profileImageUrl} alt={displayName} />
-                    <AvatarFallback className="bg-coep-blue text-white text-sm">
-                      {displayName.split(' ').map(n => n[0]).join('').toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="text-left">
-                    <p className="text-sm font-medium">{displayName}</p>
-                    <p className="text-xs text-gray-600">Student</p>
-                  </div>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
-                <DropdownMenuLabel>
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium">{displayName}</p>
-                    <p className="text-xs text-gray-600">{userEmail}</p>
-                    <Badge variant="secondary" className="text-xs">
-                      Student
-                    </Badge>
-                  </div>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="flex items-center gap-2">
-                  <UserIcon className="h-4 w-4" />
-                  Profile
-                </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center gap-2">
-                  <Settings className="h-4 w-4" />
-                  Settings
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem 
-                  className="flex items-center gap-2 text-red-600"
-                  onClick={() => window.location.href = '/api/logout'}
-                >
-                  <LogOut className="h-4 w-4" />
-                  Sign out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
-            <Button onClick={() => window.location.href = '/api/login'}>
-              Sign In
-            </Button>
-          )}
-        </div>
       </div>
+
+      {/* Mobile Navigation Menu */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden bg-white border-t border-gray-200 px-4 py-3">
+          <div className="space-y-2">
+            <a href="/dashboard" className="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Dashboard</a>
+            <a href="/academics" className="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Academics</a>
+            <a href="/attendance" className="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Attendance</a>
+            <a href="/fees" className="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Fees</a>
+            <a href="/library" className="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Library</a>
+            <a href="/lms" className="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">LMS</a>
+            <a href="/profile" className="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Profile</a>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

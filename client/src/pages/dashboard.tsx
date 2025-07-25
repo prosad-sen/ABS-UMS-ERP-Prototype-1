@@ -3,6 +3,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
+import AchievementBadge from "@/components/gamification/achievement-badge";
+import ProgressRing from "@/components/gamification/progress-ring";
+import Leaderboard from "@/components/gamification/leaderboard";
+import { 
+  Trophy, 
+  Target, 
+  TrendingUp, 
+  BookOpen, 
+  QrCode, 
+  DollarSign,
+  Sparkles,
+  Flame,
+  Star
+} from "lucide-react";
 
 export default function Dashboard() {
   const { user } = useAuth();
@@ -30,213 +44,217 @@ export default function Dashboard() {
 
   const userName = user?.firstName 
     ? `${user.firstName} ${user.lastName || ''}`.trim()
-    : user?.email?.split('@')[0] || 'User';
+    : user?.email?.split('@')[0] || 'Student';
+
+  // Mock leaderboard data
+  const leaderboardData = [
+    { rank: 1, studentId: "2024001", name: "Rahul Sharma", points: 1850, streak: 15, badge: 'gold' as const },
+    { rank: 2, studentId: "2024002", name: "Priya Patel", points: 1720, streak: 12, badge: 'silver' as const },
+    { rank: 3, studentId: "2024003", name: "Arjun Singh", points: 1690, streak: 8, badge: 'bronze' as const },
+    { rank: 4, studentId: "2024004", name: "Sneha Desai", points: 1580, streak: 5, badge: null },
+    { rank: 5, studentId: "2024005", name: "Vikram Joshi", points: 1520, streak: 3, badge: null },
+  ];
 
   return (
-    <div className="space-y-6">
-      {/* Welcome Section */}
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">Welcome back, {userName}!</h2>
-        <p className="text-gray-600">Here's what's happening with your academics today.</p>
+    <div className="space-y-6 p-3 lg:p-6">
+      {/* Welcome Section with Gamification */}
+      <div className="bg-gradient-to-r from-coep-blue to-blue-600 rounded-lg p-6 text-white">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
+          <div>
+            <h2 className="text-2xl lg:text-3xl font-bold">Welcome back, {userName}!</h2>
+            <p className="text-blue-100 mt-2">You're doing great! Keep up the momentum.</p>
+          </div>
+          <div className="flex items-center space-x-4">
+            <div className="bg-white/20 rounded-lg p-3 text-center">
+              <Flame className="h-6 w-6 mx-auto mb-1" />
+              <p className="text-sm font-medium">7 Day Streak</p>
+            </div>
+            <div className="bg-white/20 rounded-lg p-3 text-center">
+              <Star className="h-6 w-6 mx-auto mb-1" />
+              <p className="text-sm font-medium">Level 12</p>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Quick Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <Card>
-          <CardContent className="p-6">
+      {/* Quick Stats Cards with Gamification */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6">
+        <Card className="relative overflow-hidden">
+          <CardContent className="p-4 lg:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Attendance</p>
-                <p className="text-2xl font-bold text-gray-800">
-                  {stats?.attendance ? `${stats.attendance.toFixed(1)}%` : '0%'}
-                </p>
+                <p className="text-xs lg:text-sm font-medium text-gray-600">Attendance</p>
+                <p className="text-xl lg:text-2xl font-bold text-gray-800">85%</p>
+                <Badge className="bg-green-100 text-green-800 text-xs mt-1">+5 XP today</Badge>
               </div>
-              <div className="w-12 h-12 bg-success-green bg-opacity-10 rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-success-green" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                </svg>
-              </div>
-            </div>
-            <div className="mt-2">
-              <span className="text-xs text-success-green">
-                {stats?.attendance && stats.attendance > 75 ? 'Good attendance' : 'Needs improvement'}
-              </span>
+              <QrCode className="h-6 w-6 lg:h-8 lg:w-8 text-green-600" />
             </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent className="p-6">
+        <Card className="relative overflow-hidden">
+          <CardContent className="p-4 lg:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">CGPA</p>
-                <p className="text-2xl font-bold text-gray-800">
-                  {stats?.cgpa ? stats.cgpa.toFixed(2) : 'N/A'}
-                </p>
+                <p className="text-xs lg:text-sm font-medium text-gray-600">CGPA</p>
+                <p className="text-xl lg:text-2xl font-bold text-gray-800">8.4</p>
+                <Badge className="bg-blue-100 text-blue-800 text-xs mt-1">Above Average</Badge>
               </div>
-              <div className="w-12 h-12 bg-coep-blue bg-opacity-10 rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-coep-blue" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                </svg>
-              </div>
-            </div>
-            <div className="mt-2">
-              <span className="text-xs text-success-green">
-                {stats?.cgpa && stats.cgpa >= 8.0 ? 'Excellent performance' : 'Keep up the good work'}
-              </span>
+              <TrendingUp className="h-6 w-6 lg:h-8 lg:w-8 text-blue-600" />
             </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent className="p-6">
+        <Card className="relative overflow-hidden">
+          <CardContent className="p-4 lg:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Pending Fees</p>
-                <p className="text-2xl font-bold text-gray-800">
-                  ₹{stats?.pendingFees ? stats.pendingFees.toLocaleString() : '0'}
-                </p>
+                <p className="text-xs lg:text-sm font-medium text-gray-600">Assignments</p>
+                <p className="text-xl lg:text-2xl font-bold text-gray-800">12/15</p>
+                <Badge className="bg-orange-100 text-orange-800 text-xs mt-1">3 pending</Badge>
               </div>
-              <div className="w-12 h-12 bg-warning-amber bg-opacity-10 rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-warning-amber" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
-                </svg>
-              </div>
-            </div>
-            <div className="mt-2">
-              <span className="text-xs text-warning-amber">
-                {stats?.pendingFees && stats.pendingFees > 0 ? 'Payment due soon' : 'All payments up to date'}
-              </span>
+              <BookOpen className="h-6 w-6 lg:h-8 lg:w-8 text-orange-600" />
             </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent className="p-6">
+        <Card className="relative overflow-hidden">
+          <CardContent className="p-4 lg:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Assignments</p>
-                <p className="text-2xl font-bold text-gray-800">
-                  {stats?.pendingAssignments || 0}
-                </p>
+                <p className="text-xs lg:text-sm font-medium text-gray-600">XP Points</p>
+                <p className="text-xl lg:text-2xl font-bold text-gray-800">1,250</p>
+                <Badge className="bg-yellow-100 text-yellow-800 text-xs mt-1">250 to next level</Badge>
               </div>
-              <div className="w-12 h-12 bg-error-red bg-opacity-10 rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-error-red" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 2 2h8c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/>
-                </svg>
-              </div>
-            </div>
-            <div className="mt-2">
-              <span className="text-xs text-error-red">
-                {stats?.pendingAssignments ? `${stats.pendingAssignments} pending` : 'All caught up!'}
-              </span>
+              <Sparkles className="h-6 w-6 lg:h-8 lg:w-8 text-yellow-600" />
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Today's Schedule & Announcements */}
+      {/* Gamification Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <Card className="lg:col-span-2">
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2">
+              <Trophy className="h-5 w-5 text-yellow-600" />
+              <span>Recent Achievements</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <AchievementBadge
+              type="attendance"
+              level="gold"
+              title="Perfect Attendance"
+              description="100% attendance for 30 days"
+              earned={true}
+            />
+            <AchievementBadge
+              type="academic"
+              level="silver"
+              title="Academic Excellence"
+              description="Maintain CGPA above 8.0"
+              earned={true}
+            />
+            <AchievementBadge
+              type="assignment"
+              level="bronze"
+              title="Assignment Master"
+              description="Submit 15 assignments on time"
+              earned={false}
+              progress={80}
+            />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2">
+              <Target className="h-5 w-5 text-blue-600" />
+              <span>Progress</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="text-center">
+              <ProgressRing
+                progress={75}
+                size={120}
+                strokeWidth={8}
+                color="#3b82f6"
+                backgroundColor="#e5e7eb"
+              >
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-blue-600">75%</div>
+                  <div className="text-sm text-gray-600">Semester</div>
+                </div>
+              </ProgressRing>
+            </div>
+            <div className="space-y-3">
+              <div className="flex justify-between text-sm">
+                <span>Level 12 Student</span>
+                <span>1,250 / 1,500 XP</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="bg-blue-600 h-2 rounded-full transition-all duration-500" style={{ width: '83%' }}></div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Leaderboard */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Today's Schedule */}
+        <Leaderboard
+          title="Class Leaderboard"
+          entries={leaderboardData}
+          category="academic"
+        />
+
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg font-semibold text-gray-800">Today's Schedule</CardTitle>
+            <CardTitle>Quick Actions</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="flex items-center space-x-4 p-3 bg-blue-50 rounded-lg">
-                <div className="w-12 h-12 bg-coep-blue rounded-lg flex items-center justify-center">
-                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20 6h-2V4c0-1.1-.9-2-2-2s-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM7.5 14c-.83 0-1.5-.67-1.5-1.5S6.67 11 7.5 11s1.5.67 1.5 1.5S8.33 14 7.5 14zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4.5-2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <p className="font-medium text-gray-800">Data Structures</p>
-                  <p className="text-sm text-gray-600">Room: CS-101 • 9:00 AM - 10:30 AM</p>
-                  <p className="text-xs text-coep-blue">Dr. Priya Mehta</p>
-                </div>
-                <Button size="sm" className="bg-coep-blue hover:bg-coep-light-blue">
-                  Join
-                </Button>
-              </div>
-
-              <div className="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg">
-                <div className="w-12 h-12 bg-gray-400 rounded-lg flex items-center justify-center">
-                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <p className="font-medium text-gray-800">Engineering Mathematics</p>
-                  <p className="text-sm text-gray-600">Room: MATH-201 • 11:00 AM - 12:30 PM</p>
-                  <p className="text-xs text-gray-500">Prof. Rajesh Kumar</p>
-                </div>
-                <span className="text-xs text-gray-500">Upcoming</span>
-              </div>
-
-              <div className="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg">
-                <div className="w-12 h-12 bg-gray-400 rounded-lg flex items-center justify-center">
-                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M9 11H7v6h2v-6zm4 0h-2v6h2v-6zm4 0h-2v6h2v-6zM12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <p className="font-medium text-gray-800">Computer Networks Lab</p>
-                  <p className="text-sm text-gray-600">Lab: CN-Lab • 2:00 PM - 5:00 PM</p>
-                  <p className="text-xs text-gray-500">Dr. Amit Joshi</p>
-                </div>
-                <span className="text-xs text-gray-500">Upcoming</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Recent Announcements */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg font-semibold text-gray-800">Recent Announcements</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {announcementsLoading ? (
-              <div className="space-y-4">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="animate-pulse">
-                    <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-                    <div className="h-3 bg-gray-200 rounded w-full mb-1"></div>
-                    <div className="h-3 bg-gray-200 rounded w-1/2"></div>
-                  </div>
-                ))}
-              </div>
-            ) : announcements && announcements.length > 0 ? (
-              <div className="space-y-4">
-                {announcements.slice(0, 3).map((announcement: any) => (
-                  <div key={announcement.id} className="border-l-4 border-coep-blue pl-4">
-                    <p className="font-medium text-gray-800">{announcement.title}</p>
-                    <p className="text-sm text-gray-600 mt-1 line-clamp-2">{announcement.content}</p>
-                    <div className="flex items-center justify-between mt-2">
-                      <p className="text-xs text-gray-500">
-                        {new Date(announcement.createdAt).toLocaleDateString()} • {announcement.author?.firstName || 'System'}
-                      </p>
-                      {announcement.priority === 'high' && (
-                        <Badge variant="destructive" className="text-xs">
-                          Important
-                        </Badge>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-8">
-                <svg className="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10m0 0V6a2 2 0 00-2-2H9a2 2 0 00-2 2v2m10 0v10a2 2 0 01-2 2H9a2 2 0 01-2-2V8m10 0H7" />
-                </svg>
-                <p className="text-gray-500">No announcements available</p>
-              </div>
-            )}
+          <CardContent className="space-y-3">
+            <Button className="w-full justify-start" variant="outline">
+              <QrCode className="h-4 w-4 mr-2" />
+              Scan QR for Attendance
+            </Button>
+            <Button className="w-full justify-start" variant="outline">
+              <BookOpen className="h-4 w-4 mr-2" />
+              View Assignments
+            </Button>
+            <Button className="w-full justify-start" variant="outline">
+              <DollarSign className="h-4 w-4 mr-2" />
+              Pay Fees
+            </Button>
+            <Button className="w-full justify-start bg-coep-blue text-white hover:bg-blue-700">
+              <Sparkles className="h-4 w-4 mr-2" />
+              AI Assistant
+            </Button>
           </CardContent>
         </Card>
       </div>
+
+      {/* Recent Announcements */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Recent Announcements</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="border-l-4 border-coep-blue pl-4">
+              <h4 className="font-semibold">Mid-semester exams starting from March 15th</h4>
+              <p className="text-sm text-gray-600">All students are requested to check the exam schedule on the academics portal.</p>
+              <p className="text-xs text-gray-500 mt-1">2 hours ago</p>
+            </div>
+            <div className="border-l-4 border-green-500 pl-4">
+              <h4 className="font-semibold">New library books available</h4>
+              <p className="text-sm text-gray-600">Latest editions of computer science and engineering books have been added to the library.</p>
+              <p className="text-xs text-gray-500 mt-1">1 day ago</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

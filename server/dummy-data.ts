@@ -257,8 +257,8 @@ export async function seedDummyData() {
     await db.insert(users).values(facultyUsers);
     await db.insert(faculty).values(facultyRecords);
     
-    // 4. Create Students (5000 students across 10 years)
-    console.log('Creating 5000 students across 10 years...');
+    // 4. Create Students (10,000+ students across 10 years)
+    console.log('Creating 10,000+ students across 10 years (2015-2024)...');
     const studentUsers = [];
     const studentRecords = [];
     
@@ -266,7 +266,10 @@ export async function seedDummyData() {
     
     // Generate students for years 2015-2024 (10 years)
     for (let year = 2015; year <= 2024; year++) {
-      const studentsThisYear = 500; // 500 students per year = 5000 total
+      const studentsThisYear = year === 2024 ? 1200 : // Current year - more admissions
+                               year >= 2021 ? 1100 : // Recent years
+                               year >= 2018 ? 1000 : // Mid years
+                               900; // Earlier years - total ~10,400 students
       
       for (let j = 1; j <= studentsThisYear; j++) {
         const firstName = getRandomElement(FIRST_NAMES);
