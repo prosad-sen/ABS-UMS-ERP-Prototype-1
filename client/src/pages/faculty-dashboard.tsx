@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import AnimatedInfoSlider from "@/components/ui/animated-info-slider";
 import { 
   Users, 
   BookOpen, 
@@ -16,11 +17,57 @@ import {
   FileText,
   Video,
   Bell,
-  Settings
+  Settings,
+  Trophy,
+  Building
 } from "lucide-react";
 
 export default function FacultyDashboard() {
   const [selectedClass, setSelectedClass] = useState("CSE-3A");
+
+  // Faculty Dashboard Slider Content
+  const facultySliderItems = [
+    {
+      id: "student-progress",
+      title: "Outstanding Student Performance",
+      description: "Your CS301 class average improved by 12% this month! 89% of students are now above the department benchmark. Your teaching methods are making a real impact.",
+      icon: Users,
+      color: "text-green-600",
+      bgColor: "bg-gradient-to-r from-green-500 to-emerald-500",
+      stats: { value: "89%", label: "Above Benchmark", trend: "up" as const },
+      action: { label: "View Class Analytics", onClick: () => {} }
+    },
+    {
+      id: "research-opportunities",
+      title: "Research Grant Approved",
+      description: "Congratulations! Your AI in Education research proposal has been approved for ₹15L funding. 6 students have already expressed interest in joining your research team.",
+      icon: Award,
+      color: "text-purple-600",
+      bgColor: "bg-gradient-to-r from-purple-500 to-indigo-500",
+      stats: { value: "₹15L", label: "Grant Amount", trend: "up" as const },
+      action: { label: "Manage Research Team", onClick: () => {} }
+    },
+    {
+      id: "teaching-excellence",
+      title: "Excellence in Teaching Recognition",
+      description: "You've been nominated for the 'Best Faculty Award 2024' based on student feedback. Your innovative lab sessions scored 4.8/5.0 in the recent survey.",
+      icon: Trophy,
+      color: "text-yellow-600", 
+      bgColor: "bg-gradient-to-r from-yellow-500 to-orange-500",
+      stats: { value: "4.8/5", label: "Student Rating", trend: "up" as const },
+      action: { label: "View Feedback Details", onClick: () => {} }
+    },
+    {
+      id: "collaboration",
+      title: "Industry Partnership Success",
+      description: "Microsoft has confirmed collaboration for your Software Engineering course. 20 students will get direct internship interviews and industry mentor sessions.",
+      icon: Building,
+      color: "text-blue-600",
+      bgColor: "bg-gradient-to-r from-blue-500 to-cyan-500", 
+      stats: { value: "20", label: "Interview Slots", trend: "up" as const },
+      action: { label: "Coordinate Program", onClick: () => {} }
+    }
+  ];
 
   const facultyData = {
     name: "Dr. Priya Sharma",
@@ -66,6 +113,11 @@ export default function FacultyDashboard() {
           <Badge variant="outline">{facultyData.department}</Badge>
           <Badge className="bg-blue-100 text-blue-800">{facultyData.designation}</Badge>
         </div>
+      </div>
+
+      {/* Faculty Achievement Slider */}
+      <div className="mb-6">
+        <AnimatedInfoSlider items={facultySliderItems} />
       </div>
 
       {/* Quick Stats */}

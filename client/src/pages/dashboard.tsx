@@ -9,7 +9,7 @@ import { useAuth } from "@/hooks/useAuth";
 import AchievementBadge from "@/components/gamification/achievement-badge";
 import ProgressRing from "@/components/gamification/progress-ring";
 import Leaderboard from "@/components/gamification/leaderboard";
-import AnimatedInfoSlider from "@/components/dashboard/animated-info-slider";
+import AnimatedInfoSlider from "@/components/ui/animated-info-slider";
 import AWSLabSystem from "@/components/labs/aws-lab-system";
 import { 
   Trophy, 
@@ -84,6 +84,60 @@ export default function Dashboard() {
       setIsAiLoading(false);
     }
   };
+
+  // Student Dashboard Slider Content
+  const studentSliderItems = [
+    {
+      id: "academic-progress",
+      title: "Academic Excellence Journey",
+      description: "Your CGPA has improved by 0.8 points this semester! Keep up the great work and maintain your position in the top 15% of your class.",
+      icon: Trophy,
+      color: "text-yellow-600",
+      bgColor: "bg-gradient-to-r from-yellow-500 to-orange-500",
+      stats: { value: "8.7", label: "Current CGPA", trend: "up" as const },
+      action: { label: "View Detailed Report", onClick: () => window.location.href = '/academics' }
+    },
+    {
+      id: "attendance",
+      title: "Attendance Achievement Unlocked",
+      description: "Congratulations! You've maintained 95%+ attendance for 3 consecutive months. This dedication will boost your internal assessment scores.",
+      icon: Target,
+      color: "text-green-600", 
+      bgColor: "bg-gradient-to-r from-green-500 to-teal-500",
+      stats: { value: "96%", label: "This Month", trend: "up" as const },
+      action: { label: "Check QR Scanner", onClick: () => window.location.href = '/attendance' }
+    },
+    {
+      id: "aws-labs",
+      title: "Cloud Computing Mastery",
+      description: "You're leading in AWS Labs completion! 3 more modules to become a certified Cloud Computing specialist and unlock internship opportunities.",
+      icon: Server,
+      color: "text-blue-600",
+      bgColor: "bg-gradient-to-r from-blue-500 to-purple-500", 
+      stats: { value: "87%", label: "Labs Completed", trend: "up" as const },
+      action: { label: "Continue Learning", onClick: () => window.location.href = '/labs' }
+    },
+    {
+      id: "achievements",
+      title: "Rising Star Recognition",
+      description: "Your consistent performance earned you the 'Academic Champion' badge! You're now eligible for departmental scholarship and leadership programs.",
+      icon: Crown,
+      color: "text-purple-600",
+      bgColor: "bg-gradient-to-r from-purple-500 to-pink-500",
+      stats: { value: "12", label: "Badges Earned", trend: "up" as const },
+      action: { label: "View All Achievements", onClick: () => {} }
+    },
+    {
+      id: "upcoming-opportunities",
+      title: "Exciting Opportunities Ahead",
+      description: "Based on your profile, we've found 5 internship opportunities and 3 project collaborations that match your skills and interests perfectly.",
+      icon: Sparkles,
+      color: "text-indigo-600", 
+      bgColor: "bg-gradient-to-r from-indigo-500 to-blue-500",
+      stats: { value: "8", label: "New Opportunities", trend: "up" as const },
+      action: { label: "Explore Now", onClick: () => {} }
+    }
+  ];
 
   const handleQuickQuery = async (query: string) => {
     setAiMessage(query);
@@ -169,7 +223,7 @@ export default function Dashboard() {
             </Button>
           </div>
         </div>
-        <AnimatedInfoSlider />
+        <AnimatedInfoSlider items={studentSliderItems} />
       </div>
 
       {/* Live Events & Activities Banner */}

@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import AnimatedInfoSlider from "@/components/ui/animated-info-slider";
 import { 
   User, 
   GraduationCap, 
@@ -16,11 +17,57 @@ import {
   Phone,
   Mail,
   MapPin,
-  Clock
+  Clock,
+  Award,
+  Users
 } from "lucide-react";
 
 export default function ParentDashboard() {
   const [selectedChild, setSelectedChild] = useState("child1");
+
+  // Parent Dashboard Slider Content
+  const parentSliderItems = [
+    {
+      id: "academic-achievement", 
+      title: "Outstanding Academic Progress",
+      description: "Your child Aaryan has achieved a remarkable CGPA of 8.7 this semester! He's ranked 3rd in Computer Science Engineering and has been selected for the Dean's Honor List.",
+      icon: Award,
+      color: "text-yellow-600",
+      bgColor: "bg-gradient-to-r from-yellow-500 to-orange-500",
+      stats: { value: "8.7", label: "CGPA This Semester", trend: "up" as const },
+      action: { label: "View Academic Report", onClick: () => {} }
+    },
+    {
+      id: "attendance-excellence",
+      title: "Perfect Attendance Record",
+      description: "Aaryan has maintained 98% attendance throughout the semester. His dedication to attending classes regularly shows great commitment to his education.",
+      icon: Clock,
+      color: "text-green-600",
+      bgColor: "bg-gradient-to-r from-green-500 to-teal-500", 
+      stats: { value: "98%", label: "Attendance Rate", trend: "up" as const },
+      action: { label: "View Attendance Details", onClick: () => {} }
+    },
+    {
+      id: "extracurricular-success",
+      title: "Leadership Recognition",
+      description: "Aaryan was elected as Class Representative and led the department's technical fest organizing committee. His leadership skills are developing wonderfully!",
+      icon: Users,
+      color: "text-purple-600",
+      bgColor: "bg-gradient-to-r from-purple-500 to-indigo-500",
+      stats: { value: "5", label: "Leadership Roles", trend: "up" as const },
+      action: { label: "View Activities", onClick: () => {} }
+    },
+    {
+      id: "financial-update",
+      title: "Fee Payment & Scholarship",
+      description: "All semester fees have been paid on time. Aaryan has been awarded the Merit Scholarship of ₹25,000 for his academic excellence. Great achievement!",
+      icon: DollarSign,
+      color: "text-blue-600", 
+      bgColor: "bg-gradient-to-r from-blue-500 to-cyan-500",
+      stats: { value: "₹25K", label: "Scholarship Awarded", trend: "up" as const },
+      action: { label: "View Financial Details", onClick: () => {} }
+    }
+  ];
 
   const studentData = {
     name: "Aarti Sharma",
@@ -96,6 +143,11 @@ export default function ParentDashboard() {
           <Badge variant="outline">{studentData.class}</Badge>
           <Badge className="bg-blue-100 text-blue-800">{studentData.department}</Badge>
         </div>
+      </div>
+
+      {/* Parent Achievement Slider */}
+      <div className="mb-6">
+        <AnimatedInfoSlider items={parentSliderItems} />
       </div>
 
       {/* Student Overview */}

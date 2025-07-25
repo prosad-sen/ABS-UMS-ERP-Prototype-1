@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import AnimatedInfoSlider from "@/components/ui/animated-info-slider";
 import { 
   Users, 
   Briefcase, 
@@ -22,6 +23,50 @@ import {
 
 export default function AlumniDashboard() {
   const [activeTab, setActiveTab] = useState("network");
+
+  // Alumni Dashboard Slider Content
+  const alumniSliderItems = [
+    {
+      id: "career-success",
+      title: "Outstanding Career Progression",
+      description: "Congratulations on your promotion to Senior Software Engineer at Microsoft! Your journey from COEP graduate to tech leader inspires current students. 15 students have requested mentorship from you.",
+      icon: Award,
+      color: "text-yellow-600",
+      bgColor: "bg-gradient-to-r from-yellow-500 to-orange-500",
+      stats: { value: "15", label: "Mentorship Requests", trend: "up" as const },
+      action: { label: "View Mentorship Dashboard", onClick: () => {} }
+    },
+    {
+      id: "network-growth",
+      title: "Alumni Network Leadership",
+      description: "You've successfully connected 50+ alumni this year through the COEP network! Your efforts in organizing tech meetups have strengthened our professional community significantly.",
+      icon: Users,
+      color: "text-blue-600",
+      bgColor: "bg-gradient-to-r from-blue-500 to-cyan-500",
+      stats: { value: "50+", label: "Alumni Connected", trend: "up" as const },
+      action: { label: "Expand Network", onClick: () => {} }
+    },
+    {
+      id: "contribution-impact",
+      title: "University Contribution Recognition",
+      description: "Your ₹2.5L donation towards the Computer Lab Modernization project has directly impacted 500+ students. The new lab infrastructure is now operational thanks to contributors like you!",
+      icon: Heart,
+      color: "text-red-600",
+      bgColor: "bg-gradient-to-r from-red-500 to-pink-500",
+      stats: { value: "₹2.5L", label: "Total Contribution", trend: "up" as const },
+      action: { label: "View Impact Report", onClick: () => {} }
+    },
+    {
+      id: "job-referrals",
+      title: "Successful Placement Support",
+      description: "8 COEP students have been successfully placed through your referrals at top tech companies! Your commitment to helping juniors secure dream jobs is truly commendable.",
+      icon: Briefcase,
+      color: "text-green-600",
+      bgColor: "bg-gradient-to-r from-green-500 to-emerald-500",
+      stats: { value: "8", label: "Successful Referrals", trend: "up" as const },
+      action: { label: "Refer More Students", onClick: () => {} }
+    }
+  ];
 
   const alumniData = {
     name: "Pradeep Kumar",
@@ -97,6 +142,11 @@ export default function AlumniDashboard() {
           <Badge variant="outline">{alumniData.currentCompany}</Badge>
           <Badge className="bg-blue-100 text-blue-800">{alumniData.designation}</Badge>
         </div>
+      </div>
+
+      {/* Alumni Achievement Slider */}
+      <div className="mb-6">
+        <AnimatedInfoSlider items={alumniSliderItems} />
       </div>
 
       {/* Alumni Profile Overview */}

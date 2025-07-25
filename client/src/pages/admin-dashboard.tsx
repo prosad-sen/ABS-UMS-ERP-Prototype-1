@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
+import AnimatedInfoSlider from "@/components/ui/animated-info-slider";
 import { 
   Users, 
   GraduationCap, 
@@ -23,6 +24,50 @@ import {
 
 export default function AdminDashboard() {
   const [selectedTimeframe, setSelectedTimeframe] = useState("month");
+
+  // Admin Dashboard Slider Content
+  const adminSliderItems = [
+    {
+      id: "system-performance",
+      title: "Exceptional System Performance",
+      description: "University-wide digital infrastructure achieved 99.8% uptime this month. Student satisfaction with online services increased by 23%, setting a new institutional record.",
+      icon: Activity,
+      color: "text-green-600",
+      bgColor: "bg-gradient-to-r from-green-500 to-teal-500",
+      stats: { value: "99.8%", label: "System Uptime", trend: "up" as const },
+      action: { label: "View System Analytics", onClick: () => window.location.href = '/management' }
+    },
+    {
+      id: "budget-optimization",
+      title: "Budget Optimization Success",
+      description: "Smart resource allocation saved ₹2.4Cr this quarter while improving service quality. Department efficiency scores increased across all metrics.",
+      icon: DollarSign,
+      color: "text-blue-600",
+      bgColor: "bg-gradient-to-r from-blue-500 to-indigo-500",
+      stats: { value: "₹2.4Cr", label: "Cost Savings", trend: "up" as const },
+      action: { label: "View Budget Details", onClick: () => {} }
+    },
+    {
+      id: "grievance-resolution",
+      title: "Outstanding Grievance Resolution",
+      description: "Achieved 94% resolution rate with average response time of 2.1 days. Student trust in administration processes reached an all-time high of 91%.",
+      icon: CheckCircle,
+      color: "text-purple-600",
+      bgColor: "bg-gradient-to-r from-purple-500 to-pink-500",
+      stats: { value: "94%", label: "Resolution Rate", trend: "up" as const },
+      action: { label: "Review Grievances", onClick: () => window.location.href = '/grievances' }
+    },
+    {
+      id: "strategic-initiatives",
+      title: "Strategic Goals Achievement",
+      description: "Digital transformation initiative is 87% complete. International accreditation preparation is ahead of schedule with excellent preliminary assessment scores.",
+      icon: Target,
+      color: "text-orange-600",
+      bgColor: "bg-gradient-to-r from-orange-500 to-red-500",
+      stats: { value: "87%", label: "Transformation Complete", trend: "up" as const },
+      action: { label: "View Strategic Dashboard", onClick: () => {} }
+    }
+  ];
 
   const adminData = {
     totalStudents: 8456,
@@ -83,6 +128,11 @@ export default function AdminDashboard() {
             Customized Reports
           </Button>
         </div>
+      </div>
+
+      {/* Admin Achievement Slider */}
+      <div className="mb-6">
+        <AnimatedInfoSlider items={adminSliderItems} />
       </div>
 
       {/* Critical Alerts */}

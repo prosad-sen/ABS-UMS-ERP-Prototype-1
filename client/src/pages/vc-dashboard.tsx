@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import AnimatedInfoSlider from "@/components/ui/animated-info-slider";
 import { 
   TrendingUp, 
   TrendingDown,
@@ -29,6 +30,50 @@ import {
 export default function VCDashboard() {
   const [selectedTimeframe, setSelectedTimeframe] = useState("academic-year");
   const [selectedMetric, setSelectedMetric] = useState("overall");
+
+  // VC Dashboard Slider Content
+  const vcSliderItems = [
+    {
+      id: "global-ranking",
+      title: "Global University Ranking Achievement",
+      description: "COEP has jumped 12 positions in QS World Rankings to #78 globally! Our research output and industry partnerships contributed significantly to this milestone achievement.",
+      icon: Crown,
+      color: "text-yellow-600",
+      bgColor: "bg-gradient-to-r from-yellow-500 to-orange-500",
+      stats: { value: "#78", label: "Global Ranking", trend: "up" as const },
+      action: { label: "View Ranking Report", onClick: () => {} }
+    },
+    {
+      id: "financial-performance",
+      title: "Exceptional Financial Growth",
+      description: "University revenue increased by 23% this fiscal year to ₹45.6Cr. Strategic partnerships and research grants contributed ₹12.3Cr, strengthening our financial foundation.",
+      icon: TrendingUp,
+      color: "text-green-600",
+      bgColor: "bg-gradient-to-r from-green-500 to-emerald-500",
+      stats: { value: "₹45.6Cr", label: "Total Revenue", trend: "up" as const },
+      action: { label: "Financial Dashboard", onClick: () => {} }
+    },
+    {
+      id: "research-excellence",
+      title: "Research & Innovation Leadership",
+      description: "67 patents published this year, placing COEP in top 5 Indian engineering institutions for innovation. Our research grants increased by 34% to ₹12.3Cr.",
+      icon: Zap,
+      color: "text-purple-600",
+      bgColor: "bg-gradient-to-r from-purple-500 to-indigo-500",
+      stats: { value: "67", label: "Patents Published", trend: "up" as const },
+      action: { label: "Research Portfolio", onClick: () => {} }
+    },
+    {
+      id: "industry-partnerships",
+      title: "Strategic Industry Alliances",
+      description: "156 industry partnerships established, including collaborations with Google, Microsoft, and Amazon. Student placement rate reached 94.2% with average package of ₹15.2L.",
+      icon: Building,
+      color: "text-blue-600",
+      bgColor: "bg-gradient-to-r from-blue-500 to-cyan-500",
+      stats: { value: "156", label: "Industry Partners", trend: "up" as const },
+      action: { label: "Partnership Details", onClick: () => {} }
+    }
+  ];
 
   const executiveKPIs = {
     totalStudents: 8456,
@@ -108,6 +153,11 @@ export default function VCDashboard() {
             </Badge>
           </div>
         </div>
+      </div>
+
+      {/* VC Strategic Achievement Slider */}
+      <div className="mb-6">
+        <AnimatedInfoSlider items={vcSliderItems} />
       </div>
 
       {/* Executive KPI Cards */}
