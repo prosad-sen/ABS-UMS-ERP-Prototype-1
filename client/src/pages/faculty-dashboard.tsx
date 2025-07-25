@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import AnimatedInfoSlider from "@/components/ui/animated-info-slider";
+import AIQuickActions from "@/components/ai/ai-quick-actions";
 import { 
   Users, 
   BookOpen, 
@@ -623,6 +624,11 @@ export default function FacultyDashboard() {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* AI Quick Actions for Faculty */}
+      <div className="mt-6">
+        <AIQuickActions userRole="faculty" userName="Faculty Member" />
+      </div>
     </div>
   );
 }

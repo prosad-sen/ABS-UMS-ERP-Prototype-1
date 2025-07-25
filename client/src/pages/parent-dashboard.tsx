@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import AnimatedInfoSlider from "@/components/ui/animated-info-slider";
+import AIQuickActions from "@/components/ai/ai-quick-actions";
 import { 
   User, 
   GraduationCap, 
@@ -375,6 +376,11 @@ export default function ParentDashboard() {
           </div>
         </CardContent>
       </Card>
+
+      {/* AI Quick Actions for Parents */}
+      <div className="mt-6">
+        <AIQuickActions userRole="parent" userName="Parent" />
+      </div>
     </div>
   );
 }

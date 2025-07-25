@@ -6,6 +6,7 @@ import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AnimatedInfoSlider from "@/components/ui/animated-info-slider";
 import DetailedStatsModal from "@/components/analytics/detailed-stats-modal";
+import AIQuickActions from "@/components/ai/ai-quick-actions";
 import { 
   Users, 
   Briefcase, 
@@ -985,6 +986,11 @@ export default function AlumniDashboard() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* AI Quick Actions for Alumni */}
+      <div className="mt-6">
+        <AIQuickActions userRole="alumni" userName="Alumni Member" />
+      </div>
 
       {/* Detailed Stats Modal */}
       <DetailedStatsModal

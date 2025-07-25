@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import AnimatedInfoSlider from "@/components/ui/animated-info-slider";
 import VCStrategicDashboard from "@/components/analytics/vc-strategic-dashboard";
 import DetailedStatsModal from "@/components/analytics/detailed-stats-modal";
+import AIQuickActions from "@/components/ai/ai-quick-actions";
 import { 
   TrendingUp, 
   TrendingDown,
@@ -539,6 +540,11 @@ export default function VCDashboard() {
           </div>
         </TabsContent>
       </Tabs>
+
+      {/* AI Quick Actions for VC/Board */}
+      <div className="mt-6">
+        <AIQuickActions userRole="vc" userName="Vice Chancellor" />
+      </div>
 
       {/* Detailed Stats Modal */}
       <DetailedStatsModal

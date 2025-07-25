@@ -12,6 +12,7 @@ import Leaderboard from "@/components/gamification/leaderboard";
 import AnimatedInfoSlider from "@/components/ui/animated-info-slider";
 import AWSLabSystem from "@/components/labs/aws-lab-system";
 import DetailedStatsModal from "@/components/analytics/detailed-stats-modal";
+import AIQuickActions from "@/components/ai/ai-quick-actions";
 import { 
   Trophy, 
   Target, 
@@ -495,61 +496,7 @@ export default function Dashboard() {
           category="academic"
         />
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <Button 
-              className="w-full justify-start" 
-              variant="outline"
-              onClick={() => window.location.href = '/attendance'}
-            >
-              <QrCode className="h-4 w-4 mr-2" />
-              Scan QR for Attendance
-            </Button>
-            <Button 
-              className="w-full justify-start" 
-              variant="outline"
-              onClick={() => window.location.href = '/academics'}
-            >
-              <BookOpen className="h-4 w-4 mr-2" />
-              View Assignments
-            </Button>
-            <Button 
-              className="w-full justify-start" 
-              variant="outline"
-              onClick={() => window.location.href = '/fees'}
-            >
-              <DollarSign className="h-4 w-4 mr-2" />
-              Pay Fees
-            </Button>
-            <Button 
-              className="w-full justify-start bg-orange-600 text-white hover:bg-orange-700"
-              onClick={() => window.location.href = '/labs'}
-            >
-              <Server className="h-4 w-4 mr-2" />
-              AWS Cloud Labs
-            </Button>
-            <Button 
-              className="w-full justify-start bg-purple-600 text-white hover:bg-purple-700"
-              onClick={() => window.location.href = '/grievances'}
-            >
-              <MessageSquare className="h-4 w-4 mr-2" />
-              Voice Concerns
-            </Button>
-            <Button 
-              className="w-full justify-start bg-coep-blue text-white hover:bg-blue-700"
-              onClick={() => setShowAIChat(true)}
-            >
-              <Sparkles className="h-4 w-4 mr-2" />
-              AI Assistant
-            </Button>
-          </CardContent>
-        </Card>
-
-        {/* AWS Labs Widget */}
-        <AWSLabSystem compact={true} />
+        <AIQuickActions userRole="student" userName={userName} />
       </div>
 
       {/* AI Assistant Dialog */}

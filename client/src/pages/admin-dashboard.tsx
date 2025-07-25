@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import AnimatedInfoSlider from "@/components/ui/animated-info-slider";
+import AIQuickActions from "@/components/ai/ai-quick-actions";
 import { 
   Users, 
   GraduationCap, 
@@ -445,6 +446,11 @@ export default function AdminDashboard() {
           </div>
         </TabsContent>
       </Tabs>
+
+      {/* AI Quick Actions for Administrators */}
+      <div className="mt-6">
+        <AIQuickActions userRole="admin" userName="Administrator" />
+      </div>
 
       {/* Comprehensive Analytics Modal */}
       <Dialog open={showDetailModal} onOpenChange={setShowDetailModal}>

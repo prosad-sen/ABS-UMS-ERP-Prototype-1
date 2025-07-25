@@ -2,7 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { setupAuth, isAuthenticated } from "./replitAuth";
-import { AIAssistant } from "./ai-assistant";
+import { handleAIChat } from "./ai-chat";
 import { 
   insertStudentSchema,
   insertFacultySchema,
@@ -22,9 +22,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Auth middleware
   await setupAuth(app);
   
-  // Initialize AI Assistant
-  const aiAssistant = new AIAssistant();
-  
   // Import and seed dummy data
   const { seedDummyData } = await import('./dummy-data');
   
@@ -35,7 +32,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ message: 'COEP dummy data seeded successfully!' });
     } catch (error) {
       console.error('Error seeding data:', error);
-      res.status(500).json({ message: 'Failed to seed data', error: error.message });
+      res.status(500).json({ message: 'Failed to seed data', error: String(error) });
     }
   });
 
@@ -464,33 +461,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // AI Assistant Routes
-  app.post('/api/ai/query', async (req, res) => {
+  // AI Chat endpoint
+  app.post('/api/ai/chat', async (req, res) => {
     try {
-      const { message, context } = req.body;
-      const response = await aiAssistant.processQuery({ message, context });
-      res.json(response);
+      const result = await handleAIChat(req.body);
+      res.json(result);
     } catch (error) {
-      console.error('AI Query Error:', error);
+      console.error('AI Chat API Error:', error);
       res.status(500).json({ 
         response: "I'm experiencing technical difficulties. Please try again later.",
-        suggestions: ["Check your connection", "Try a simpler query"],
-        actions: []
-      });
-    }
-  });
-
-  app.post('/api/ai/insights', async (req, res) => {
-    try {
-      const { studentData } = req.body;
-      const insights = await aiAssistant.generateInsights(studentData);
-      res.json(insights);
-    } catch (error) {
-      console.error('AI Insights Error:', error);
-      res.status(500).json({ 
-        response: "Unable to generate insights at the moment.",
-        suggestions: ["Try again later"],
-        actions: []
+        type: 'text'
       });
     }
   });
