@@ -74,6 +74,8 @@ export default function RoleSelection() {
   ];
 
   const handleRoleAccess = (roleId: string) => {
+    console.log('Role selection:', roleId);
+    
     // Store the selected role in localStorage for persistence across navigation
     localStorage.setItem('selectedRole', roleId);
     localStorage.setItem('userRole', roleId);
@@ -87,6 +89,7 @@ export default function RoleSelection() {
       faculty: "/faculty-dashboard",
       admin: "/admin-dashboard",
       administrator: "/admin-dashboard",
+      registrar: "/admin-dashboard",
       vc: "/vc-dashboard",
       board: "/vc-dashboard",
       parent: "/parent-dashboard",
@@ -94,6 +97,9 @@ export default function RoleSelection() {
     };
     
     const targetRoute = dashboardRoutes[roleId as keyof typeof dashboardRoutes] || "/student-dashboard";
+    console.log('Navigating to:', targetRoute);
+    
+    // Use location change instead of href for better SPA behavior
     window.location.href = targetRoute;
   };
 

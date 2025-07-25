@@ -36,10 +36,14 @@ import {
 } from "lucide-react";
 
 export default function AdminDashboard() {
+  console.log('Admin Dashboard component loading...');
+  
   const [, setLocation] = useLocation();
   const [selectedTimeframe, setSelectedTimeframe] = useState("month");
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [selectedAnalytics, setSelectedAnalytics] = useState<any>(null);
+  
+  console.log('Admin Dashboard fully loaded');
 
   const handleLogout = () => {
     setLocation("/");

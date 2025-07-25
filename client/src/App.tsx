@@ -57,22 +57,31 @@ function Router() {
 
   // Role-based dashboard routing
   const getRoleDashboard = (userRole: string) => {
+    console.log('Getting dashboard for role:', userRole);
+    
     switch (userRole?.toLowerCase()) {
       case 'faculty':
+        console.log('Returning FacultyDashboard');
         return FacultyDashboard;
       case 'administrator':
       case 'admin':
+      case 'registrar':
+        console.log('Returning AdminDashboard');
         return AdminDashboard;
       case 'vc':
       case 'board':
       case 'board-member':
+        console.log('Returning VCDashboard');
         return VCDashboard;
       case 'parent':
+        console.log('Returning ParentDashboard');
         return ParentDashboard;
       case 'alumni':
+        console.log('Returning AlumniDashboard');
         return AlumniDashboard;
       case 'student':
       default:
+        console.log('Returning default Dashboard');
         return Dashboard;
     }
   };
