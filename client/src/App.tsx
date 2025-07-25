@@ -41,6 +41,10 @@ import FacultyAcademics from "@/pages/faculty-academics";
 import StudentExamManagement from "@/pages/student-exam-management";
 import VCAcademics from "@/pages/vc-academics";
 import VCFinances from "@/pages/vc-finances";
+import AlumniCareerNetwork from "@/pages/alumni-career-network";
+import AlumniMentorship from "@/pages/alumni-mentorship";
+import AlumniContributions from "@/pages/alumni-contributions";
+import AlumniNewsEvents from "@/pages/alumni-news-events";
 
 import MainLayout from "@/components/layout/main-layout";
 
@@ -186,6 +190,12 @@ function Router() {
         <Route path="/vc-academics" component={VCAcademics} />
         <Route path="/vc-placements" component={StudentPlacements} />
         <Route path="/vc-research" component={ResearchManagement} />
+        
+        {/* Alumni specific pages */}
+        <Route path="/alumni-career-network" component={AlumniCareerNetwork} />
+        <Route path="/alumni-mentorship" component={AlumniMentorship} />
+        <Route path="/alumni-contributions" component={AlumniContributions} />
+        <Route path="/alumni-news-events" component={AlumniNewsEvents} />
       </MainLayout>
       
       <Route component={NotFound} />

@@ -372,12 +372,12 @@ export default function Header() {
             </div>
             <Button 
               onClick={handleBackToMain}
-              variant="ghost" 
+              variant="outline" 
               size="sm"
-              className="text-gray-600 hover:text-gray-900 hidden lg:flex"
+              className="text-gray-700 border-gray-300 hover:bg-gray-50 hover:text-gray-900 hidden lg:flex items-center"
             >
               <Home className="h-4 w-4 mr-1" />
-              Main
+              Back to Main
             </Button>
           </div>
         </div>

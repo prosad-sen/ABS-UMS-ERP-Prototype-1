@@ -254,13 +254,13 @@ const getRoleNavigation = (role: string) => {
         },
         {
           name: 'Career Network',
-          href: '/student-clubs',
+          href: '/alumni-career-network',
           icon: Users,
           description: 'Professional Network'
         },
         {
           name: 'Mentorship Program',
-          href: '/academics',
+          href: '/alumni-mentorship',
           icon: GraduationCap,
           description: 'Guide Students'
         },
@@ -272,13 +272,13 @@ const getRoleNavigation = (role: string) => {
         },
         {
           name: 'Alumni Contributions',
-          href: '/fees',
+          href: '/alumni-contributions',
           icon: DollarSign,
           description: 'Support University'
         },
         {
           name: 'University Updates',
-          href: '/library',
+          href: '/alumni-news-events',
           icon: Library,
           description: 'News & Events'
         }
