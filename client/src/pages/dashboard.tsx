@@ -103,35 +103,83 @@ export default function Dashboard() {
     }
   };
 
-  // Mock leaderboard data
+  // Enhanced leaderboard data with comprehensive stats
   const leaderboardData = [
-    { rank: 1, studentId: "2024001", name: "Rahul Sharma", points: 1850, streak: 15, badge: 'gold' as const },
-    { rank: 2, studentId: "2024002", name: "Priya Patel", points: 1720, streak: 12, badge: 'silver' as const },
-    { rank: 3, studentId: "2024003", name: "Arjun Singh", points: 1690, streak: 8, badge: 'bronze' as const },
-    { rank: 4, studentId: "2024004", name: "Sneha Desai", points: 1580, streak: 5, badge: null },
-    { rank: 5, studentId: "2024005", name: "Vikram Joshi", points: 1520, streak: 3, badge: null },
+    { rank: 1, studentId: "2024001", name: "Rahul Sharma", points: 1850, streak: 15, badge: 'gold' as const, cgpa: 9.2, attendance: 98, achievements: 12 },
+    { rank: 2, studentId: "2024002", name: "Priya Patel", points: 1720, streak: 12, badge: 'silver' as const, cgpa: 8.8, attendance: 96, achievements: 10 },
+    { rank: 3, studentId: "2024003", name: "Arjun Singh", points: 1690, streak: 8, badge: 'bronze' as const, cgpa: 8.9, attendance: 94, achievements: 8 },
+    { rank: 4, studentId: "2024004", name: "Sneha Desai", points: 1580, streak: 5, badge: null, cgpa: 8.5, attendance: 92, achievements: 6 },
+    { rank: 5, studentId: "2024005", name: "Vikram Joshi", points: 1520, streak: 3, badge: null, cgpa: 8.3, attendance: 88, achievements: 5 },
   ];
 
   return (
     <div className="space-y-6 p-3 lg:p-6">
-      {/* Welcome Section with Gamification */}
-      <div className="bg-gradient-to-r from-coep-blue to-blue-600 rounded-lg p-6 text-white">
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
-          <div>
-            <h2 className="text-2xl lg:text-3xl font-bold">Welcome back, {userName}!</h2>
-            <p className="text-blue-100 mt-2">You're doing great! Keep up the momentum.</p>
-          </div>
-          <div className="flex items-center space-x-4">
-            <div className="bg-white/20 rounded-lg p-3 text-center">
-              <Flame className="h-6 w-6 mx-auto mb-1" />
-              <p className="text-sm font-medium">7 Day Streak</p>
+      {/* Dynamic Hero Section with Events */}
+      <div className="bg-gradient-to-br from-coep-blue via-blue-600 to-purple-600 rounded-xl p-6 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 animate-pulse"></div>
+        <div className="relative z-10">
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
+            <div className="flex-1">
+              <h2 className="text-2xl lg:text-3xl font-bold animate-fade-in">🎉 Welcome back, {userName}!</h2>
+              <p className="text-blue-100 mt-2 text-lg">Level 12 Champion • 7-day streak • Top 5% performer</p>
+              <div className="mt-4 p-3 bg-white/10 rounded-lg backdrop-blur-sm">
+                <p className="text-sm font-medium">🚀 Upcoming: TechFest 2024 Hackathon</p>
+                <p className="text-xs text-blue-200">Registration closes in 3 days • Win ₹1,00,000</p>
+              </div>
             </div>
-            <div className="bg-white/20 rounded-lg p-3 text-center">
-              <Star className="h-6 w-6 mx-auto mb-1" />
-              <p className="text-sm font-medium">Level 12</p>
+            <div className="flex items-center space-x-4">
+              <div className="bg-white/20 rounded-lg p-3 text-center transform hover:scale-105 transition-transform">
+                <Flame className="h-6 w-6 mx-auto mb-1 animate-bounce" />
+                <p className="text-sm font-medium">7 Day Streak</p>
+                <p className="text-xs text-blue-200">🔥 On Fire!</p>
+              </div>
+              <div className="bg-white/20 rounded-lg p-3 text-center transform hover:scale-105 transition-transform">
+                <Star className="h-6 w-6 mx-auto mb-1 animate-pulse" />
+                <p className="text-sm font-medium">Level 12</p>
+                <p className="text-xs text-blue-200">250 to Lv 13</p>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Live Events & Activities Banner */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Card className="bg-gradient-to-r from-orange-500 to-red-500 text-white border-0">
+          <CardContent className="p-4">
+            <div className="flex items-center space-x-3">
+              <div className="w-2 h-2 bg-white rounded-full animate-ping"></div>
+              <div>
+                <p className="font-semibold">🎯 CodeChef Contest</p>
+                <p className="text-sm opacity-90">Live Now • 234 participating</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card className="bg-gradient-to-r from-green-500 to-emerald-500 text-white border-0">
+          <CardContent className="p-4">
+            <div className="flex items-center space-x-3">
+              <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+              <div>
+                <p className="font-semibold">🤖 AI/ML Workshop</p>
+                <p className="text-sm opacity-90">Tomorrow 2PM • Register now</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0">
+          <CardContent className="p-4">
+            <div className="flex items-center space-x-3">
+              <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>
+              <div>
+                <p className="font-semibold">🏆 Sports Meet</p>
+                <p className="text-sm opacity-90">This Weekend • 15 events</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Quick Stats Cards with Gamification */}
@@ -386,22 +434,159 @@ export default function Dashboard() {
         </DialogContent>
       </Dialog>
 
-      {/* Recent Announcements */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Recent Announcements</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div className="border-l-4 border-coep-blue pl-4">
-              <h4 className="font-semibold">Mid-semester exams starting from March 15th</h4>
-              <p className="text-sm text-gray-600">All students are requested to check the exam schedule on the academics portal.</p>
-              <p className="text-xs text-gray-500 mt-1">2 hours ago</p>
+      {/* Dynamic Updates & Social Feed */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="overflow-hidden">
+          <CardHeader className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+            <CardTitle className="flex items-center space-x-2">
+              <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+              <span>Live Updates</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
+            <div className="space-y-1">
+              <div className="p-4 border-b bg-red-50 hover:bg-red-100 transition-colors">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-red-500 rounded-full animate-ping"></div>
+                  <h4 className="font-semibold text-red-800">🚨 TechFest 2024 Registration Deadline</h4>
+                </div>
+                <p className="text-sm text-red-700 mt-1">Only 3 days left! Grand prize ₹1,00,000. Register now!</p>
+                <p className="text-xs text-red-600 mt-1">Posted 15 mins ago • 234 registrations today</p>
+              </div>
+              
+              <div className="p-4 border-b bg-green-50 hover:bg-green-100 transition-colors">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <h4 className="font-semibold text-green-800">🎯 CodeChef Contest Live</h4>
+                </div>
+                <p className="text-sm text-green-700 mt-1">COEP Team leading! Join now for bonus XP points.</p>
+                <p className="text-xs text-green-600 mt-1">Live now • 234 participants</p>
+              </div>
+              
+              <div className="p-4 border-b bg-blue-50 hover:bg-blue-100 transition-colors">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                  <h4 className="font-semibold text-blue-800">📚 New AI/ML Course Books</h4>
+                </div>
+                <p className="text-sm text-blue-700 mt-1">Latest AI/ML textbooks added to digital library. Download now!</p>
+                <p className="text-xs text-blue-600 mt-1">2 hours ago • 89 downloads</p>
+              </div>
+              
+              <div className="p-4 bg-purple-50 hover:bg-purple-100 transition-colors">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                  <h4 className="font-semibold text-purple-800">🏆 Placement Update</h4>
+                </div>
+                <p className="text-sm text-purple-700 mt-1">Google, Microsoft visits next week. Prepare for aptitude tests!</p>
+                <p className="text-xs text-purple-600 mt-1">1 day ago • Practice tests available</p>
+              </div>
             </div>
-            <div className="border-l-4 border-green-500 pl-4">
-              <h4 className="font-semibold">New library books available</h4>
-              <p className="text-sm text-gray-600">Latest editions of computer science and engineering books have been added to the library.</p>
-              <p className="text-xs text-gray-500 mt-1">1 day ago</p>
+          </CardContent>
+        </Card>
+
+        <Card className="overflow-hidden">
+          <CardHeader className="bg-gradient-to-r from-orange-500 to-pink-600 text-white">
+            <CardTitle className="flex items-center space-x-2">
+              <Sparkles className="h-5 w-5" />
+              <span>Student Achievements</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
+            <div className="space-y-1">
+              <div className="p-4 border-b hover:bg-yellow-50 transition-colors">
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center">
+                    <Trophy className="h-4 w-4 text-yellow-600" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-semibold text-sm">Rahul Sharma won Inter-College Coding Contest</p>
+                    <p className="text-xs text-gray-600">First place in ACM ICPC Regional • +500 XP</p>
+                  </div>
+                  <span className="text-xs text-gray-500">2h ago</span>
+                </div>
+              </div>
+              
+              <div className="p-4 border-b hover:bg-green-50 transition-colors">
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                    <Star className="h-4 w-4 text-green-600" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-semibold text-sm">CS Dept achieves 95% placement record</p>
+                    <p className="text-xs text-gray-600">Highest in university history • Avg package ₹12 LPA</p>
+                  </div>
+                  <span className="text-xs text-gray-500">1d ago</span>
+                </div>
+              </div>
+              
+              <div className="p-4 border-b hover:bg-blue-50 transition-colors">
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                    <Target className="h-4 w-4 text-blue-600" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-semibold text-sm">Research paper accepted at IEEE Conference</p>
+                    <p className="text-xs text-gray-600">By Final Year students • International recognition</p>
+                  </div>
+                  <span className="text-xs text-gray-500">2d ago</span>
+                </div>
+              </div>
+              
+              <div className="p-4 hover:bg-purple-50 transition-colors">
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                    <Flame className="h-4 w-4 text-purple-600" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-semibold text-sm">Start-up funded by alumni network</p>
+                    <p className="text-xs text-gray-600">₹50 lakh seed funding • EdTech innovation</p>
+                  </div>
+                  <span className="text-xs text-gray-500">3d ago</span>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Upcoming Events Calendar */}
+      <Card className="overflow-hidden">
+        <CardHeader className="bg-gradient-to-r from-green-500 to-teal-600 text-white">
+          <CardTitle className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <BookOpen className="h-5 w-5" />
+              <span>This Week's Events</span>
+            </div>
+            <Badge className="bg-white/20 text-white">5 Events</Badge>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg border-l-4 border-blue-500">
+              <h4 className="font-semibold text-blue-800">🤖 AI/ML Workshop</h4>
+              <p className="text-sm text-blue-700 mt-1">Hands-on with TensorFlow</p>
+              <div className="flex items-center justify-between mt-2">
+                <span className="text-xs bg-blue-200 text-blue-800 px-2 py-1 rounded">Tomorrow 2PM</span>
+                <span className="text-xs text-blue-600">Lab 301</span>
+              </div>
+            </div>
+            
+            <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg border-l-4 border-purple-500">
+              <h4 className="font-semibold text-purple-800">🏆 Sports Tournament</h4>
+              <p className="text-sm text-purple-700 mt-1">Cricket, Football, Badminton</p>
+              <div className="flex items-center justify-between mt-2">
+                <span className="text-xs bg-purple-200 text-purple-800 px-2 py-1 rounded">This Weekend</span>
+                <span className="text-xs text-purple-600">Sports Complex</span>
+              </div>
+            </div>
+            
+            <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg border-l-4 border-green-500">
+              <h4 className="font-semibold text-green-800">💼 Placement Drive</h4>
+              <p className="text-sm text-green-700 mt-1">Google, Microsoft, Amazon</p>
+              <div className="flex items-center justify-between mt-2">
+                <span className="text-xs bg-green-200 text-green-800 px-2 py-1 rounded">Next Week</span>
+                <span className="text-xs text-green-600">Auditorium</span>
+              </div>
             </div>
           </div>
         </CardContent>

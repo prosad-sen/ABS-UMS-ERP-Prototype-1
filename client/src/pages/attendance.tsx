@@ -363,21 +363,26 @@ export default function Attendance() {
                 </Button>
                 
                 {!isScanning && (
-                  <Button 
-                    variant="outline"
-                    onClick={async () => {
-                      try {
-                        const response = await fetch('/api/attendance/generate-qr/CS301');
-                        const data = await response.json();
-                        alert(`📱 Mock QR Code Generated:\n${data.qrData}\n\nThis simulates the instructor's QR code display.`);
-                      } catch (error) {
-                        alert('Failed to generate QR code.');
-                      }
-                    }}
-                    className="px-8 py-3"
-                  >
-                    Generate Test QR
-                  </Button>
+                  <div className="space-y-2">
+                    <Button 
+                      variant="outline"
+                      onClick={async () => {
+                        try {
+                          const response = await fetch('/api/attendance/generate-qr/CS301');
+                          const data = await response.json();
+                          alert(`📱 Mock QR Code Generated:\n${data.qrData}\n\nThis simulates the instructor's QR code display.`);
+                        } catch (error) {
+                          alert('Failed to generate QR code.');
+                        }
+                      }}
+                      className="px-8 py-3 w-full"
+                    >
+                      Generate Test QR
+                    </Button>
+                    <p className="text-xs text-gray-500 text-center">
+                      In real use, scan the QR displayed by your instructor
+                    </p>
+                  </div>
                 )}
                 
                 <div className="text-sm text-gray-600 space-y-2">
