@@ -6,6 +6,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import AnimatedInfoSlider from "@/components/ui/animated-info-slider";
+import VCStrategicDashboard from "@/components/analytics/vc-strategic-dashboard";
+import DetailedStatsModal from "@/components/analytics/detailed-stats-modal";
 import { 
   TrendingUp, 
   TrendingDown,
@@ -30,6 +32,9 @@ import {
 export default function VCDashboard() {
   const [selectedTimeframe, setSelectedTimeframe] = useState("academic-year");
   const [selectedMetric, setSelectedMetric] = useState("overall");
+  const [showDetailModal, setShowDetailModal] = useState(false);
+  const [selectedDetailType, setSelectedDetailType] = useState<string>("");
+  const [selectedDetailTitle, setSelectedDetailTitle] = useState<string>("");
 
   // VC Dashboard Slider Content
   const vcSliderItems = [
@@ -41,7 +46,11 @@ export default function VCDashboard() {
       color: "text-yellow-600",
       bgColor: "bg-gradient-to-r from-yellow-500 to-orange-500",
       stats: { value: "#78", label: "Global Ranking", trend: "up" as const },
-      action: { label: "View Ranking Report", onClick: () => {} }
+      action: { label: "View Ranking Report", onClick: () => {
+        setSelectedDetailType("global-ranking");
+        setSelectedDetailTitle("Global University Ranking Achievement");
+        setShowDetailModal(true);
+      }}
     },
     {
       id: "financial-performance",
@@ -51,7 +60,11 @@ export default function VCDashboard() {
       color: "text-green-600",
       bgColor: "bg-gradient-to-r from-green-500 to-emerald-500",
       stats: { value: "₹45.6Cr", label: "Total Revenue", trend: "up" as const },
-      action: { label: "Financial Dashboard", onClick: () => {} }
+      action: { label: "Financial Dashboard", onClick: () => {
+        setSelectedDetailType("financial-performance");
+        setSelectedDetailTitle("Exceptional Financial Growth");
+        setShowDetailModal(true);
+      }}
     },
     {
       id: "research-excellence",
@@ -282,6 +295,8 @@ export default function VCDashboard() {
         </TabsList>
 
         <TabsContent value="strategic" className="space-y-6">
+          {/* Strategic Intelligence Dashboard */}
+          <VCStrategicDashboard />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <Card className="shadow-xl">
               <CardHeader>
@@ -524,6 +539,15 @@ export default function VCDashboard() {
           </div>
         </TabsContent>
       </Tabs>
+
+      {/* Detailed Stats Modal */}
+      <DetailedStatsModal
+        isOpen={showDetailModal}
+        onClose={() => setShowDetailModal(false)}
+        title={selectedDetailTitle}
+        type={selectedDetailType as any}
+        data={{}}
+      />
     </div>
   );
 }

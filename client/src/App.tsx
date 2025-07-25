@@ -24,6 +24,8 @@ import ParentDashboard from "@/pages/parent-dashboard";
 import AlumniDashboard from "@/pages/alumni-dashboard";
 import RoleSelection from "@/pages/role-selection";
 import CustomizedReports from "@/pages/customized-reports";
+import FacultyAttendance from "@/pages/faculty-attendance";
+import ParentFees from "@/pages/parent-fees";
 
 import MainLayout from "@/components/layout/main-layout";
 
@@ -88,8 +90,10 @@ function Router() {
         <Route path="/parent-dashboard" component={ParentDashboard} />
         <Route path="/alumni-dashboard" component={AlumniDashboard} />
         
-        {/* Common pages */}
+        {/* Role-specific pages */}
         <Route path="/attendance" component={Attendance} />
+        <Route path="/faculty-attendance" component={FacultyAttendance} />
+        <Route path="/parent-fees" component={ParentFees} />
         <Route path="/academics" component={Academics} />
         <Route path="/fees" component={Fees} />
         <Route path="/lms" component={LMS} />

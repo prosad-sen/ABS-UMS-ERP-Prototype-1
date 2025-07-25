@@ -11,6 +11,7 @@ import ProgressRing from "@/components/gamification/progress-ring";
 import Leaderboard from "@/components/gamification/leaderboard";
 import AnimatedInfoSlider from "@/components/ui/animated-info-slider";
 import AWSLabSystem from "@/components/labs/aws-lab-system";
+import DetailedStatsModal from "@/components/analytics/detailed-stats-modal";
 import { 
   Trophy, 
   Target, 
@@ -37,6 +38,9 @@ export default function Dashboard() {
   const [aiMessage, setAiMessage] = useState("");
   const [aiResponse, setAiResponse] = useState("");
   const [isAiLoading, setIsAiLoading] = useState(false);
+  const [showDetailModal, setShowDetailModal] = useState(false);
+  const [selectedDetailType, setSelectedDetailType] = useState<string>("");
+  const [selectedDetailTitle, setSelectedDetailTitle] = useState<string>("");
   
   const { data: stats, isLoading: statsLoading } = useQuery({
     queryKey: ["/api/dashboard/stats"],
@@ -95,7 +99,11 @@ export default function Dashboard() {
       color: "text-yellow-600",
       bgColor: "bg-gradient-to-r from-yellow-500 to-orange-500",
       stats: { value: "8.7", label: "Current CGPA", trend: "up" as const },
-      action: { label: "View Detailed Report", onClick: () => window.location.href = '/academics' }
+      action: { label: "View Detailed Report", onClick: () => {
+        setSelectedDetailType("student-progress");
+        setSelectedDetailTitle("Academic Excellence Journey");
+        setShowDetailModal(true);
+      }}
     },
     {
       id: "attendance",
@@ -105,7 +113,11 @@ export default function Dashboard() {
       color: "text-green-600", 
       bgColor: "bg-gradient-to-r from-green-500 to-teal-500",
       stats: { value: "96%", label: "This Month", trend: "up" as const },
-      action: { label: "Check QR Scanner", onClick: () => window.location.href = '/attendance' }
+      action: { label: "Check QR Scanner", onClick: () => {
+        setSelectedDetailType("student-progress");
+        setSelectedDetailTitle("Attendance Achievement Unlocked");
+        setShowDetailModal(true);
+      }}
     },
     {
       id: "aws-labs",
@@ -691,6 +703,15 @@ export default function Dashboard() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Detailed Stats Modal */}
+      <DetailedStatsModal
+        isOpen={showDetailModal}
+        onClose={() => setShowDetailModal(false)}
+        title={selectedDetailTitle}
+        type={selectedDetailType as any}
+        data={{}}
+      />
     </div>
   );
 }
