@@ -29,6 +29,7 @@ import ParentFees from "@/pages/parent-fees";
 import StudentClubs from "@/pages/student-clubs";
 import StudentPlacements from "@/pages/student-placements";
 import ResearchManagement from "@/pages/research";
+import GradeManagement from "@/pages/grading";
 
 import MainLayout from "@/components/layout/main-layout";
 
@@ -105,6 +106,7 @@ function Router() {
         <Route path="/management" component={ManagementDashboard} />
         <Route path="/reports" component={CustomizedReports} />
         <Route path="/research" component={ResearchManagement} />
+        <Route path="/grading" component={GradeManagement} />
         <Route path="/profile" component={Profile} />
       </MainLayout>
       

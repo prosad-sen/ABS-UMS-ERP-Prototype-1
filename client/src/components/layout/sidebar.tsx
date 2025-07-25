@@ -320,14 +320,22 @@ export default function Sidebar() {
   
   // Get current role from localStorage (set during role selection)
   const getCurrentRole = () => {
-    // First check URL-based role detection (most reliable)
+    // Check URL path first (most reliable for role-specific pages)
+    const path = window.location.pathname;
+    if (path.includes('admin-dashboard') || path.includes('admin')) return 'admin';
+    if (path.includes('faculty-dashboard') || path.includes('faculty')) return 'faculty';
+    if (path.includes('vc-dashboard') || path.includes('vc')) return 'vc';
+    if (path.includes('parent-dashboard') || path.includes('parent')) return 'parent';
+    if (path.includes('alumni-dashboard') || path.includes('alumni')) return 'alumni';
+    
+    // Check wouter location
     if (location.includes('faculty')) return 'faculty';
     if (location.includes('admin')) return 'admin';
     if (location.includes('vc')) return 'vc';
     if (location.includes('parent')) return 'parent';
     if (location.includes('alumni')) return 'alumni';
     
-    // Then check localStorage
+    // Check localStorage as fallback
     const storedRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole');
     if (storedRole) return storedRole;
     
