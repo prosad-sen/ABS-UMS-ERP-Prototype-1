@@ -355,7 +355,7 @@ export default function Academics() {
                                 credits: course.credits,
                                 semester: currentSemester.semester,
                                 department: "Computer Science"
-                              });
+                              } as any);
                               setShowCourseModal(true);
                             }}
                           >
