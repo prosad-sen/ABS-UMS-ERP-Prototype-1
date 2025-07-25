@@ -1,12 +1,47 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { QrCode, Calendar, Clock, TrendingUp, CheckCircle, XCircle, AlertCircle } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Progress } from "@/components/ui/progress";
+import { QrCode, Calendar, Clock, TrendingUp, CheckCircle, XCircle, AlertCircle, Zap, Target } from "lucide-react";
 
 export default function Attendance() {
-  const [isScanning, setIsScanning] = useState(false);
+  const [isScanning, setIsScanning] = useState(true); // Auto-open for demo
+  const [scanningProgress, setScanningProgress] = useState(0);
+  const [demoStep, setDemoStep] = useState(0);
+  const [scannedData, setScannedData] = useState("");
+  const [attendanceMarked, setAttendanceMarked] = useState(false);
+
+  // Auto-demo QR scanning process
+  useEffect(() => {
+    if (isScanning) {
+      const timer = setInterval(() => {
+        setScanningProgress(prev => {
+          if (prev >= 100) {
+            setDemoStep(1);
+            setTimeout(() => {
+              setScannedData("CS101-LECTURE-20240725-0900");
+              setDemoStep(2);
+              setTimeout(() => {
+                setAttendanceMarked(true);
+                setDemoStep(3);
+                setTimeout(() => {
+                  setIsScanning(false);
+                  setScanningProgress(0);
+                  setDemoStep(0);
+                }, 2000);
+              }, 1500);
+            }, 1000);
+            return 100;
+          }
+          return prev + 5;
+        });
+      }, 100);
+      return () => clearInterval(timer);
+    }
+  }, [isScanning]);
 
   // Mock attendance data
   const attendanceStats = {
@@ -399,6 +434,81 @@ export default function Attendance() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* Enhanced QR Scanner Modal with Demo */}
+      <Dialog open={isScanning} onOpenChange={setIsScanning}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center space-x-2">
+              <QrCode className="h-5 w-5 text-blue-600" />
+              <span>QR Code Scanner</span>
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-6 p-4">
+            {demoStep === 0 && (
+              <div className="text-center space-y-4">
+                <div className="w-48 h-48 mx-auto bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse" />
+                  <div className="w-32 h-32 border-4 border-blue-600 rounded-lg flex items-center justify-center">
+                    <Zap className="h-12 w-12 text-blue-600 animate-pulse" />
+                  </div>
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <Progress value={scanningProgress} className="h-2" />
+                  </div>
+                </div>
+                <p className="text-sm text-gray-600">
+                  Scanning for QR code... Position the code within the frame
+                </p>
+              </div>
+            )}
+
+            {demoStep === 1 && (
+              <div className="text-center space-y-4">
+                <div className="w-48 h-48 mx-auto bg-green-50 rounded-lg flex items-center justify-center">
+                  <div className="w-32 h-32 border-4 border-green-600 rounded-lg flex items-center justify-center">
+                    <Target className="h-12 w-12 text-green-600" />
+                  </div>
+                </div>
+                <p className="text-sm text-green-600 font-medium">
+                  QR Code detected! Processing...
+                </p>
+              </div>
+            )}
+
+            {demoStep === 2 && (
+              <div className="text-center space-y-4">
+                <div className="w-48 h-48 mx-auto bg-blue-50 rounded-lg flex items-center justify-center">
+                  <div className="space-y-2 text-center">
+                    <CheckCircle className="h-16 w-16 text-blue-600 mx-auto" />
+                    <p className="text-sm font-mono text-gray-700">{scannedData}</p>
+                  </div>
+                </div>
+                <p className="text-sm text-blue-600 font-medium">
+                  Validating attendance code...
+                </p>
+              </div>
+            )}
+
+            {demoStep === 3 && attendanceMarked && (
+              <div className="text-center space-y-4">
+                <div className="w-48 h-48 mx-auto bg-green-50 rounded-lg flex items-center justify-center">
+                  <div className="space-y-3 text-center">
+                    <CheckCircle className="h-20 w-20 text-green-600 mx-auto" />
+                    <div>
+                      <p className="text-lg font-semibold text-green-800">Attendance Marked!</p>
+                      <p className="text-sm text-green-600">Data Structures - CS-101</p>
+                      <p className="text-xs text-gray-500">Today at 9:00 AM</p>
+                    </div>
+                  </div>
+                </div>
+                <Badge className="bg-green-100 text-green-800">
+                  +10 Attendance Points Added
+                </Badge>
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

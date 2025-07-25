@@ -9,6 +9,7 @@ import { useAuth } from "@/hooks/useAuth";
 import AchievementBadge from "@/components/gamification/achievement-badge";
 import ProgressRing from "@/components/gamification/progress-ring";
 import Leaderboard from "@/components/gamification/leaderboard";
+import AnimatedInfoSlider from "@/components/dashboard/animated-info-slider";
 import { 
   Trophy, 
   Target, 
@@ -20,7 +21,11 @@ import {
   Flame,
   Star,
   X,
-  Send
+  Send,
+  Crown,
+  Zap,
+  Instagram,
+  Linkedin
 } from "lucide-react";
 
 export default function Dashboard() {
@@ -113,7 +118,7 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="space-y-6 p-3 lg:p-6">
+    <div className="space-y-6 p-3 lg:p-6 bg-gradient-to-br from-blue-50/50 via-purple-50/50 to-pink-50/50 min-h-screen">
       {/* Dynamic Hero Section with Events */}
       <div className="bg-gradient-to-br from-coep-blue via-blue-600 to-purple-600 rounded-xl p-6 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 animate-pulse"></div>
@@ -143,9 +148,30 @@ export default function Dashboard() {
         </div>
       </div>
 
+      {/* COEP Social Media & Info Slider */}
+      <div className="mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold text-gray-900 flex items-center space-x-2">
+            <Sparkles className="h-5 w-5 text-purple-600" />
+            <span>COEP Updates & Social Feed</span>
+          </h2>
+          <div className="flex space-x-2">
+            <Button variant="outline" size="sm" className="text-blue-600 border-blue-200 hover:bg-blue-50">
+              <Instagram className="h-4 w-4 mr-1" />
+              Follow
+            </Button>
+            <Button variant="outline" size="sm" className="text-blue-600 border-blue-200 hover:bg-blue-50">
+              <Linkedin className="h-4 w-4 mr-1" />
+              Connect
+            </Button>
+          </div>
+        </div>
+        <AnimatedInfoSlider />
+      </div>
+
       {/* Live Events & Activities Banner */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="bg-gradient-to-r from-orange-500 to-red-500 text-white border-0">
+        <Card className="bg-gradient-to-r from-orange-500 to-red-500 text-white border-0 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
           <CardContent className="p-4">
             <div className="flex items-center space-x-3">
               <div className="w-2 h-2 bg-white rounded-full animate-ping"></div>
@@ -157,7 +183,7 @@ export default function Dashboard() {
           </CardContent>
         </Card>
         
-        <Card className="bg-gradient-to-r from-green-500 to-emerald-500 text-white border-0">
+        <Card className="bg-gradient-to-r from-green-500 to-emerald-500 text-white border-0 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
           <CardContent className="p-4">
             <div className="flex items-center space-x-3">
               <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
@@ -169,7 +195,7 @@ export default function Dashboard() {
           </CardContent>
         </Card>
         
-        <Card className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0">
+        <Card className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
           <CardContent className="p-4">
             <div className="flex items-center space-x-3">
               <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>

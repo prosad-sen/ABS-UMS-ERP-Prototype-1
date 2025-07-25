@@ -23,9 +23,9 @@ export class AIAssistant {
       
       if (query.includes("leaderboard") || query.includes("points") || query.includes("gain") || query.includes("score")) {
         return {
-          response: "To gain more points in the leaderboard: 1) Maintain perfect attendance (+50 points daily), 2) Submit assignments early (+25 bonus points), 3) Participate in coding contests (+100 points), 4) Join study groups (+30 points), 5) Complete extra projects (+200 points). You're currently at Level 12 with 1,250 points - just 250 points away from Level 13!",
+          response: "🏆 To gain more points in the leaderboard: 1) Maintain perfect attendance (+50 points daily), 2) Submit assignments early (+25 bonus points), 3) Participate in coding contests (+100 points), 4) Join study groups (+30 points), 5) Complete extra projects (+200 points). You're currently at Level 12 with 1,250 points - just 250 points away from Level 13! **Navigate to:** Dashboard → Leaderboard section or Quick Actions.",
           suggestions: ["Join upcoming CodeChef contest", "Form study groups with classmates", "Attend all classes this week", "Submit your pending assignments early"],
-          actions: ["Check contest schedule", "Visit attendance page", "Review assignment deadlines", "Join student clubs"]
+          actions: ["Visit Leaderboard from Dashboard", "Go to Attendance page for QR scanning", "Check Academics for assignment deadlines", "Explore student clubs section"]
         };
       }
       
