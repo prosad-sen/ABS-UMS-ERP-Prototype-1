@@ -114,4 +114,28 @@
   .bg-error-red {
     background-color: var(--error-red);
   }
+
+  /* Fix sidebar z-index to prevent watermark interference */
+  .sidebar-nav {
+    position: relative;
+    z-index: 50;
+  }
+  
+  .sidebar-nav a {
+    position: relative;
+    z-index: 51;
+    pointer-events: auto;
+  }
+
+  /* Ensure watermark doesn't interfere with clickable elements */
+  .watermark {
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Override any conflicting z-index issues */
+  .navigation-link {
+    z-index: 100 !important;
+    position: relative;
+  }
 }

@@ -57,6 +57,18 @@ const getRoleNavigation = (role: string) => {
           description: 'Courses & Curriculum'
         },
         {
+          name: 'Academic Management',
+          href: '/academic-management',
+          icon: BookOpen,
+          description: 'Academic Administration'
+        },
+        {
+          name: 'Content Management',
+          href: '/content-management',
+          icon: FileText,
+          description: 'Course Content & Materials'
+        },
+        {
           name: 'Grade Management',
           href: '/grading',
           icon: FileText,
@@ -158,6 +170,18 @@ const getRoleNavigation = (role: string) => {
           href: '/management',
           icon: BarChart3,
           description: 'Strategic Analytics Dashboard'
+        },
+        {
+          name: 'Academic Management',
+          href: '/academic-management',
+          icon: BookOpen,
+          description: 'Academic Administration'
+        },
+        {
+          name: 'Content Management',
+          href: '/content-management',
+          icon: FileText,
+          description: 'Course Content & Materials'
         }
       ];
     
@@ -370,6 +394,18 @@ const getRoleNavigation = (role: string) => {
           href: '/student-clubs',
           icon: Users,
           description: 'Campus Organizations'
+        },
+        {
+          name: 'Academic Management',
+          href: '/academic-management',
+          icon: BookOpen,
+          description: 'Academic Information'
+        },
+        {
+          name: 'Content Management',
+          href: '/content-management',
+          icon: FileText,
+          description: 'Course Materials'
         }
       ];
   }
@@ -414,9 +450,9 @@ export default function Sidebar() {
   console.log('Navigation items:', navigationItems.length);
 
   return (
-    <aside className="fixed left-0 top-16 z-30 h-[calc(100vh-4rem)] w-64 border-r border-gray-200 bg-white overflow-y-auto hidden lg:block">
+    <aside className="fixed left-0 top-16 z-50 h-[calc(100vh-4rem)] w-64 border-r border-gray-200 bg-white overflow-y-auto hidden lg:block sidebar-nav">
       <div className="p-6">
-        <nav className="space-y-2">
+        <nav className="space-y-2 sidebar-nav">
           {navigationItems.map((item) => {
             const isActive = location === item.href || (item.href !== '/' && location.startsWith(item.href));
             
@@ -425,11 +461,12 @@ export default function Sidebar() {
                 key={item.name}
                 href={item.href}
                 className={cn(
-                  'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200',
+                  'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200 navigation-link relative z-50',
                   isActive
                     ? 'bg-coep-blue text-white shadow-sm'
                     : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
                 )}
+                style={{ position: 'relative', zIndex: 100, pointerEvents: 'auto' }}
               >
                 <item.icon className={cn(
                   'h-5 w-5',

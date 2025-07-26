@@ -47,6 +47,8 @@ import AlumniMentorship from "@/pages/alumni-mentorship";
 import AlumniContributions from "@/pages/alumni-contributions";
 import AlumniNewsEvents from "@/pages/alumni-news-events";
 import SimpleAdminTest from "@/pages/simple-admin-test";
+import AcademicManagement from "@/pages/academic-management";
+import ContentManagement from "@/pages/content-management";
 
 import MainLayout from "@/components/layout/main-layout";
 
@@ -174,6 +176,11 @@ function Router() {
         }} />
         <Route path="/hostel-management" component={HostelManagement} />
         <Route path="/transport-management" component={TransportManagement} />
+        
+        {/* Academic Management */}
+        <Route path="/academic-management" component={AcademicManagement} />
+        <Route path="/content-management" component={ContentManagement} />
+        
         <Route path="/profile" component={() => {
           const userRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole') || "student";
           console.log('Profile route - detected role:', userRole);
