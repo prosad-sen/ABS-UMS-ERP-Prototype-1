@@ -49,6 +49,13 @@ import AlumniNewsEvents from "@/pages/alumni-news-events";
 import SimpleAdminTest from "@/pages/simple-admin-test";
 import AcademicManagement from "@/pages/academic-management";
 import ContentManagement from "@/pages/content-management";
+import AdmissionsManagement from "@/pages/admissions-management";
+import HRManagement from "@/pages/hr-management";
+import FinanceManagement from "@/pages/finance-management";
+import AccreditationManagement from "@/pages/accreditation-management";
+import ProcurementManagement from "@/pages/procurement-management";
+import InventoryManagement from "@/pages/inventory-management";
+import InfrastructureManagement from "@/pages/infrastructure-management";
 
 import MainLayout from "@/components/layout/main-layout";
 
@@ -180,6 +187,15 @@ function Router() {
         {/* Academic Management */}
         <Route path="/academic-management" component={AcademicManagement} />
         <Route path="/content-management" component={ContentManagement} />
+        
+        {/* Comprehensive FRS Modules */}
+        <Route path="/admissions-management" component={AdmissionsManagement} />
+        <Route path="/hr-management" component={HRManagement} />
+        <Route path="/finance-management" component={FinanceManagement} />
+        <Route path="/accreditation-management" component={AccreditationManagement} />
+        <Route path="/procurement-management" component={ProcurementManagement} />
+        <Route path="/inventory-management" component={InventoryManagement} />
+        <Route path="/infrastructure-management" component={InfrastructureManagement} />
         
         <Route path="/profile" component={() => {
           const userRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole') || "student";

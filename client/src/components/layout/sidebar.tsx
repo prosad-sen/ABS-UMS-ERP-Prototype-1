@@ -12,7 +12,12 @@ import {
   Cloud,
   MessageSquare,
   Briefcase,
-  Users
+  Users,
+  UserPlus,
+  Award,
+  ShoppingCart,
+  Package,
+  Building
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -67,6 +72,48 @@ const getRoleNavigation = (role: string) => {
           href: '/content-management',
           icon: FileText,
           description: 'Course Content & Materials'
+        },
+        {
+          name: 'Admissions Management',
+          href: '/admissions-management',
+          icon: UserPlus,
+          description: 'Student Admission Process'
+        },
+        {
+          name: 'HR Management',
+          href: '/hr-management',
+          icon: Users,
+          description: 'Human Resources & Faculty'
+        },
+        {
+          name: 'Finance Management',
+          href: '/finance-management',
+          icon: DollarSign,
+          description: 'Financial Operations'
+        },
+        {
+          name: 'Accreditation',
+          href: '/accreditation-management',
+          icon: Award,
+          description: 'Quality Assurance & Accreditation'
+        },
+        {
+          name: 'Procurement',
+          href: '/procurement-management',
+          icon: ShoppingCart,
+          description: 'Procurement & Vendor Management'
+        },
+        {
+          name: 'Inventory Management',
+          href: '/inventory-management',
+          icon: Package,
+          description: 'Inventory & Stock Management'
+        },
+        {
+          name: 'Infrastructure',
+          href: '/infrastructure-management',
+          icon: Building,
+          description: 'Infrastructure & Facility Management'
         },
         {
           name: 'Grade Management',
