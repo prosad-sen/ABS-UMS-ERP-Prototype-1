@@ -17,7 +17,8 @@ import {
   Award,
   ShoppingCart,
   Package,
-  Building
+  Building,
+  Handshake
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -114,6 +115,12 @@ const getRoleNavigation = (role: string) => {
           href: '/infrastructure-management',
           icon: Building,
           description: 'Infrastructure & Facility Management'
+        },
+        {
+          name: 'Industrial Collaborations',
+          href: '/industrial-collaborations',
+          icon: Handshake,
+          description: 'Industry Partnerships & MoU Management'
         },
         {
           name: 'Grade Management',

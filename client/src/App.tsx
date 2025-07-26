@@ -56,6 +56,7 @@ import AccreditationManagement from "@/pages/accreditation-management";
 import ProcurementManagement from "@/pages/procurement-management";
 import InventoryManagement from "@/pages/inventory-management";
 import InfrastructureManagement from "@/pages/infrastructure-management";
+import IndustrialCollaborations from "@/pages/industrial-collaborations";
 
 import MainLayout from "@/components/layout/main-layout";
 
@@ -196,6 +197,7 @@ function Router() {
         <Route path="/procurement-management" component={ProcurementManagement} />
         <Route path="/inventory-management" component={InventoryManagement} />
         <Route path="/infrastructure-management" component={InfrastructureManagement} />
+        <Route path="/industrial-collaborations" component={IndustrialCollaborations} />
         
         <Route path="/profile" component={() => {
           const userRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole') || "student";

@@ -48,6 +48,7 @@ Preferred communication style: Simple, everyday language.
   - **PROCUREMENT MANAGEMENT**: End-to-end procurement with vendor management, budget tracking, request processing, and analytics
   - **INVENTORY MANAGEMENT**: Comprehensive stock management with item tracking, categories, transaction history, and automated reorder points
   - **INFRASTRUCTURE MANAGEMENT**: Complete facility management with building directory, maintenance tracking, utilities monitoring, and security systems
+  - **INDUSTRIAL COLLABORATIONS & MoU MANAGEMENT**: Comprehensive industry partnership management with MoU tracking, collaborative projects, funding management, and partnership analytics
   - **ACADEMIC MANAGEMENT**: Curriculum planning, course scheduling, timetable management, and assessment coordination
   - **CONTENT MANAGEMENT**: Course materials, assignment distribution, file management, and academic content organization
 - Application running successfully on port 5000 with comprehensive role-based functionality and ALL FRS features implemented
