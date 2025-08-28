@@ -18,7 +18,10 @@ import {
   ShoppingCart,
   Package,
   Building,
-  Handshake
+  Handshake,
+  Camera,
+  Brain,
+  Database
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -284,6 +287,30 @@ const getRoleNavigation = (role: string) => {
           href: '/industrial-collaborations',
           icon: Handshake,
           description: 'Industry Partnerships & MoU Management'
+        },
+        {
+          name: 'Advanced Attendance System',
+          href: '/advanced-attendance',
+          icon: Camera,
+          description: 'CCTV-based Biometric Attendance Intelligence'
+        },
+        {
+          name: 'Academic Analytics AI',
+          href: '/advanced-analytics',
+          icon: Brain,
+          description: 'AI-Powered Academic Performance Analytics'
+        },
+        {
+          name: 'Scholarship API Hub',
+          href: '/scholarship-integration',
+          icon: Award,
+          description: 'Government & Private Scholarship Integration'
+        },
+        {
+          name: 'Digital Library System',
+          href: '/comprehensive-library',
+          icon: Database,
+          description: 'Advanced Digital Resource Management'
         }
       ];
     

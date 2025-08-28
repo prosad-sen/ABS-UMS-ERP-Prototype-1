@@ -57,6 +57,10 @@ import ProcurementManagement from "@/pages/procurement-management";
 import InventoryManagement from "@/pages/inventory-management";
 import InfrastructureManagement from "@/pages/infrastructure-management";
 import IndustrialCollaborations from "@/pages/industrial-collaborations";
+import AdvancedAttendanceSystem from "@/pages/advanced-attendance-system";
+import AdvancedAcademicAnalytics from "@/pages/advanced-academic-analytics";
+import ScholarshipAPIIntegration from "@/pages/scholarship-api-integration";
+import ComprehensiveLibrarySystem from "@/pages/comprehensive-library-system";
 
 import MainLayout from "@/components/layout/main-layout";
 
@@ -198,6 +202,12 @@ function Router() {
         <Route path="/inventory-management" component={InventoryManagement} />
         <Route path="/infrastructure-management" component={InfrastructureManagement} />
         <Route path="/industrial-collaborations" component={IndustrialCollaborations} />
+        
+        {/* Advanced World-Class ERP Modules */}
+        <Route path="/advanced-attendance" component={AdvancedAttendanceSystem} />
+        <Route path="/advanced-analytics" component={AdvancedAcademicAnalytics} />
+        <Route path="/scholarship-integration" component={ScholarshipAPIIntegration} />
+        <Route path="/comprehensive-library" component={ComprehensiveLibrarySystem} />
         
         <Route path="/profile" component={() => {
           const userRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole') || "student";
