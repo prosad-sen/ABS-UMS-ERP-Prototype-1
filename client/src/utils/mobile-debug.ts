@@ -63,10 +63,34 @@ export const mobileDebug = {
   }
 };
 
-// Auto-run diagnostics on mobile
-if (typeof window !== 'undefined' && window.innerWidth < 768) {
-  setTimeout(() => {
-    mobileDebug.detectEnvironment();
-    mobileDebug.checkConnectivity();
-  }, 1000);
+// Auto-run diagnostics on mobile with enhanced error handling
+if (typeof window !== 'undefined') {
+  setTimeout(async () => {
+    try {
+      const env = mobileDebug.detectEnvironment();
+      const connectivity = await mobileDebug.checkConnectivity();
+      
+      if (env.isMobile) {
+        mobileDebug.log('Mobile environment initialized', { env, connectivity });
+        
+        // Additional mobile-specific checks
+        mobileDebug.log('Screen info', {
+          screen: `${screen.width}x${screen.height}`,
+          viewport: `${window.innerWidth}x${window.innerHeight}`,
+          devicePixelRatio: window.devicePixelRatio,
+          orientation: screen.orientation?.type || 'unknown'
+        });
+        
+        // Test basic functionality
+        try {
+          const testResponse = await fetch('/api/health', { method: 'GET' });
+          mobileDebug.log('Health check', { status: testResponse.status });
+        } catch (error) {
+          mobileDebug.log('Health check failed', error);
+        }
+      }
+    } catch (error) {
+      mobileDebug.log('Mobile diagnostics failed', error);
+    }
+  }, 500);
 }

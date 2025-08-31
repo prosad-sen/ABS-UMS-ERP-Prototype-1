@@ -4,16 +4,23 @@ import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
 
-// Enhanced CORS and mobile support
+// Enhanced CORS and mobile support with Replit-specific headers
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  const origin = req.headers.origin;
+  res.header('Access-Control-Allow-Origin', origin || '*');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, HEAD');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, X-Forwarded-For, X-Real-IP');
   res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
   res.header('Pragma', 'no-cache');
   res.header('Expires', '0');
-  res.header('X-Frame-Options', 'ALLOWALL');
+  res.header('X-Frame-Options', 'SAMEORIGIN');
   res.header('X-Content-Type-Options', 'nosniff');
+  res.header('Referrer-Policy', 'strict-origin-when-cross-origin');
+  
+  // Log all requests for debugging
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.url} - Origin: ${origin || 'none'} - User-Agent: ${(req.headers['user-agent'] || '').substring(0, 50)}...`);
+  
   next();
 });
 
@@ -22,13 +29,26 @@ app.options('*', (req, res) => {
   res.sendStatus(200);
 });
 
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development',
+    domain: process.env.REPLIT_DEV_DOMAIN,
+    port: process.env.PORT || 5000,
+  });
+});
+
 // Mobile specific route handler
 app.get('/mobile-check', (req, res) => {
   res.json({
     status: 'success',
     domain: process.env.REPLIT_DEV_DOMAIN,
     port: process.env.PORT || 5000,
-    userAgent: req.headers['user-agent']
+    userAgent: req.headers['user-agent'],
+    timestamp: new Date().toISOString(),
+    headers: req.headers
   });
 });
 

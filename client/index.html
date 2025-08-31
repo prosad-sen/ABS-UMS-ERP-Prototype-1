@@ -11,18 +11,82 @@
   </head>
   <body>
     <div id="root">
-      <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #f3f4f6; padding: 1rem;">
+      <div id="loading-screen" style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #f3f4f6; padding: 1rem;">
         <div style="text-align: center; max-width: 400px;">
           <h1 style="color: #1e40af; margin-bottom: 10px; font-size: clamp(1.5rem, 4vw, 2.5rem);">COEP University Management System</h1>
           <p style="color: #6b7280; font-size: clamp(0.875rem, 2.5vw, 1rem);">Loading application...</p>
           <div style="margin-top: 20px; width: 40px; height: 40px; border: 4px solid #e5e7eb; border-top: 4px solid #2563eb; border-radius: 50%; animation: spin 1s linear infinite; margin: 20px auto;"></div>
+          <div id="loading-debug" style="margin-top: 20px; font-size: 12px; color: #6b7280; display: none;">
+            <p>Debug Information:</p>
+            <div id="debug-info"></div>
+          </div>
         </div>
       </div>
     </div>
+    
+    <script>
+      // Enhanced loading screen with debugging
+      let loadingTimeout;
+      const debugInfo = document.getElementById('debug-info');
+      const loadingDebug = document.getElementById('loading-debug');
+      
+      function showDebugInfo() {
+        const info = {
+          userAgent: navigator.userAgent,
+          viewport: window.innerWidth + 'x' + window.innerHeight,
+          screen: screen.width + 'x' + screen.height,
+          url: window.location.href,
+          timestamp: new Date().toISOString()
+        };
+        
+        debugInfo.innerHTML = Object.entries(info)
+          .map(([key, value]) => `<div><strong>${key}:</strong> ${value}</div>`)
+          .join('');
+        loadingDebug.style.display = 'block';
+      }
+      
+      // Show debug info on mobile or after 5 seconds
+      if (window.innerWidth < 768) {
+        setTimeout(showDebugInfo, 2000);
+      } else {
+        setTimeout(showDebugInfo, 5000);
+      }
+      
+      // Hide loading screen when React app loads
+      window.addEventListener('DOMContentLoaded', () => {
+        loadingTimeout = setTimeout(() => {
+          const loadingScreen = document.getElementById('loading-screen');
+          if (loadingScreen && loadingScreen.style.display !== 'none') {
+            console.log('React app load timeout - showing debug info');
+            showDebugInfo();
+          }
+        }, 10000);
+      });
+      
+      // Function to hide loading (called by React app)
+      window.hideLoadingScreen = () => {
+        const loadingScreen = document.getElementById('loading-screen');
+        if (loadingScreen) {
+          loadingScreen.style.display = 'none';
+        }
+        if (loadingTimeout) {
+          clearTimeout(loadingTimeout);
+        }
+      };
+    </script>
+    
     <style>
       @keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
+      }
+      
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
     </style>
     <script type="module" src="/src/main.tsx"></script>
