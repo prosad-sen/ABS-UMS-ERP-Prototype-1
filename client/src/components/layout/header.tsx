@@ -630,7 +630,7 @@ export default function Header() {
 
         <div className="flex-1 flex items-center">
           <div className="flex items-center space-x-2 lg:space-x-4">
-            <div className="lg:ml-64">
+            <div className="lg:ml-0">
               <h1 className="text-lg lg:text-xl font-semibold text-gray-800">COEP UMS</h1>
               <p className="text-xs lg:text-sm text-gray-600 hidden sm:block">College of Engineering Pune</p>
             </div>
