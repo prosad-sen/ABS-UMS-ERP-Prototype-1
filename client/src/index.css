@@ -198,7 +198,7 @@
   }
 
   /* Mobile Responsive Enhancements */
-  @media (max-width: 768px) {
+  @media only screen and (max-width: 768px) {
     .mobile-hidden {
       display: none !important;
     }
@@ -268,7 +268,7 @@
   }
 
   /* Touch-friendly interactions for mobile */
-  @media (max-width: 768px) {
+  @media only screen and (max-width: 768px) {
     .btn-interactive:hover {
       transform: none;
     }
