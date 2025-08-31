@@ -614,8 +614,8 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="fixed top-0 right-0 left-0 lg:left-64 bg-white border-b border-gray-200 z-40">
-      <div className="flex items-center justify-between px-3 lg:px-6 py-3 lg:py-4">
+    <header className="fixed top-0 right-0 left-0 lg:left-0 bg-white border-b border-gray-200 z-40">
+      <div className="flex items-center justify-between px-3 lg:px-6 py-2 lg:py-3">
         {/* Mobile Menu Button */}
         <button 
           className="lg:hidden p-2"
@@ -628,9 +628,9 @@ export default function Header() {
           )}
         </button>
 
-        <div className="flex-1 lg:flex-none">
-          <div className="flex items-center space-x-2">
-            <div>
+        <div className="flex-1 flex items-center">
+          <div className="flex items-center space-x-2 lg:space-x-4">
+            <div className="lg:ml-64">
               <h1 className="text-lg lg:text-xl font-semibold text-gray-800">COEP UMS</h1>
               <p className="text-xs lg:text-sm text-gray-600 hidden sm:block">College of Engineering Pune</p>
             </div>
