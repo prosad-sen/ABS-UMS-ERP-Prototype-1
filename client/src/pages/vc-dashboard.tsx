@@ -174,7 +174,7 @@ export default function VCDashboard() {
   ];
 
   return (
-    <div className="space-y-6 px-3 lg:px-6 py-6 bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen">
+    <div className="space-y-6 px-3 lg:px-6 pb-6 bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen">
       {/* Executive Header */}
       <div className="bg-gradient-to-r from-blue-900 to-purple-900 text-white p-6 rounded-lg shadow-xl">
         <div style={{position: 'relative', width: '100%', minHeight: '80px'}}>

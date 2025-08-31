@@ -210,7 +210,7 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="space-y-6 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50/50 via-purple-50/50 to-pink-50/50 min-h-screen">
+    <div className="space-y-6 px-4 sm:px-6 lg:px-8 pb-6 bg-gradient-to-br from-blue-50/50 via-purple-50/50 to-pink-50/50 min-h-screen">
       {/* Dynamic Hero Section with Events */}
       <div className="bg-gradient-to-br from-coep-blue via-blue-600 to-purple-600 rounded-xl p-6 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 animate-pulse"></div>
