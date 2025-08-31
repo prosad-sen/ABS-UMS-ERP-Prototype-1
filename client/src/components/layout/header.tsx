@@ -615,7 +615,7 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 right-0 left-0 lg:left-0 bg-white border-b border-gray-200 z-40">
-      <div className="flex items-center justify-between px-3 lg:px-6 py-2 lg:py-3">
+      <div className="flex items-center justify-between px-3 lg:px-6 py-1 lg:py-2">
         {/* Mobile Menu Button */}
         <button 
           className="lg:hidden p-2"
