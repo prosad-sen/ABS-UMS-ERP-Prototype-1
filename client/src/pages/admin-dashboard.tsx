@@ -147,7 +147,7 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="px-3 lg:px-6 pb-6">
+    <div className="px-3 lg:px-6 pb-6" style={{paddingTop: '0px', marginTop: '0px'}}>
       {/* Header */}
       <div style={{position: 'relative', width: '100%', minHeight: '80px'}} className="mb-6">
         <div style={{position: 'absolute', left: '0', top: '0', width: 'calc(100% - 200px)'}}>
