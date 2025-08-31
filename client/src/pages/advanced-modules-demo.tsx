@@ -14,11 +14,23 @@ import {
   Zap,
   Eye,
   Target,
-  TrendingUp
+  TrendingUp,
+  Home,
+  MapPin,
+  Calendar,
+  GraduationCap,
+  BookOpen,
+  Bus,
+  Building2,
+  Briefcase,
+  FlaskConical,
+  FileText,
+  CreditCard,
+  DollarSign
 } from "lucide-react";
 
 export default function AdvancedModulesDemo() {
-  const advancedModules = [
+  const modules = [
     {
       title: "Advanced CCTV-based Attendance System",
       description: "Biometric intelligence with real-time monitoring, face recognition, QR codes, and AI analytics for comprehensive attendance tracking.",
@@ -78,6 +90,134 @@ export default function AdvancedModulesDemo() {
       ],
       status: "Live", 
       color: "from-teal-500 to-teal-700"
+    },
+    {
+      title: "CCTV Photo Attendance System",
+      description: "Advanced AI-powered attendance tracking using photo verification and CCTV integration for accurate and automated attendance management.",
+      href: "/advanced-attendance-system",
+      icon: Camera,
+      color: "from-blue-500 to-blue-600",
+      features: ["AI Photo Recognition", "CCTV Integration", "Real-time Tracking", "Automated Reports"]
+    },
+    {
+      title: "Academic Analytics with AI",
+      description: "Comprehensive academic performance analytics powered by artificial intelligence for predictive insights and personalized learning recommendations.",
+      href: "/advanced-academic-analytics", 
+      icon: TrendingUp,
+      color: "from-green-500 to-green-600",
+      features: ["Predictive Analytics", "Performance Insights", "Learning Recommendations", "Progress Tracking"]
+    },
+    {
+      title: "Government Scholarship API Integration",
+      description: "Seamless integration with government scholarship portals and APIs for automated scholarship discovery, application, and tracking.",
+      href: "/scholarship-api-integration",
+      icon: DollarSign,
+      color: "from-purple-500 to-purple-600", 
+      features: ["Auto Discovery", "Application Tracking", "Eligibility Matching", "Document Management"]
+    },
+    {
+      title: "Comprehensive Library System",
+      description: "Advanced library management system with digital cataloging, reservation system, fine management, and research resource integration.",
+      href: "/comprehensive-library-system",
+      icon: BookOpen,
+      color: "from-orange-500 to-orange-600",
+      features: ["Digital Catalog", "Reservation System", "Fine Management", "Research Resources"]
+    },
+    {
+      title: "Hostel Booking System",
+      description: "Complete hostel accommodation management with room selection, booking workflow, amenities tracking, and payment integration.",
+      href: "/hostel-booking-system",
+      icon: Home,
+      color: "from-teal-500 to-teal-600",
+      features: ["Room Selection", "Booking Workflow", "Amenities Tracking", "Payment Integration"]
+    },
+    {
+      title: "Campus Navigation System",
+      description: "Interactive campus maps with real-time navigation, location search, facility information, and route planning for easy campus exploration.",
+      href: "/campus-navigation",
+      icon: MapPin,
+      color: "from-red-500 to-red-600",
+      features: ["Interactive Maps", "Real-time Navigation", "Location Search", "Route Planning"]
+    },
+    {
+      title: "Event Management System",
+      description: "Comprehensive event planning and management platform with registration, scheduling, capacity management, and attendee tracking.",
+      href: "/event-management-system",
+      icon: Calendar,
+      color: "from-indigo-500 to-indigo-600",
+      features: ["Event Planning", "Registration System", "Capacity Management", "Attendee Tracking"]
+    },
+    {
+      title: "Student Information System",
+      description: "Complete student lifecycle management with academic records, personal information, enrollment tracking, and academic progression.",
+      href: "/sis",
+      icon: Users,
+      color: "from-pink-500 to-pink-600",
+      features: ["Academic Records", "Enrollment Tracking", "Personal Information", "Academic Progression"]
+    },
+    {
+      title: "Learning Management System",
+      description: "Advanced LMS with course content delivery, assignment management, online assessments, and collaborative learning tools.",
+      href: "/lms",
+      icon: GraduationCap,
+      color: "from-cyan-500 to-cyan-600",
+      features: ["Course Content", "Assignment Management", "Online Assessments", "Collaborative Tools"]
+    },
+    {
+      title: "Library Management",
+      description: "Digital library system with book cataloging, reservation system, fine management, and integrated research resources.",
+      href: "/library",
+      icon: BookOpen,
+      color: "from-amber-500 to-amber-600",
+      features: ["Book Cataloging", "Reservation System", "Fine Management", "Research Resources"]
+    },
+    {
+      title: "Transport Management",
+      description: "Campus transportation system with route tracking, schedule management, vehicle monitoring, and student transport coordination.",
+      href: "/transport-management",
+      icon: Bus,
+      color: "from-lime-500 to-lime-600",
+      features: ["Route Tracking", "Schedule Management", "Vehicle Monitoring", "Transport Coordination"]
+    },
+    {
+      title: "Hostel Management",
+      description: "Complete hostel administration with room allocation, student management, maintenance tracking, and facility oversight.",
+      href: "/hostel-management",
+      icon: Building2,
+      color: "from-violet-500 to-violet-600",
+      features: ["Room Allocation", "Student Management", "Maintenance Tracking", "Facility Oversight"]
+    },
+    {
+      title: "Placement Management",
+      description: "Comprehensive career services platform with company partnerships, job placements, interview scheduling, and career tracking.",
+      href: "/student-placements",
+      icon: Briefcase,
+      color: "from-emerald-500 to-emerald-600",
+      features: ["Company Partnerships", "Job Placements", "Interview Scheduling", "Career Tracking"]
+    },
+    {
+      title: "Research Management",
+      description: "Research project coordination with grant management, publication tracking, collaboration tools, and intellectual property management.",
+      href: "/research",
+      icon: FlaskConical,
+      color: "from-rose-500 to-rose-600",
+      features: ["Grant Management", "Publication Tracking", "Collaboration Tools", "IP Management"]
+    },
+    {
+      title: "Exam Management",
+      description: "Complete examination system with scheduling, seating arrangements, result processing, and academic evaluation management.",
+      href: "/exam-management",
+      icon: FileText,
+      color: "from-sky-500 to-sky-600",
+      features: ["Exam Scheduling", "Seating Arrangements", "Result Processing", "Academic Evaluation"]
+    },
+    {
+      title: "Fee Management",
+      description: "Comprehensive fee collection system with online payments, scholarship integration, installment tracking, and financial reporting.",
+      href: "/fees",
+      icon: CreditCard,
+      color: "from-yellow-500 to-yellow-600",
+      features: ["Online Payments", "Scholarship Integration", "Installment Tracking", "Financial Reporting"]
     }
   ];
 
@@ -131,53 +271,58 @@ export default function AdvancedModulesDemo() {
 
       {/* Advanced Modules Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {advancedModules.map((module, index) => (
-          <Card key={index} className="hover:shadow-lg transition-shadow duration-300 overflow-hidden">
-            <div className={`bg-gradient-to-r ${module.color} p-6 text-white`}>
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
-                    <module.icon className="h-6 w-6" />
+        {modules.map((module, index) => {
+          const IconComponent = module.icon;
+          return (
+            <Card key={index} className="card-hover overflow-hidden animate-slide-up" style={{animationDelay: `${index * 100}ms`}}>
+              <div className={`bg-gradient-to-r ${module.color} p-6 text-white`}>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center animate-bounce-gentle">
+                      <IconComponent className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <h2 className="text-xl font-bold">{module.title}</h2>
+                      {module.status && (
+                        <Badge className="mt-1 bg-white bg-opacity-20 text-white border-white badge-float">
+                          {module.status}
+                        </Badge>
+                      )}
+                    </div>
                   </div>
+                </div>
+                <p className="text-white text-opacity-90 text-sm">
+                  {module.description}
+                </p>
+              </div>
+              
+              <CardContent className="p-6">
+                <div className="space-y-4">
                   <div>
-                    <h2 className="text-xl font-bold">{module.title}</h2>
-                    <Badge className="mt-1 bg-white bg-opacity-20 text-white border-white">
-                      {module.status}
-                    </Badge>
+                    <h3 className="font-semibold text-gray-900 mb-3">Key Features:</h3>
+                    <ul className="space-y-2">
+                      {module.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-center text-sm text-gray-700 animate-slide-up" style={{animationDelay: `${(idx + 1) * 50}ms`}}>
+                          <div className="w-2 h-2 bg-green-500 rounded-full mr-3 animate-pulse-soft"></div>
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  <div className="pt-4 border-t">
+                    <Link href={module.href}>
+                      <Button className="w-full btn-interactive bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+                        <Globe className="h-4 w-4 mr-2" />
+                        Launch Module
+                      </Button>
+                    </Link>
                   </div>
                 </div>
-              </div>
-              <p className="text-white text-opacity-90 text-sm">
-                {module.description}
-              </p>
-            </div>
-            
-            <CardContent className="p-6">
-              <div className="space-y-4">
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-3">Key Features:</h3>
-                  <ul className="space-y-2">
-                    {module.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center text-sm text-gray-700">
-                        <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                
-                <div className="pt-4 border-t">
-                  <Link href={module.href}>
-                    <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                      <Globe className="h-4 w-4 mr-2" />
-                      Launch Module
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
 
       {/* Direct Access Links */}

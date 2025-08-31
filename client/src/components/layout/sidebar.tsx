@@ -681,7 +681,7 @@ export default function Sidebar() {
                 key={item.name}
                 href={item.href}
                 className={cn(
-                  'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200 navigation-link',
+                  'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium nav-item navigation-link',
                   isActive
                     ? 'bg-coep-blue text-white shadow-sm'
                     : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'

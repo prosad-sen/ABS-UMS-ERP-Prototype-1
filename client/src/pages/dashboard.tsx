@@ -41,6 +41,8 @@ import {
   LogOut,
   Home
 } from "lucide-react";
+import UserWalkthrough from "@/components/onboarding/user-walkthrough";
+import React from "react";
 
 export default function Dashboard() {
   const { user } = useAuth();
@@ -52,6 +54,7 @@ export default function Dashboard() {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [selectedDetailType, setSelectedDetailType] = useState<string>("");
   const [selectedDetailTitle, setSelectedDetailTitle] = useState<string>("");
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   const handleLogout = () => {
     setLocation("/");
@@ -79,6 +82,18 @@ export default function Dashboard() {
   }
 
   const userName = 'Student';
+  
+  // Check if onboarding should be shown
+  React.useEffect(() => {
+    const hasCompletedOnboarding = localStorage.getItem('onboarding_completed');
+    const hasSkippedOnboarding = localStorage.getItem('onboarding_skipped');
+    
+    if (!hasCompletedOnboarding && !hasSkippedOnboarding) {
+      setTimeout(() => {
+        setShowOnboarding(true);
+      }, 1500);
+    }
+  }, []);
 
   const handleAiQuery = async () => {
     if (!aiMessage.trim()) return;
@@ -210,9 +225,18 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 pb-6 bg-gradient-to-br from-blue-50/50 via-purple-50/50 to-pink-50/50 min-h-screen" style={{paddingTop: '0px', marginTop: '0px'}}>
+    <div className="px-4 sm:px-6 lg:px-8 pb-6 gradient-depth min-h-screen" style={{paddingTop: '0px', marginTop: '0px'}}>
+      {/* Onboarding Walkthrough */}
+      {showOnboarding && (
+        <UserWalkthrough 
+          userRole="Student"
+          onComplete={() => setShowOnboarding(false)}
+          onSkip={() => setShowOnboarding(false)}
+        />
+      )}
+      
       {/* Dynamic Hero Section with Events */}
-      <div className="bg-gradient-to-br from-coep-blue via-blue-600 to-purple-600 rounded-xl p-6 text-white relative overflow-hidden mb-6">
+      <div className="bg-gradient-to-br from-coep-blue via-blue-600 to-purple-600 rounded-xl p-6 text-white relative overflow-hidden mb-6 card-hover animate-slide-up" data-testid="dashboard-hero">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 animate-pulse"></div>
         <div className="relative z-10">
           <div className="mb-4">

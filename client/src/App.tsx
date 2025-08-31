@@ -62,6 +62,9 @@ import AdvancedAcademicAnalytics from "@/pages/advanced-academic-analytics";
 import ScholarshipAPIIntegration from "@/pages/scholarship-api-integration";
 import ComprehensiveLibrarySystem from "@/pages/comprehensive-library-system";
 import AdvancedModulesDemo from "@/pages/advanced-modules-demo";
+import HostelBookingSystem from "@/pages/hostel-booking-system";
+import CampusNavigation from "@/pages/campus-navigation";
+import EventManagementSystem from "@/pages/event-management-system";
 
 import MainLayout from "@/components/layout/main-layout";
 
@@ -210,6 +213,9 @@ function Router() {
         <Route path="/scholarship-integration" component={ScholarshipAPIIntegration} />
         <Route path="/comprehensive-library" component={ComprehensiveLibrarySystem} />
         <Route path="/advanced-modules-demo" component={AdvancedModulesDemo} />
+        <Route path="/hostel-booking-system" component={HostelBookingSystem} />
+        <Route path="/campus-navigation" component={CampusNavigation} />
+        <Route path="/event-management-system" component={EventManagementSystem} />
         
         <Route path="/profile" component={() => {
           const userRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole') || "student";
