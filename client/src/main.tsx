@@ -7,14 +7,14 @@ import { ErrorBoundary } from "@/components/error-boundary";
 
 import App from "./App.tsx";
 import "./index.css";
-import "./utils/mobile-debug";
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       queryFn: async ({ queryKey }) => {
         const url = queryKey[0] as string;
-        console.log('Fetching:', url);
+
         
         const res = await fetch(url, {
           method: 'GET',
@@ -25,7 +25,7 @@ const queryClient = new QueryClient({
           credentials: 'same-origin',
         });
         
-        console.log('Response status:', res.status, 'for URL:', url);
+
         
         if (!res.ok) {
           if (res.status >= 500) {
@@ -50,7 +50,7 @@ if (!rootElement) {
 
 // Add global error handling for mobile
 window.addEventListener('error', (event) => {
-  console.error('Global error:', event.error);
+
   if (typeof window !== 'undefined' && window.innerWidth < 768) {
     // Mobile error display
     const errorDiv = document.createElement('div');

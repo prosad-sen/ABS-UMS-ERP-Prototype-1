@@ -644,7 +644,7 @@ export default function Sidebar({ isOpen = false, onClose, isMobile = false }: S
     // Check localStorage first (most reliable)
     const storedRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole');
     if (storedRole) {
-      console.log('Role from localStorage:', storedRole);
+
       return storedRole;
     }
     
@@ -663,16 +663,14 @@ export default function Sidebar({ isOpen = false, onClose, isMobile = false }: S
     if (location.includes('parent')) return 'parent';
     if (location.includes('alumni')) return 'alumni';
     
-    console.log('Defaulting to student role');
+
     return 'student';
   };
   
   const currentRole = getCurrentRole();
   const navigationItems = getRoleNavigation(currentRole);
   
-  // Debug logging
-  console.log('Current role detected:', currentRole);
-  console.log('Navigation items:', navigationItems.length);
+
 
   const handleNavClick = () => {
     if (isMobile && onClose) {

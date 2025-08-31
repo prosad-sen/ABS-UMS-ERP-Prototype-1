@@ -15,7 +15,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
       const width = window.innerWidth;
       const isMobileDevice = width < 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       setIsMobile(isMobileDevice);
-      console.log('Mobile detection:', { width, isMobileDevice });
+
     };
     
     checkMobile();

@@ -171,11 +171,11 @@ function generateCGPA(): number {
 }
 
 export async function seedDummyData() {
-  console.log('Starting to seed COEP dummy data...');
+
   
   try {
     // 1. Create Books
-    console.log('Creating books...');
+
     const bookRecords = [];
     for (const book of COEP_BOOKS) {
       bookRecords.push({
@@ -195,7 +195,7 @@ export async function seedDummyData() {
     await db.insert(books).values(bookRecords);
     
     // 2. Create Courses
-    console.log('Creating courses...');
+
     const courseRecords = [];
     for (const course of COEP_COURSES) {
       courseRecords.push({
@@ -213,7 +213,7 @@ export async function seedDummyData() {
     await db.insert(courses).values(courseRecords);
     
     // 3. Create Faculty (120 faculty members)
-    console.log('Creating faculty members...');
+
     const facultyUsers = [];
     const facultyRecords = [];
     
@@ -258,7 +258,7 @@ export async function seedDummyData() {
     await db.insert(faculty).values(facultyRecords);
     
     // 4. Create Students (10,000+ students across 10 years)
-    console.log('Creating 10,000+ students across 10 years (2015-2024)...');
+
     const studentUsers = [];
     const studentRecords = [];
     
@@ -339,7 +339,7 @@ export async function seedDummyData() {
     await db.insert(students).values(studentRecords);
     
     // 5. Create Fee Structure
-    console.log('Creating fee structure...');
+
     const feeRecords = [];
     const currentYear = new Date().getFullYear();
     
@@ -367,16 +367,10 @@ export async function seedDummyData() {
     }
     await db.insert(feeStructure).values(feeRecords);
     
-    console.log('COEP dummy data seeded successfully!');
-    console.log(`Created:
-    - ${COEP_BOOKS.length} books
-    - ${COEP_COURSES.length} courses  
-    - 120 faculty members
-    - 5000 students (500 per year from 2015-2024)
-    - Fee structure for all programs`);
+    // Data seeded successfully
     
   } catch (error) {
-    console.error('Error seeding dummy data:', error);
+    // Error seeding data
     throw error;
   }
 }

@@ -45,28 +45,8 @@
         loadingDebug.style.display = 'block';
       }
       
-      // Show debug info on mobile or after 3 seconds
-      if (window.innerWidth < 768) {
-        setTimeout(showDebugInfo, 1000);
-        
-        // Additional mobile debugging
-        setTimeout(() => {
-          fetch('/api/health')
-            .then(response => response.json())
-            .then(data => {
-              const healthDiv = document.createElement('div');
-              healthDiv.style.cssText = 'margin-top: 10px; font-size: 10px; color: #059669;';
-              healthDiv.innerHTML = `<strong>Server Status:</strong> ${data.status} at ${data.timestamp}`;
-              debugInfo.appendChild(healthDiv);
-            })
-            .catch(error => {
-              const errorDiv = document.createElement('div');
-              errorDiv.style.cssText = 'margin-top: 10px; font-size: 10px; color: #dc2626;';
-              errorDiv.innerHTML = `<strong>Connection Error:</strong> ${error.message}`;
-              debugInfo.appendChild(errorDiv);
-            });
-        }, 3000);
-      } else {
+      // Show debug info after 5 seconds (desktop only in development)
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
         setTimeout(showDebugInfo, 5000);
       }
       

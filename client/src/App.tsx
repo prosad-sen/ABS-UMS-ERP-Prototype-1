@@ -46,7 +46,7 @@ import AlumniCareerNetwork from "@/pages/alumni-career-network";
 import AlumniMentorship from "@/pages/alumni-mentorship";
 import AlumniContributions from "@/pages/alumni-contributions";
 import AlumniNewsEvents from "@/pages/alumni-news-events";
-import SimpleAdminTest from "@/pages/simple-admin-test";
+
 import AcademicManagement from "@/pages/academic-management";
 import ContentManagement from "@/pages/content-management";
 import AdmissionsManagement from "@/pages/admissions-management";
@@ -67,7 +67,7 @@ import CampusNavigation from "@/pages/campus-navigation";
 import EventManagementSystem from "@/pages/event-management-system";
 
 import MainLayout from "@/components/layout/main-layout";
-import { MobileDiagnostic } from "@/components/mobile-diagnostic";
+
 
 function Router() {
   const { isAuthenticated, isLoading, user } = useAuth();
@@ -132,20 +132,20 @@ function Router() {
         <Route path="/student-dashboard" component={Dashboard} />
         <Route path="/faculty-dashboard" component={FacultyDashboard} />
         <Route path="/admin-dashboard" component={() => {
-          console.log('Admin dashboard route accessed');
+
           const userRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole');
-          console.log('User role in admin route:', userRole);
+
           return <AdminDashboard />;
         }} />
         <Route path="/administrator-dashboard" component={() => {
-          console.log('Administrator dashboard route accessed');
+
           return <AdminDashboard />;
         }} />
         <Route path="/registrar-dashboard" component={() => {
-          console.log('Registrar dashboard route accessed');
+
           return <AdminDashboard />;
         }} />
-        <Route path="/admin-test" component={SimpleAdminTest} />
+
         <Route path="/vc-dashboard" component={VCDashboard} />
         <Route path="/parent-dashboard" component={ParentDashboard} />
         <Route path="/alumni-dashboard" component={AlumniDashboard} />
@@ -220,7 +220,7 @@ function Router() {
         
         <Route path="/profile" component={() => {
           const userRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole') || "student";
-          console.log('Profile route - detected role:', userRole);
+
           
           switch (userRole?.toLowerCase()) {
             case 'faculty':
@@ -278,7 +278,6 @@ function App() {
       <TooltipProvider>
         <Toaster />
         <Router />
-        <MobileDiagnostic />
       </TooltipProvider>
     </QueryClientProvider>
   );
