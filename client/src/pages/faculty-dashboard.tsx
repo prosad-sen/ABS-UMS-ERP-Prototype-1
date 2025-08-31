@@ -130,7 +130,7 @@ export default function FacultyDashboard() {
   ];
 
   return (
-    <div className="space-y-6 px-3 lg:px-6 pt-2 pb-6">
+    <div className="space-y-6 px-3 lg:px-6 pb-6" style={{paddingTop: '0px'}}>
       {/* Header */}
       <div style={{position: 'relative', width: '100%', minHeight: '80px'}}>
         <div style={{position: 'absolute', left: '0', top: '0', width: 'calc(100% - 200px)'}}>
