@@ -226,6 +226,7 @@ export default function Dashboard() {
                 variant="outline"
                 size="sm"
                 className="bg-white/10 text-white border-white/20 hover:bg-white/20 hover:text-white"
+                style={{marginLeft: '32px'}}
               >
                 <Home className="h-4 w-4 mr-2" />
                 Back to Main
