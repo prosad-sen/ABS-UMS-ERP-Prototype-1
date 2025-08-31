@@ -177,15 +177,15 @@ export default function VCDashboard() {
     <div className="space-y-6 p-3 lg:p-6 bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen">
       {/* Executive Header */}
       <div className="bg-gradient-to-r from-blue-900 to-purple-900 text-white p-6 rounded-lg shadow-xl">
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
-          <div className="flex-1 pr-8">
+        <div style={{position: 'relative', width: '100%', minHeight: '80px'}}>
+          <div style={{position: 'absolute', left: '0', top: '0', width: 'calc(100% - 200px)'}}>
             <div className="flex items-center space-x-3 mb-2">
               <Crown className="h-8 w-8 text-yellow-400" />
               <h1 className="text-3xl lg:text-4xl font-bold">Vice Chancellor's Dashboard</h1>
             </div>
             <p className="text-blue-100 text-lg">COEP Technological University • Strategic Command Center</p>
           </div>
-          <div className="flex items-center space-x-6">
+          <div style={{position: 'absolute', right: '0', top: '0'}} className="flex items-center space-x-6">
             <Badge className="bg-yellow-500 text-black px-3 py-1">
               <Star className="h-4 w-4 mr-1" />
               Global Rank: #{executiveKPIs.globalRanking}

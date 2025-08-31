@@ -221,16 +221,15 @@ export default function Dashboard() {
                 <h2 className="text-2xl lg:text-3xl font-bold animate-fade-in">🎉 Welcome back, {userName}!</h2>
                 <p className="text-blue-100 mt-2 text-lg">Level 12 Champion • 7-day streak • Top 5% performer</p>
               </div>
-              <div style={{position: 'absolute', right: '0', top: '0', backgroundColor: 'red', padding: '10px', zIndex: 999}}>
+              <div style={{position: 'absolute', right: '0', top: '0'}}>
                 <Button 
                   onClick={handleLogout}
                   variant="outline"
                   size="sm"
                   className="bg-white/10 text-white border-white/20 hover:bg-white/20 hover:text-white"
-                  style={{backgroundColor: 'blue', color: 'white'}}
                 >
                   <Home className="h-4 w-4 mr-2" />
-                  MOVED BUTTON
+                  Back to Main
                 </Button>
               </div>
             </div>

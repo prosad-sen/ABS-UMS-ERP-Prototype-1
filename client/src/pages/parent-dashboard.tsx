@@ -142,12 +142,12 @@ export default function ParentDashboard() {
   return (
     <div className="space-y-6 p-3 lg:p-6">
       {/* Header */}
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
-        <div className="flex-1 pr-8">
+      <div style={{position: 'relative', width: '100%', minHeight: '80px'}}>
+        <div style={{position: 'absolute', left: '0', top: '0', width: 'calc(100% - 200px)'}}>
           <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">Parent Dashboard</h1>
           <p className="text-gray-600">Monitoring {studentData.name}'s academic progress</p>
         </div>
-        <div className="flex items-center space-x-6">
+        <div style={{position: 'absolute', right: '0', top: '0'}} className="flex items-center space-x-6">
           <div className="flex space-x-2">
             <Badge variant="outline">{studentData.class}</Badge>
             <Badge className="bg-blue-100 text-blue-800">{studentData.department}</Badge>

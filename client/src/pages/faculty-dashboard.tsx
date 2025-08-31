@@ -132,12 +132,12 @@ export default function FacultyDashboard() {
   return (
     <div className="space-y-6 p-3 lg:p-6">
       {/* Header */}
-      <div className="space-y-4 lg:space-y-0" style={{display: 'grid', gridTemplateColumns: '1fr auto', gap: '100px', alignItems: 'start'}}>
-        <div>
+      <div style={{position: 'relative', width: '100%', minHeight: '80px'}}>
+        <div style={{position: 'absolute', left: '0', top: '0', width: 'calc(100% - 200px)'}}>
           <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">Faculty Dashboard</h1>
           <p className="text-gray-600">Welcome back, {facultyData.name}</p>
         </div>
-        <div className="flex items-center space-x-6" style={{justifySelf: 'end'}}>
+        <div style={{position: 'absolute', right: '0', top: '0'}} className="flex items-center space-x-6">
           <div className="flex space-x-2">
             <Badge variant="outline">{facultyData.department}</Badge>
             <Badge className="bg-blue-100 text-blue-800">{facultyData.designation}</Badge>

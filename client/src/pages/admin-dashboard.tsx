@@ -149,12 +149,12 @@ export default function AdminDashboard() {
   return (
     <div className="space-y-6 p-3 lg:p-6">
       {/* Header */}
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
-        <div className="flex-1 pr-8">
+      <div style={{position: 'relative', width: '100%', minHeight: '80px'}}>
+        <div style={{position: 'absolute', left: '0', top: '0', width: 'calc(100% - 200px)'}}>
           <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">Administrator Dashboard</h1>
           <p className="text-gray-600">Comprehensive university management and analytics</p>
         </div>
-        <div className="flex items-center space-x-6">
+        <div style={{position: 'absolute', right: '0', top: '0'}} className="flex items-center space-x-6">
           <div className="flex space-x-2">
             <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => window.location.href = '/management'}>
               <BarChart3 className="h-4 w-4 mr-2" />
