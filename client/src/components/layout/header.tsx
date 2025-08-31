@@ -634,15 +634,17 @@ export default function Header() {
               <h1 className="text-lg lg:text-xl font-semibold text-gray-800">COEP UMS</h1>
               <p className="text-xs lg:text-sm text-gray-600 hidden sm:block">College of Engineering Pune</p>
             </div>
-            <Button 
-              onClick={handleBackToMain}
-              variant="outline" 
-              size="sm"
-              className="text-gray-700 border-gray-300 hover:bg-gray-50 hover:text-gray-900 hidden lg:flex items-center bg-white ml-8"
-            >
-              <Home className="h-4 w-4 mr-1" />
-              Back to Main
-            </Button>
+            <div style={{marginLeft: '32px'}}>
+              <Button 
+                onClick={handleBackToMain}
+                variant="outline" 
+                size="sm"
+                className="text-gray-700 border-gray-300 hover:bg-gray-50 hover:text-gray-900 hidden lg:flex items-center bg-white"
+              >
+                <Home className="h-4 w-4 mr-1" />
+                Back to Main
+              </Button>
+            </div>
           </div>
         </div>
         

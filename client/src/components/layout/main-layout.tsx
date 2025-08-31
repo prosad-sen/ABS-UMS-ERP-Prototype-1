@@ -10,7 +10,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
     <div className="min-h-screen bg-gray-50">
       <Header />
       <Sidebar />
-      <main className="lg:pl-64 pt-[48px] -mt-2">
+      <main className="lg:pl-64" style={{paddingTop: '48px', marginTop: '-8px'}}>
         {children}
       </main>
     </div>
