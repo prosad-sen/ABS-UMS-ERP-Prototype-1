@@ -154,6 +154,36 @@ const getRoleNavigation = (role: string) => {
           href: '/student-placements',
           icon: Briefcase,
           description: 'Student Career Progress'
+        },
+        {
+          name: 'Advanced Demo',
+          href: '/advanced-modules-demo',
+          icon: Brain,
+          description: 'Advanced ERP Features'
+        },
+        {
+          name: 'CCTV Attendance',
+          href: '/advanced-attendance',
+          icon: Camera,
+          description: 'Biometric Attendance'
+        },
+        {
+          name: 'AI Analytics',
+          href: '/advanced-analytics',
+          icon: BarChart3,
+          description: 'Academic Intelligence'
+        },
+        {
+          name: 'Scholarship API',
+          href: '/scholarship-integration',
+          icon: Award,
+          description: 'Government Integration'
+        },
+        {
+          name: 'Digital Library',
+          href: '/comprehensive-library',
+          icon: Database,
+          description: 'Library System'
         }
       ];
     
@@ -565,6 +595,36 @@ const getRoleNavigation = (role: string) => {
           href: '/content-management',
           icon: FileText,
           description: 'Course Materials'
+        },
+        {
+          name: 'Advanced Demo',
+          href: '/advanced-modules-demo',
+          icon: Brain,
+          description: 'Advanced ERP Features'
+        },
+        {
+          name: 'CCTV Attendance',
+          href: '/advanced-attendance',
+          icon: Camera,
+          description: 'Biometric Attendance'
+        },
+        {
+          name: 'AI Analytics',
+          href: '/advanced-analytics',
+          icon: BarChart3,
+          description: 'Academic Intelligence'
+        },
+        {
+          name: 'Scholarship API',
+          href: '/scholarship-integration',
+          icon: Award,
+          description: 'Government Integration'
+        },
+        {
+          name: 'Digital Library',
+          href: '/comprehensive-library',
+          icon: Database,
+          description: 'Library System'
         }
       ];
   }
