@@ -615,7 +615,7 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 right-0 left-0 lg:left-0 bg-white border-b border-gray-200 z-40">
-      <div className="flex items-center justify-between px-3 lg:px-6 py-2 h-[48px]" style={{backgroundColor: '#ffffff', borderBottom: '1px solid #e5e7eb'}}>
+      <div className="flex items-center justify-between px-3 lg:px-6 py-1 h-[32px]" style={{backgroundColor: '#ffffff', borderBottom: '1px solid #e5e7eb'}}>
         {/* Mobile Menu Button */}
         <button 
           className="lg:hidden p-2"
@@ -629,20 +629,9 @@ export default function Header() {
         </button>
 
         <div className="flex-1 flex items-center justify-start">
-          <div className="flex items-center gap-8">
-            <div style={{color: '#1f2937', fontWeight: '600'}}>
-              <h1 className="text-lg lg:text-xl font-semibold" style={{color: '#1f2937', margin: '0'}}>COEP UMS</h1>
-              <p className="text-xs lg:text-sm hidden sm:block" style={{color: '#6b7280', margin: '0'}}>College of Engineering Pune</p>
-            </div>
-            <Button 
-              onClick={handleBackToMain}
-              variant="outline" 
-              size="sm"
-              className="text-gray-700 border-gray-300 hover:bg-gray-50 hover:text-gray-900 hidden lg:flex items-center bg-white"
-            >
-              <Home className="h-4 w-4 mr-1" />
-              Back to Main
-            </Button>
+          <div style={{color: '#1f2937', fontWeight: '600'}}>
+            <h1 className="text-lg lg:text-xl font-semibold" style={{color: '#1f2937', margin: '0'}}>COEP UMS</h1>
+            <p className="text-xs lg:text-sm hidden sm:block" style={{color: '#6b7280', margin: '0'}}>College of Engineering Pune</p>
           </div>
         </div>
         
