@@ -216,11 +216,11 @@ export default function Dashboard() {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 animate-pulse"></div>
         <div className="relative z-10">
           <div className="flex justify-between items-start mb-4">
-            <div className="flex-1 pr-8">
+            <div style={{flex: '1', paddingRight: '80px'}}>
               <h2 className="text-2xl lg:text-3xl font-bold animate-fade-in">🎉 Welcome back, {userName}!</h2>
               <p className="text-blue-100 mt-2 text-lg">Level 12 Champion • 7-day streak • Top 5% performer</p>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center" style={{minWidth: '150px', justifyContent: 'flex-end'}}>
               <Button 
                 onClick={handleLogout}
                 variant="outline"
