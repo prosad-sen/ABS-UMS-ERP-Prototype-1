@@ -194,21 +194,21 @@ export default function AdvancedAttendanceSystem() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
+    <div className="w-full">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b mb-6">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Advanced Attendance Intelligence</h1>
-              <p className="text-gray-600 mt-1">CCTV-based Biometric Attendance with AI Analytics</p>
+      <div className="bg-white shadow-sm border-b mb-6 rounded-lg">
+        <div className="px-4 py-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+            <div className="mb-4 sm:mb-0">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Advanced Attendance Intelligence</h1>
+              <p className="text-gray-600 mt-1 text-sm sm:text-base">CCTV-based Biometric Attendance with AI Analytics</p>
             </div>
-            <div className="flex items-center space-x-3">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
               <div className="flex items-center space-x-2 px-3 py-2 bg-green-50 rounded-lg">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                 <span className="text-sm font-medium text-green-700">Live Monitoring</span>
               </div>
-              <Button className="bg-blue-600 hover:bg-blue-700">
+              <Button className="bg-blue-600 hover:bg-blue-700 w-full sm:w-auto">
                 <Settings className="h-4 w-4 mr-2" />
                 System Settings
               </Button>

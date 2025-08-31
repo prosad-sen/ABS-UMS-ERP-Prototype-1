@@ -217,21 +217,21 @@ export default function AdvancedAcademicAnalytics() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
+    <div className="w-full">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b mb-6">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Advanced Academic Analytics</h1>
-              <p className="text-gray-600 mt-1">AI-Powered Insights & Predictive Academic Intelligence</p>
+      <div className="bg-white shadow-sm border-b mb-6 rounded-lg">
+        <div className="px-4 py-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+            <div className="mb-4 sm:mb-0">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Advanced Academic Analytics</h1>
+              <p className="text-gray-600 mt-1 text-sm sm:text-base">AI-Powered Insights & Predictive Academic Intelligence</p>
             </div>
-            <div className="flex items-center space-x-3">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
               <div className="flex items-center space-x-2 px-3 py-2 bg-blue-50 rounded-lg">
                 <Brain className="h-4 w-4 text-blue-600" />
                 <span className="text-sm font-medium text-blue-700">AI Analytics Active</span>
               </div>
-              <Button className="bg-blue-600 hover:bg-blue-700">
+              <Button className="bg-blue-600 hover:bg-blue-700 w-full sm:w-auto">
                 <Download className="h-4 w-4 mr-2" />
                 Export Report
               </Button>

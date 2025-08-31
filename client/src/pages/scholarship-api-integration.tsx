@@ -259,16 +259,16 @@ export default function ScholarshipAPIIntegration() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
+    <div className="w-full">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b mb-6">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Scholarship API Integration Hub</h1>
-              <p className="text-gray-600 mt-1">Automated Government & Private Scholarship Management</p>
+      <div className="bg-white shadow-sm border-b mb-6 rounded-lg">
+        <div className="px-4 py-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+            <div className="mb-4 sm:mb-0">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Scholarship API Integration Hub</h1>
+              <p className="text-gray-600 mt-1 text-sm sm:text-base">Automated Government & Private Scholarship Management</p>
             </div>
-            <div className="flex items-center space-x-3">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
               <div className="flex items-center space-x-2 px-3 py-2 bg-green-50 rounded-lg">
                 <Database className="h-4 w-4 text-green-600" />
                 <span className="text-sm font-medium text-green-700">{scholarshipStats.apiConnections} APIs Connected</span>
@@ -276,7 +276,7 @@ export default function ScholarshipAPIIntegration() {
               <Button 
                 onClick={handleRefresh}
                 disabled={refreshing}
-                className="bg-blue-600 hover:bg-blue-700"
+                className="bg-blue-600 hover:bg-blue-700 w-full sm:w-auto"
               >
                 <RefreshCw className={`h-4 w-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
                 Sync All APIs

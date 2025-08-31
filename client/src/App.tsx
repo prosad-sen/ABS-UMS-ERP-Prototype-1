@@ -61,6 +61,7 @@ import AdvancedAttendanceSystem from "@/pages/advanced-attendance-system";
 import AdvancedAcademicAnalytics from "@/pages/advanced-academic-analytics";
 import ScholarshipAPIIntegration from "@/pages/scholarship-api-integration";
 import ComprehensiveLibrarySystem from "@/pages/comprehensive-library-system";
+import AdvancedModulesDemo from "@/pages/advanced-modules-demo";
 
 import MainLayout from "@/components/layout/main-layout";
 
@@ -208,6 +209,7 @@ function Router() {
         <Route path="/advanced-analytics" component={AdvancedAcademicAnalytics} />
         <Route path="/scholarship-integration" component={ScholarshipAPIIntegration} />
         <Route path="/comprehensive-library" component={ComprehensiveLibrarySystem} />
+        <Route path="/advanced-modules-demo" component={AdvancedModulesDemo} />
         
         <Route path="/profile" component={() => {
           const userRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole') || "student";
