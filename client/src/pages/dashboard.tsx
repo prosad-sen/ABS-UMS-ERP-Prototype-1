@@ -225,7 +225,7 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 pb-6 gradient-depth min-h-screen" style={{paddingTop: '0px', marginTop: '0px'}}>
+    <div className="px-2 sm:px-4 lg:px-8 pb-6 gradient-depth min-h-screen" style={{paddingTop: '0px', marginTop: '0px'}}>
       {/* Onboarding Walkthrough */}
       {showOnboarding && (
         <UserWalkthrough 
@@ -235,8 +235,8 @@ export default function Dashboard() {
         />
       )}
       
-      {/* Dynamic Hero Section with Events */}
-      <div className="bg-gradient-to-br from-coep-blue via-blue-600 to-purple-600 rounded-xl p-6 text-white relative overflow-hidden mb-6 card-hover animate-slide-up" data-testid="dashboard-hero">
+      {/* Dynamic Hero Section with Events - Mobile Responsive */}
+      <div className="bg-gradient-to-br from-coep-blue via-blue-600 to-purple-600 rounded-xl p-4 sm:p-6 text-white relative overflow-hidden mb-4 sm:mb-6 card-hover animate-slide-up" data-testid="dashboard-hero">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 animate-pulse"></div>
         <div className="relative z-10">
           <div className="mb-4">
@@ -316,8 +316,8 @@ export default function Dashboard() {
         <AnimatedInfoSlider items={studentSliderItems} />
       </div>
 
-      {/* Live Events & Activities Banner */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      {/* Live Events & Activities Banner - Mobile Responsive */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
         <Card className="bg-gradient-to-r from-orange-500 to-red-500 text-white border-0 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
           <CardContent className="p-4">
             <div className="flex items-center space-x-3">
@@ -355,7 +355,7 @@ export default function Dashboard() {
         </Card>
       </div>
 
-      {/* Enhanced Quick Stats Cards with Drill-down */}
+      {/* Enhanced Quick Stats Cards with Drill-down - Mobile Optimized */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6 mb-6">
         <Card className="relative overflow-hidden cursor-pointer hover:shadow-lg transition-all group" onClick={() => window.location.href = '/attendance'}>
           <CardContent className="p-4 lg:p-6">

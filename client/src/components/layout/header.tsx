@@ -507,7 +507,12 @@ const getRoleNavigation = (role: string) => {
   }
 };
 
-export default function Header() {
+interface HeaderProps {
+  onMenuClick?: () => void;
+  isMobile?: boolean;
+}
+
+export default function Header({ onMenuClick, isMobile = false }: HeaderProps) {
   const [, setLocation] = useLocation();
   
   // Get role from localStorage

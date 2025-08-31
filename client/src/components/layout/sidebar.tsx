@@ -630,7 +630,13 @@ const getRoleNavigation = (role: string) => {
   }
 };
 
-export default function Sidebar() {
+interface SidebarProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+  isMobile?: boolean;
+}
+
+export default function Sidebar({ isOpen = false, onClose, isMobile = false }: SidebarProps) {
   const [location] = useLocation();
   
   // Get current role from multiple sources
@@ -667,6 +673,64 @@ export default function Sidebar() {
   // Debug logging
   console.log('Current role detected:', currentRole);
   console.log('Navigation items:', navigationItems.length);
+
+  const handleNavClick = () => {
+    if (isMobile && onClose) {
+      onClose();
+    }
+  };
+
+  if (isMobile) {
+    return (
+      <aside className={`mobile-sidebar ${isOpen ? 'open' : ''}`}>
+        <div className="flex flex-col h-full">
+          <div className="flex-1 overflow-y-auto p-4 pt-16">
+            <nav className="space-y-1">
+              {navigationItems.map((item) => {
+                const isActive = location === item.href || (item.href !== '/' && location.startsWith(item.href));
+                
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={handleNavClick}
+                    className={cn(
+                      'flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium nav-item navigation-link',
+                      isActive
+                        ? 'bg-coep-blue text-white shadow-sm'
+                        : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+                    )}
+                  >
+                    <item.icon className={cn(
+                      'h-5 w-5 flex-shrink-0',
+                      isActive ? 'text-white' : 'text-gray-500'
+                    )} />
+                    <div className="flex flex-col min-w-0">
+                      <span className="text-sm font-medium truncate">{item.name}</span>
+                      <span className={cn(
+                        'text-xs truncate',
+                        isActive ? 'text-blue-100' : 'text-gray-500'
+                      )}>
+                        {item.description}
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
+          
+          {/* Mobile Footer */}
+          <div className="flex-shrink-0 p-4 border-t border-gray-200 bg-gray-50">
+            <div className="text-center">
+              <p className="text-xs font-medium text-gray-600">COEP Tech University</p>
+              <p className="text-xs text-gray-500">Mobile Portal</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+    );
+  }
 
   return (
     <aside className="fixed left-0 top-[56px] z-50 h-[calc(100vh-56px)] w-64 border-r border-gray-200 bg-white hidden lg:block sidebar-nav">

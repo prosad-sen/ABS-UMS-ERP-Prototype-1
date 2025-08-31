@@ -223,11 +223,11 @@ export default function AdvancedModulesDemo() {
 
   return (
     <div className="w-full space-y-8">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg p-8">
+      {/* Header - Mobile Responsive */}
+      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg p-4 sm:p-8">
         <div className="text-center">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-4">Advanced ERP Modules Demo</h1>
-          <p className="text-lg opacity-90 max-w-2xl mx-auto">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">Advanced ERP Modules Demo</h1>
+          <p className="text-base sm:text-lg opacity-90 max-w-2xl mx-auto">
             World-class university management features matching the best HEI ERP systems globally
           </p>
           <Badge className="mt-4 bg-white text-blue-600 font-semibold">
@@ -237,8 +237,8 @@ export default function AdvancedModulesDemo() {
         </div>
       </div>
 
-      {/* Quick Stats */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      {/* Quick Stats - Mobile Responsive */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
         <Card className="text-center">
           <CardContent className="p-4">
             <Eye className="h-8 w-8 mx-auto text-blue-600 mb-2" />
@@ -269,8 +269,8 @@ export default function AdvancedModulesDemo() {
         </Card>
       </div>
 
-      {/* Advanced Modules Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {/* Advanced Modules Grid - Mobile Responsive */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8">
         {modules.map((module, index) => {
           const IconComponent = module.icon;
           return (
@@ -296,10 +296,10 @@ export default function AdvancedModulesDemo() {
                 </p>
               </div>
               
-              <CardContent className="p-6">
-                <div className="space-y-4">
+              <CardContent className="p-4 sm:p-6">
+                <div className="space-y-3 sm:space-y-4">
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-3">Key Features:</h3>
+                    <h3 className="font-semibold text-gray-900 mb-2 sm:mb-3 text-sm sm:text-base">Key Features:</h3>
                     <ul className="space-y-2">
                       {module.features.map((feature, idx) => (
                         <li key={idx} className="flex items-center text-sm text-gray-700 animate-slide-up" style={{animationDelay: `${(idx + 1) * 50}ms`}}>
