@@ -669,7 +669,7 @@ export default function Sidebar() {
   console.log('Navigation items:', navigationItems.length);
 
   return (
-    <aside className="fixed left-0 top-12 z-50 h-[calc(100vh-3rem)] w-64 border-r border-gray-200 bg-white hidden lg:block sidebar-nav">
+    <aside className="fixed left-0 top-[48px] z-50 h-[calc(100vh-48px)] w-64 border-r border-gray-200 bg-white hidden lg:block sidebar-nav">
       <div className="flex flex-col h-full">
         <div className="flex-1 overflow-y-auto p-4">
           <nav className="space-y-1 sidebar-nav">
