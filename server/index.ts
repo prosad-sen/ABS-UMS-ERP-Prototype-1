@@ -12,6 +12,35 @@ app.use((req, res, next) => {
   res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
   res.header('Pragma', 'no-cache');
   res.header('Expires', '0');
+  res.header('X-Frame-Options', 'ALLOWALL');
+  res.header('X-Content-Type-Options', 'nosniff');
+  next();
+});
+
+// Handle OPTIONS preflight requests
+app.options('*', (req, res) => {
+  res.sendStatus(200);
+});
+
+// Mobile specific route handler
+app.get('/mobile-check', (req, res) => {
+  res.json({
+    status: 'success',
+    domain: process.env.REPLIT_DEV_DOMAIN,
+    port: process.env.PORT || 5000,
+    userAgent: req.headers['user-agent']
+  });
+});
+
+// Root path specific handling for mobile
+app.get('/', (req, res, next) => {
+  const userAgent = req.headers['user-agent'] || '';
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+  
+  if (isMobile) {
+    log(`Mobile device detected: ${userAgent.substring(0, 50)}...`);
+  }
+  
   next();
 });
 
@@ -73,6 +102,8 @@ app.use((req, res, next) => {
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
   const port = parseInt(process.env.PORT || '5000', 10);
+  const host = process.env.REPLIT_DEV_DOMAIN || "0.0.0.0";
+  
   server.listen({
     port,
     host: "0.0.0.0",
@@ -81,5 +112,9 @@ app.use((req, res, next) => {
     log(`serving on port ${port}`);
     log(`🌐 Access your application through Replit's Preview tab`);
     log(`🔗 The preview window should show the COEP University Management System`);
+    if (process.env.REPLIT_DEV_DOMAIN) {
+      log(`📱 Mobile URL: https://${process.env.REPLIT_DEV_DOMAIN}`);
+      log(`🔗 Direct access: https://${process.env.REPLIT_DEV_DOMAIN}`);
+    }
   });
 })();

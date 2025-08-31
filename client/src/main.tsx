@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 
 import App from "./App.tsx";
 import "./index.css";
+import "./utils/mobile-debug";
 
 const queryClient = new QueryClient({
   defaultOptions: {
