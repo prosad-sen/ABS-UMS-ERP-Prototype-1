@@ -215,21 +215,23 @@ export default function Dashboard() {
       <div className="bg-gradient-to-br from-coep-blue via-blue-600 to-purple-600 rounded-xl p-6 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 animate-pulse"></div>
         <div className="relative z-10">
-          <div className="mb-4" style={{display: 'grid', gridTemplateColumns: '1fr auto', gap: '100px', alignItems: 'start'}}>
-            <div>
-              <h2 className="text-2xl lg:text-3xl font-bold animate-fade-in">🎉 Welcome back, {userName}!</h2>
-              <p className="text-blue-100 mt-2 text-lg">Level 12 Champion • 7-day streak • Top 5% performer</p>
-            </div>
-            <div style={{justifySelf: 'end'}}>
-              <Button 
-                onClick={handleLogout}
-                variant="outline"
-                size="sm"
-                className="bg-white/10 text-white border-white/20 hover:bg-white/20 hover:text-white"
-              >
-                <Home className="h-4 w-4 mr-2" />
-                Back to Main
-              </Button>
+          <div className="mb-4">
+            <div style={{position: 'relative', width: '100%', minHeight: '80px'}}>
+              <div style={{position: 'absolute', left: '0', top: '0', width: 'calc(100% - 200px)'}}>
+                <h2 className="text-2xl lg:text-3xl font-bold animate-fade-in">🎉 Welcome back, {userName}!</h2>
+                <p className="text-blue-100 mt-2 text-lg">Level 12 Champion • 7-day streak • Top 5% performer</p>
+              </div>
+              <div style={{position: 'absolute', right: '0', top: '0'}}>
+                <Button 
+                  onClick={handleLogout}
+                  variant="outline"
+                  size="sm"
+                  className="bg-white/10 text-white border-white/20 hover:bg-white/20 hover:text-white"
+                >
+                  <Home className="h-4 w-4 mr-2" />
+                  Back to Main
+                </Button>
+              </div>
             </div>
           </div>
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
