@@ -130,9 +130,9 @@ export default function FacultyDashboard() {
   ];
 
   return (
-    <div className="space-y-6 px-3 lg:px-6 pb-6">
+    <div className="px-3 lg:px-6 pb-6">
       {/* Header */}
-      <div style={{position: 'relative', width: '100%', minHeight: '80px'}}>
+      <div style={{position: 'relative', width: '100%', minHeight: '80px'}} className="mb-6">
         <div style={{position: 'absolute', left: '0', top: '0', width: 'calc(100% - 200px)'}}>
           <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">Faculty Dashboard</h1>
           <p className="text-gray-600">Welcome back, {facultyData.name}</p>
