@@ -638,7 +638,7 @@ export default function Header() {
               onClick={handleBackToMain}
               variant="outline" 
               size="sm"
-              className="text-gray-700 border-gray-300 hover:bg-gray-50 hover:text-gray-900 hidden lg:flex items-center bg-white"
+              className="text-gray-700 border-gray-300 hover:bg-gray-50 hover:text-gray-900 hidden lg:flex items-center bg-white ml-8"
             >
               <Home className="h-4 w-4 mr-1" />
               Back to Main
