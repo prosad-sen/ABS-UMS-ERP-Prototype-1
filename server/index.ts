@@ -118,23 +118,22 @@ app.use((req, res, next) => {
   }
 
   // ALWAYS serve the app on the port specified in the environment variable PORT
-  // Other ports are firewalled. Default to 5000 if not specified.
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
+  // Based on Replit docs: External port binding is required for mobile access
+  // Default to 5000 which maps to external port in .replit config
   const port = parseInt(process.env.PORT || '5000', 10);
-  const host = process.env.REPLIT_DEV_DOMAIN || "0.0.0.0";
   
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true,
-  }, () => {
-    log(`serving on port ${port}`);
+  // Bind to 0.0.0.0 to ensure external accessibility as per Replit docs
+  server.listen(port, "0.0.0.0", () => {
+    log(`serving on port ${port} (bound to 0.0.0.0 for external access)`);
     log(`🌐 Access your application through Replit's Preview tab`);
     log(`🔗 The preview window should show the COEP University Management System`);
+    
     if (process.env.REPLIT_DEV_DOMAIN) {
       log(`📱 Mobile URL: https://${process.env.REPLIT_DEV_DOMAIN}`);
-      log(`🔗 Direct access: https://${process.env.REPLIT_DEV_DOMAIN}`);
+      log(`🔗 QR Code available in Replit's URL dropdown for mobile testing`);
+      log(`📋 Alternative access: Visit replit.dev from mobile device`);
     }
+    
+    log(`💡 Troubleshooting: If mobile preview fails, use 'kill 1' command to restart VM`);
   });
 })();

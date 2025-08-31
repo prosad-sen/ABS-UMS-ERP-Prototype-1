@@ -67,6 +67,7 @@ import CampusNavigation from "@/pages/campus-navigation";
 import EventManagementSystem from "@/pages/event-management-system";
 
 import MainLayout from "@/components/layout/main-layout";
+import { MobileDiagnostic } from "@/components/mobile-diagnostic";
 
 function Router() {
   const { isAuthenticated, isLoading, user } = useAuth();
@@ -277,6 +278,7 @@ function App() {
       <TooltipProvider>
         <Toaster />
         <Router />
+        <MobileDiagnostic />
       </TooltipProvider>
     </QueryClientProvider>
   );
