@@ -95,13 +95,19 @@ export default function AdvancedModulesDemo() {
       status: "Live"
     },
     {
-      title: "Library Management System",
-      description: "Digital library system with book cataloging, reservation system, fine management, and integrated research resources.",
+      title: "Comprehensive Digital Library System",
+      description: "Advanced digital resource management with AI recommendations, QR access, and smart learning analytics.",
       href: "/library",
-      icon: BookOpen,
-      color: "from-amber-500 to-amber-600",
-      features: ["Book Cataloging", "Reservation System", "Fine Management", "Research Resources"],
-      status: "Live"
+      icon: Database,
+      features: [
+        "AI-powered book recommendations",
+        "QR code quick access",
+        "Digital resource management",
+        "Real-time seat booking",
+        "Cross-reference linking"
+      ],
+      status: "Live", 
+      color: "from-teal-500 to-teal-700"
     },
     {
       title: "Placement Management Portal",
