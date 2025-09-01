@@ -695,7 +695,7 @@ export default function Sidebar({ isOpen = false, onClose, isMobile = false }: S
                     className={cn(
                       'flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium nav-item navigation-link',
                       isActive
-                        ? 'bg-coep-blue text-white shadow-sm'
+                        ? 'bg-blue-600 text-white shadow-sm'
                         : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
                     )}
                   >
@@ -721,7 +721,7 @@ export default function Sidebar({ isOpen = false, onClose, isMobile = false }: S
           {/* Mobile Footer */}
           <div className="flex-shrink-0 p-4 border-t border-gray-200 bg-gray-50">
             <div className="text-center">
-              <p className="text-xs font-medium text-gray-600">COEP Tech University</p>
+              <p className="text-xs font-medium text-gray-600">JUNO Campus UMS</p>
               <p className="text-xs text-gray-500">Mobile Portal</p>
             </div>
           </div>
@@ -745,7 +745,7 @@ export default function Sidebar({ isOpen = false, onClose, isMobile = false }: S
                 className={cn(
                   'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium nav-item navigation-link',
                   isActive
-                    ? 'bg-coep-blue text-white shadow-sm'
+                    ? 'bg-blue-600 text-white shadow-sm'
                     : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
                 )}
               >
@@ -771,8 +771,8 @@ export default function Sidebar({ isOpen = false, onClose, isMobile = false }: S
         {/* Footer */}
         <div className="flex-shrink-0 p-4 border-t border-gray-200 bg-gray-50">
           <div className="text-center">
-            <p className="text-xs font-medium text-gray-600">COEP Technological University</p>
-            <p className="text-xs text-gray-500">University Management System</p>
+            <p className="text-xs font-medium text-gray-600">JUNO Campus UMS</p>
+            <p className="text-xs text-gray-500">XYZ College of Engineering</p>
           </div>
         </div>
       </div>

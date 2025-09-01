@@ -1,9 +1,20 @@
-# COEP University Management System
+# JUNO Campus UMS - University Management System
 
 ## Overview
-This is a comprehensive University Management System (UMS) for COEP Technological University, designed as a full-stack web application. It features a React frontend, an Express.js backend, and a PostgreSQL database managed by Drizzle ORM. The system supports multiple user roles, including students, faculty, administrators, parents, and alumni, providing a unified platform for university operations. Key capabilities include academic management, financial oversight, HR, admissions, examination, hostel, transport, research, placement, and other administrative functions, all with a focus on data-driven insights and an engaging user experience. The system aims to provide a complete university management experience with a scalable architecture, maintainable codebase, and comprehensive security measures.
+This is a comprehensive University Management System (UMS) for JUNO Campus, designed as a full-stack web application demonstrating the capabilities of JUNO Software Systems' university ERP solution. The system is configured for XYZ College of Engineering as a demonstration portal showcasing advanced university management features. It features a React frontend, an Express.js backend, and a PostgreSQL database managed by Drizzle ORM. The system supports multiple user roles, including students, faculty, administrators, parents, and alumni, providing a unified platform for university operations. Key capabilities include academic management, financial oversight, HR, admissions, examination, hostel, transport, research, placement, and other administrative functions, all with a focus on data-driven insights and an engaging user experience. The system demonstrates JUNO Campus UMS capabilities with a scalable architecture, maintainable codebase, and comprehensive security measures.
 
 ## Recent Updates
+
+### **JUNO CAMPUS REBRAND COMPLETED (September 1, 2025)**
+**Status**: ✅ **DEMO PORTAL READY - JUNO CAMPUS BRANDING APPLIED**
+
+**Rebranding Summary**: Successfully rebranded application from COEP to JUNO Campus UMS for demonstration purposes:
+- Updated all application titles, headers, and footers to JUNO Campus UMS branding
+- Changed university reference to XYZ College of Engineering (neutral demo institution)
+- Updated statistics to reflect JUNO Software Systems achievements (550+ implementations, 100% success rate)
+- Added prominent link to advanced features demo on home page
+- Applied JUNO favicon and branding elements throughout the application
+- Maintained all functionality while updating branding for public demonstration
 
 ### **MOBILE CONNECTIVITY RESOLUTION (August 31, 2025)**
 **Status**: ✅ **PRODUCTION READY - MOBILE ISSUE RESOLVED**
@@ -42,11 +53,11 @@ The system employs a modern full-stack architecture.
 - **Framework**: React with TypeScript for robust and scalable UI development.
 - **Build Tool**: Vite, chosen for its fast development server and optimized build process.
 - **UI Library**: shadcn/ui components, built on Radix UI primitives, ensuring a consistent and accessible user interface.
-- **Styling**: Tailwind CSS, utilized for utility-first styling with custom COEP theme colors.
+- **Styling**: Tailwind CSS, utilized for utility-first styling with blue theme colors.
 - **State Management**: TanStack Query for efficient server state management, including caching and synchronization.
 - **Routing**: Wouter for lightweight client-side navigation.
 - **Form Handling**: React Hook Form, integrated with Zod for robust form validation.
-- **UI/UX Design**: Responsive design optimized for desktop and mobile, featuring a COEP-branded color scheme, consistent component design, and accessible UI components. Gamified elements like achievement badges and leaderboards are integrated into dashboards.
+- **UI/UX Design**: Responsive design optimized for desktop and mobile, featuring a professional blue color scheme, consistent component design, and accessible UI components. Gamified elements like achievement badges and leaderboards are integrated into dashboards.
 
 ### Backend Architecture
 - **Runtime**: Node.js with Express.js framework for a flexible and powerful server.

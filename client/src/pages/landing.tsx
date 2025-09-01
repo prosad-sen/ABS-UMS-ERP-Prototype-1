@@ -19,18 +19,18 @@ export default function Landing() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-coep-blue to-coep-light-blue flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-600 to-blue-400 flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardContent className="p-8">
-          {/* COEP Logo */}
+          {/* JUNO Campus Logo */}
           <div className="text-center mb-8">
-            <div className="w-20 h-20 bg-coep-blue rounded-full mx-auto mb-4 flex items-center justify-center">
+            <div className="w-20 h-20 bg-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center">
               <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3ZM18.82 9L12 12.72L5.18 9L12 5.28L18.82 9ZM17 16L12 18.72L7 16V12.27L12 15L17 12.27V16Z"/>
               </svg>
             </div>
-            <h1 className="text-2xl font-bold text-gray-800">COEP Technological University</h1>
-            <p className="text-gray-600 mt-2">University Management System</p>
+            <h1 className="text-2xl font-bold text-gray-800">JUNO Campus UMS</h1>
+            <p className="text-gray-600 mt-2">XYZ College of Engineering</p>
           </div>
 
           <div className="space-y-6">
@@ -71,7 +71,7 @@ export default function Landing() {
 
             <Button 
               onClick={handleLogin} 
-              className="w-full bg-coep-blue hover:bg-coep-light-blue"
+              className="w-full bg-blue-600 hover:bg-blue-500"
             >
               Login to Portal
             </Button>
@@ -80,7 +80,7 @@ export default function Landing() {
               <a href="/dashboard" className="block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">
                 🚀 Quick Access - Go to Dashboard
               </a>
-              <a href="#" className="text-coep-blue text-sm hover:underline">
+              <a href="#" className="text-blue-600 text-sm hover:underline">
                 Forgot Password?
               </a>
             </div>

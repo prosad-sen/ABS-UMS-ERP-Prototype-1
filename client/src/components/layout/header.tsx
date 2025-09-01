@@ -639,14 +639,14 @@ export default function Header({ onMenuClick, isMobile = false }: HeaderProps) {
             className="hover:bg-gray-50 rounded-lg p-2 transition-all duration-200 transform hover:scale-105"
             style={{color: '#1f2937', fontWeight: '600'}}
           >
-            <h1 className="text-lg lg:text-xl font-semibold" style={{color: '#1f2937', margin: '0'}}>COEP UMS</h1>
-            <p className="text-xs lg:text-sm hidden sm:block" style={{color: '#6b7280', margin: '0'}}>College of Engineering Pune</p>
+            <h1 className="text-lg lg:text-xl font-semibold" style={{color: '#1f2937', margin: '0'}}>JUNO Campus UMS</h1>
+            <p className="text-xs lg:text-sm hidden sm:block" style={{color: '#6b7280', margin: '0'}}>XYZ College of Engineering</p>
           </button>
         </div>
         
         <div className="flex items-center space-x-2 lg:space-x-4">
           {/* Role Badge */}
-          <Badge className="bg-coep-blue text-white px-2 lg:px-3 py-1 text-xs lg:text-sm font-medium">
+          <Badge className="bg-blue-600 text-white px-2 lg:px-3 py-1 text-xs lg:text-sm font-medium">
             {currentRole}
           </Badge>
           

@@ -113,14 +113,14 @@ export default function RoleSelection() {
             <div className="flex items-center justify-center mb-4">
               <GraduationCap className="h-12 w-12 text-blue-600 mr-4" />
               <div>
-                <h1 className="text-4xl font-bold text-gray-900">COEP Technological University</h1>
-                <p className="text-lg text-gray-600">University Management System</p>
+                <h1 className="text-4xl font-bold text-gray-900">JUNO Campus UMS</h1>
+                <p className="text-lg text-gray-600">XYZ College of Engineering</p>
               </div>
             </div>
             <div className="flex justify-center space-x-2">
-              <Badge className="bg-green-100 text-green-800">NAAC A+</Badge>
-              <Badge className="bg-blue-100 text-blue-800">Est. 1854</Badge>
-              <Badge className="bg-purple-100 text-purple-800">8,500+ Students</Badge>
+              <Badge className="bg-green-100 text-green-800">AI-Powered ERP</Badge>
+              <Badge className="bg-blue-100 text-blue-800">550+ Implementations</Badge>
+              <Badge className="bg-purple-100 text-purple-800">JUNO Technology</Badge>
             </div>
           </div>
         </div>
@@ -133,6 +133,29 @@ export default function RoleSelection() {
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Enter your personalized dashboard with role-specific features and comprehensive analytics
           </p>
+          
+          {/* Advanced Features Link */}
+          <div className="mt-6">
+            <Card className="bg-gradient-to-r from-purple-600 to-blue-600 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-center space-x-4">
+                  <div className="bg-white/20 rounded-full p-3">
+                    <Star className="h-8 w-8 text-white" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-xl font-bold text-white mb-1">🚀 Advanced ERP Features Demo</h3>
+                    <p className="text-blue-100 text-sm mb-2">Explore cutting-edge university management capabilities</p>
+                  </div>
+                  <Button 
+                    className="bg-white text-purple-600 hover:bg-gray-100 font-semibold"
+                    onClick={() => window.location.href = '/advanced-modules-demo'}
+                  >
+                    View Demo
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
 
         {/* Role Cards */}
@@ -169,25 +192,25 @@ export default function RoleSelection() {
           })}
         </div>
 
-        {/* University Stats */}
+        {/* JUNO Campus Stats */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-12">
-          <h3 className="text-2xl font-bold text-center mb-8">University Excellence</h3>
+          <h3 className="text-2xl font-bold text-center mb-8">JUNO Campus Excellence</h3>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-2">8,500+</div>
-              <div className="text-gray-600">Students</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">550+</div>
+              <div className="text-gray-600">Implementations</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-green-600 mb-2">380+</div>
-              <div className="text-gray-600">Faculty & Staff</div>
+              <div className="text-3xl font-bold text-green-600 mb-2">100%</div>
+              <div className="text-gray-600">Success Rate</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-purple-600 mb-2">94%</div>
-              <div className="text-gray-600">Placement Rate</div>
+              <div className="text-3xl font-bold text-purple-600 mb-2">2-3</div>
+              <div className="text-gray-600">Months GO-LIVE</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-orange-600 mb-2">₹15.2L</div>
-              <div className="text-gray-600">Avg. Package</div>
+              <div className="text-3xl font-bold text-orange-600 mb-2">40+</div>
+              <div className="text-gray-600">ERP Modules</div>
             </div>
           </div>
         </div>
@@ -238,7 +261,7 @@ export default function RoleSelection() {
               <div className="space-y-4">
                 <div>
                   <div className="text-sm font-medium text-gray-700">Last Updated</div>
-                  <div className="text-sm text-gray-600">March 2024</div>
+                  <div className="text-sm text-gray-600">September 2024</div>
                 </div>
                 <div>
                   <div className="text-sm font-medium text-gray-700">System Status</div>
@@ -262,7 +285,7 @@ export default function RoleSelection() {
       <div className="bg-gray-800 text-white py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-gray-300">
-            © 2024 COEP Technological University. All rights reserved. | University Management System
+            © 2024 JUNO Campus UMS. All rights reserved. | Powered by JUNO Software Systems
           </p>
         </div>
       </div>
