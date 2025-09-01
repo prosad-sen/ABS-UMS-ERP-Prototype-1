@@ -86,7 +86,7 @@ export default function AdvancedModulesDemo() {
       status: "Live"
     },
     {
-      title: "World-Class Learning Management System",
+      title: "Advanced Learning Management System",
       description: "AI-powered LMS with adaptive learning paths, collaborative tools, real-time analytics, and personalized recommendations.",
       href: "/lms",
       icon: GraduationCap,

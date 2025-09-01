@@ -240,8 +240,8 @@ export default function LMS() {
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg p-6">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <h1 className="text-3xl font-bold mb-2">Learning Management System</h1>
-            <p className="text-blue-100">World-class learning experience with AI-powered insights</p>
+            <h1 className="text-3xl font-bold mb-2">Advanced Learning Management System</h1>
+            <p className="text-blue-100">Advanced learning experience with AI-powered insights</p>
           </div>
           <div className="grid grid-cols-3 gap-4 mt-4 lg:mt-0">
             <div className="text-center">
