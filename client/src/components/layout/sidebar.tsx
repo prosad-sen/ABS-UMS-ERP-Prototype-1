@@ -453,6 +453,30 @@ const getRoleNavigation = (role: string) => {
           href: '/grievances',
           icon: MessageSquare,
           description: 'Faculty Messages'
+        },
+        {
+          name: 'Digital Library',
+          href: '/comprehensive-library',
+          icon: Database,
+          description: 'Digital Learning Resources'
+        },
+        {
+          name: 'Advanced LMS Access',
+          href: '/lms',
+          icon: FileText,
+          description: 'Child Learning Progress'
+        },
+        {
+          name: 'Hostel Information',
+          href: '/hostel-management',
+          icon: Users,
+          description: 'Hostel Services Information'
+        },
+        {
+          name: 'Transport Information',
+          href: '/transport-management',
+          icon: BarChart3,
+          description: 'Transportation Services'
         }
       ];
     
@@ -481,7 +505,7 @@ const getRoleNavigation = (role: string) => {
           name: 'Placement Portal',
           href: '/student-placements',
           icon: Briefcase,
-          description: 'Industry Opportunities'
+          description: 'Industry Opportunities & Job Postings'
         },
         {
           name: 'Alumni Contributions',
@@ -494,6 +518,24 @@ const getRoleNavigation = (role: string) => {
           href: '/alumni-news-events',
           icon: Library,
           description: 'News & Events'
+        },
+        {
+          name: 'Digital Library Access',
+          href: '/comprehensive-library',
+          icon: Database,
+          description: 'Alumni Digital Resources'
+        },
+        {
+          name: 'Research Collaboration',
+          href: '/research',
+          icon: BookOpen,
+          description: 'Collaborate on Research Projects'
+        },
+        {
+          name: 'Advanced Demo Access',
+          href: '/advanced-modules-demo',
+          icon: Brain,
+          description: 'Advanced ERP Features'
         }
       ];
     
@@ -528,7 +570,7 @@ const getRoleNavigation = (role: string) => {
           name: 'Placement Portal',
           href: '/student-placements',
           icon: Briefcase,
-          description: 'Career Opportunities'
+          description: 'Career Opportunities & Industry Connect'
         },
         {
           name: 'Attendance',
@@ -555,10 +597,10 @@ const getRoleNavigation = (role: string) => {
           description: 'Payments & Dues'
         },
         {
-          name: 'LMS',
+          name: 'Advanced LMS',
           href: '/lms',
           icon: FileText,
-          description: 'Learning Management'
+          description: 'AI-Powered Learning Management System'
         },
         {
           name: 'AWS Labs',
@@ -579,6 +621,12 @@ const getRoleNavigation = (role: string) => {
           description: 'Books & Resources'
         },
         {
+          name: 'Digital Library',
+          href: '/comprehensive-library',
+          icon: Database,
+          description: 'Advanced Digital Library System'
+        },
+        {
           name: 'Student Clubs',
           href: '/student-clubs',
           icon: Users,
@@ -595,6 +643,48 @@ const getRoleNavigation = (role: string) => {
           href: '/content-management',
           icon: FileText,
           description: 'Course Materials'
+        },
+        {
+          name: 'Grade Management',
+          href: '/grading',
+          icon: FileText,
+          description: 'Assignments & Grading'
+        },
+        {
+          name: 'Admissions Info',
+          href: '/admissions-management',
+          icon: UserPlus,
+          description: 'Admission Information'
+        },
+        {
+          name: 'HR Information',
+          href: '/hr-management',
+          icon: Users,
+          description: 'Human Resources Information'
+        },
+        {
+          name: 'Finance Information',
+          href: '/finance-management',
+          icon: DollarSign,
+          description: 'Financial Information'
+        },
+        {
+          name: 'Accreditation',
+          href: '/accreditation-management',
+          icon: Award,
+          description: 'Quality Assurance Information'
+        },
+        {
+          name: 'Infrastructure',
+          href: '/infrastructure-management',
+          icon: Building,
+          description: 'Infrastructure Information'
+        },
+        {
+          name: 'Industrial Connect',
+          href: '/industrial-collaborations',
+          icon: Handshake,
+          description: 'Industry Partnerships'
         },
         {
           name: 'Advanced Demo',
@@ -619,12 +709,6 @@ const getRoleNavigation = (role: string) => {
           href: '/scholarship-integration',
           icon: Award,
           description: 'Government Integration'
-        },
-        {
-          name: 'Digital Library',
-          href: '/comprehensive-library',
-          icon: Database,
-          description: 'Library System'
         }
       ];
   }
