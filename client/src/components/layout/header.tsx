@@ -400,7 +400,19 @@ const getRoleNavigation = (role: string) => {
           name: 'Placement Portal',
           href: '/student-placements',
           icon: Briefcase,
-          description: 'Industry Opportunities'
+          description: 'Industry Opportunities & Job Postings'
+        },
+        {
+          name: 'Digital Library Access',
+          href: '/comprehensive-library',
+          icon: Library,
+          description: 'Alumni Digital Resources'
+        },
+        {
+          name: 'Advanced Demo Access',
+          href: '/advanced-modules-demo',
+          icon: BarChart3,
+          description: 'Advanced ERP Features'
         },
         {
           name: 'Alumni Contributions',
@@ -447,7 +459,7 @@ const getRoleNavigation = (role: string) => {
           name: 'Placement Portal',
           href: '/student-placements',
           icon: Briefcase,
-          description: 'Career Opportunities'
+          description: 'Career Opportunities & Industry Connect'
         },
         {
           name: 'Attendance',
@@ -486,10 +498,10 @@ const getRoleNavigation = (role: string) => {
           description: 'Voice Concerns'
         },
         {
-          name: 'LMS',
+          name: 'Advanced LMS',
           href: '/lms',
           icon: FileText,
-          description: 'Learning Management'
+          description: 'AI-Powered Learning Management System'
         },
         {
           name: 'Library',
@@ -498,10 +510,76 @@ const getRoleNavigation = (role: string) => {
           description: 'Books & Resources'
         },
         {
+          name: 'Digital Library',
+          href: '/comprehensive-library',
+          icon: Library,
+          description: 'Advanced Digital Library System'
+        },
+        {
           name: 'Student Clubs',
           href: '/student-clubs',
           icon: Users,
           description: 'Campus Organizations'
+        },
+        {
+          name: 'Academic Management',
+          href: '/academic-management',
+          icon: BookOpen,
+          description: 'Academic Information'
+        },
+        {
+          name: 'Content Management',
+          href: '/content-management',
+          icon: FileText,
+          description: 'Course Materials'
+        },
+        {
+          name: 'Grade Management',
+          href: '/grading',
+          icon: FileText,
+          description: 'Assignments & Grading'
+        },
+        {
+          name: 'Admissions Info',
+          href: '/admissions-management',
+          icon: UserPlus,
+          description: 'Admission Information'
+        },
+        {
+          name: 'HR Information',
+          href: '/hr-management',
+          icon: Users,
+          description: 'Human Resources Information'
+        },
+        {
+          name: 'Finance Information',
+          href: '/finance-management',
+          icon: DollarSign,
+          description: 'Financial Information'
+        },
+        {
+          name: 'Accreditation',
+          href: '/accreditation-management',
+          icon: Award,
+          description: 'Quality Assurance Information'
+        },
+        {
+          name: 'Infrastructure',
+          href: '/infrastructure-management',
+          icon: Building,
+          description: 'Infrastructure Information'
+        },
+        {
+          name: 'Industrial Connect',
+          href: '/industrial-collaborations',
+          icon: Handshake,
+          description: 'Industry Partnerships'
+        },
+        {
+          name: 'Advanced Demo',
+          href: '/advanced-modules-demo',
+          icon: BarChart3,
+          description: 'Advanced ERP Features'
         }
       ];
   }
@@ -593,6 +671,19 @@ export default function Header({ onMenuClick, isMobile = false }: HeaderProps) {
   };
   
   const navigationItems = getRoleNavigation(getCurrentRole());
+  
+  // Debug logging for mobile navigation in header
+  React.useEffect(() => {
+    if (isMobile && isMobileMenuOpen) {
+      console.log('Header Mobile Navigation Debug:', {
+        currentRole: getCurrentRole(),
+        navigationItemsCount: navigationItems.length,
+        hasDigitalLibrary: navigationItems.some(item => item.name === 'Digital Library'),
+        hasAdvancedLMS: navigationItems.some(item => item.name === 'Advanced LMS'),
+        navigationItems: navigationItems.map(item => item.name)
+      });
+    }
+  }, [isMobile, isMobileMenuOpen, navigationItems]);
 
   // Update role when localStorage changes - use useEffect properly
   React.useEffect(() => {
@@ -695,9 +786,9 @@ export default function Header({ onMenuClick, isMobile = false }: HeaderProps) {
             {/* Divider */}
             <div className="border-t border-gray-200 my-2"></div>
             
-            {navigationItems.map((item) => (
+            {navigationItems.map((item, index) => (
               <Link
-                key={item.name}
+                key={`${item.name}-${getCurrentRole()}-${index}-${Date.now()}`}
                 href={item.href}
                 className="flex items-center px-3 py-2 text-gray-700 hover:bg-gray-100 rounded transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
