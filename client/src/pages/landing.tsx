@@ -25,7 +25,7 @@ export default function Landing() {
           {/* JUNO Campus Logo */}
           <div className="text-center mb-8">
             <div className="w-20 h-20 mx-auto mb-4 flex items-center justify-center">
-              <img src="/juno-logo.png" alt="JUNO Campus" className="w-18 h-18 drop-shadow-md" />
+              <img src="/juno-logo-optimized.png" alt="JUNO Campus" className="w-18 h-18 drop-shadow-lg" />
             </div>
             <h1 className="text-2xl font-bold text-gray-800">JUNO Campus UMS</h1>
             <p className="text-gray-600 mt-2">XYZ College of Engineering</p>

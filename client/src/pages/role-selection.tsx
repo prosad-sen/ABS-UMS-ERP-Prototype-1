@@ -111,7 +111,7 @@ export default function RoleSelection() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="text-center">
             <div className="flex items-center justify-center mb-4">
-              <img src="/juno-logo.png" alt="JUNO Campus" className="h-16 w-16 mr-4 drop-shadow-md" />
+              <img src="/juno-logo-optimized.png" alt="JUNO Campus" className="h-16 w-16 mr-4 drop-shadow-lg" />
               <div>
                 <h1 className="text-4xl font-bold text-gray-900">JUNO Campus UMS</h1>
                 <p className="text-lg text-gray-600">XYZ College of Engineering</p>
