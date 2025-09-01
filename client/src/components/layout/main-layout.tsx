@@ -15,7 +15,11 @@ export default function MainLayout({ children }: MainLayoutProps) {
       const width = window.innerWidth;
       const isMobileDevice = width < 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       setIsMobile(isMobileDevice);
-
+      
+      // Force clear any cached navigation on mobile
+      if (isMobileDevice) {
+        localStorage.removeItem('cached_navigation');
+      }
     };
     
     checkMobile();

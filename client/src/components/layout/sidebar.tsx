@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'wouter';
+import React from 'react';
 import { 
   BarChart3, 
   BookOpen, 
@@ -722,13 +723,13 @@ interface SidebarProps {
 
 export default function Sidebar({ isOpen = false, onClose, isMobile = false }: SidebarProps) {
   const [location] = useLocation();
+  const [forceUpdate, setForceUpdate] = React.useState(0);
   
   // Get current role from multiple sources
   const getCurrentRole = () => {
     // Check localStorage first (most reliable)
     const storedRole = localStorage.getItem('userRole') || localStorage.getItem('selectedRole');
     if (storedRole) {
-
       return storedRole;
     }
     
@@ -747,12 +748,42 @@ export default function Sidebar({ isOpen = false, onClose, isMobile = false }: S
     if (location.includes('parent')) return 'parent';
     if (location.includes('alumni')) return 'alumni';
     
-
     return 'student';
   };
   
   const currentRole = getCurrentRole();
   const navigationItems = getRoleNavigation(currentRole);
+  
+  // Debug logging for mobile navigation
+  React.useEffect(() => {
+    if (isMobile) {
+      console.log('Mobile Navigation Debug:', {
+        currentRole,
+        navigationItemsCount: navigationItems.length,
+        hasDigitalLibrary: navigationItems.some(item => item.name === 'Digital Library'),
+        hasPlacementPortal: navigationItems.some(item => item.name === 'Placement Portal'),
+        navigationItems: navigationItems.map(item => item.name)
+      });
+    }
+  }, [isMobile, currentRole, navigationItems]);
+  
+  // Force navigation refresh for mobile
+  React.useEffect(() => {
+    if (isMobile) {
+      // Clear any cached navigation data
+      localStorage.removeItem('cached_navigation');
+      // Force rerender of navigation
+      setForceUpdate(prev => prev + 1);
+      const event = new CustomEvent('navigation-updated');
+      window.dispatchEvent(event);
+    }
+  }, [isMobile, currentRole]);
+
+  // Add cache buster to navigation items with timestamp
+  const enhancedNavigationItems = navigationItems.map((item, index) => ({
+    ...item,
+    key: `${item.name}-${currentRole}-${forceUpdate}-${Date.now()}-${index}`
+  }));
   
 
 
@@ -768,12 +799,12 @@ export default function Sidebar({ isOpen = false, onClose, isMobile = false }: S
         <div className="flex flex-col h-full">
           <div className="flex-1 overflow-y-auto p-4 pt-16">
             <nav className="space-y-1">
-              {navigationItems.map((item) => {
+              {enhancedNavigationItems.map((item) => {
                 const isActive = location === item.href || (item.href !== '/' && location.startsWith(item.href));
                 
                 return (
                   <Link
-                    key={item.name}
+                    key={item.key}
                     href={item.href}
                     onClick={handleNavClick}
                     className={cn(
