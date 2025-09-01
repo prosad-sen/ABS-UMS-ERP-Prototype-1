@@ -86,12 +86,18 @@ export default function AdvancedModulesDemo() {
       status: "Live"
     },
     {
-      title: "Learning Management System",
-      description: "Advanced LMS with course content delivery, assignment management, online assessments, and collaborative learning tools.",
+      title: "World-Class Learning Management System",
+      description: "AI-powered LMS with adaptive learning paths, collaborative tools, real-time analytics, and personalized recommendations.",
       href: "/lms",
       icon: GraduationCap,
       color: "from-cyan-500 to-cyan-600",
-      features: ["Course Content", "Assignment Management", "Online Assessments", "Collaborative Tools"],
+      features: [
+        "AI-powered learning analytics",
+        "Adaptive learning paths", 
+        "Real-time collaboration tools",
+        "Personalized recommendations",
+        "Interactive assessments"
+      ],
       status: "Live"
     },
     {
