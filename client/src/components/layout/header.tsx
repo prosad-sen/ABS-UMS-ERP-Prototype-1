@@ -639,7 +639,7 @@ export default function Header({ onMenuClick, isMobile = false }: HeaderProps) {
             className="hover:bg-gray-50 rounded-lg p-2 transition-all duration-200 transform hover:scale-105 flex items-center space-x-2"
             style={{color: '#1f2937', fontWeight: '600'}}
           >
-            <img src="/juno-logo.png" alt="JUNO Campus" className="h-6 w-6 lg:h-7 lg:w-7" />
+            <img src="/juno-logo.png" alt="JUNO Campus" className="h-8 w-8 lg:h-9 lg:w-9 drop-shadow-sm" />
             <div className="flex flex-col">
               <h1 className="text-lg lg:text-xl font-semibold" style={{color: '#1f2937', margin: '0'}}>JUNO Campus UMS</h1>
               <p className="text-xs lg:text-sm hidden sm:block" style={{color: '#6b7280', margin: '0'}}>XYZ College of Engineering</p>
