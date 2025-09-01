@@ -36,8 +36,8 @@ export default function Library() {
       title: "Database System Concepts",
       author: "Abraham Silberschatz",
       isbn: "978-0078022159",
-      issueDate: "2024-03-01",
-      dueDate: "2024-03-15",
+      issueDate: "2025-03-01",
+      dueDate: "2025-03-15",
       renewCount: 1,
       status: "overdue",
       fine: 15
@@ -47,8 +47,8 @@ export default function Library() {
       title: "Computer Networks",
       author: "Andrew S. Tanenbaum",
       isbn: "978-0132126953",
-      issueDate: "2024-03-10",
-      dueDate: "2024-03-24",
+      issueDate: "2025-03-10",
+      dueDate: "2025-03-24",
       renewCount: 0,
       status: "active",
       fine: 0
@@ -58,8 +58,8 @@ export default function Library() {
       title: "Operating System Concepts", 
       author: "Abraham Silberschatz",
       isbn: "978-1118063330",
-      issueDate: "2024-03-12",
-      dueDate: "2024-03-26",
+      issueDate: "2025-03-12",
+      dueDate: "2025-03-26",
       renewCount: 0,
       status: "active",
       fine: 0
@@ -127,8 +127,8 @@ export default function Library() {
   ];
 
   const issueHistory = [
-    { title: "Data Structures and Algorithms", issueDate: "2024-02-15", returnDate: "2024-02-28", status: "returned" },
-    { title: "Software Engineering", issueDate: "2024-01-20", returnDate: "2024-02-05", status: "returned" },
+    { title: "Data Structures and Algorithms", issueDate: "2025-02-15", returnDate: "2025-02-28", status: "returned" },
+    { title: "Software Engineering", issueDate: "2025-01-20", returnDate: "2025-02-05", status: "returned" },
     { title: "Computer Graphics", issueDate: "2023-12-10", returnDate: "2023-12-24", status: "returned" }
   ];
 

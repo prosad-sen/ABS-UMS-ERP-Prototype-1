@@ -541,7 +541,7 @@ export default function Header({ onMenuClick, isMobile = false }: HeaderProps) {
     const profileData = {
       student: {
         name: "Rahul Sharma",
-        id: "2024001",
+        id: "2025001",
         image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
       },
       faculty: {

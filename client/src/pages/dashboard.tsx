@@ -217,11 +217,11 @@ export default function Dashboard() {
 
   // Enhanced leaderboard data with comprehensive stats
   const leaderboardData = [
-    { rank: 1, studentId: "2024001", name: "Rahul Sharma", points: 1850, streak: 15, badge: 'gold' as const, cgpa: 9.2, attendance: 98, achievements: 12 },
-    { rank: 2, studentId: "2024002", name: "Priya Patel", points: 1720, streak: 12, badge: 'silver' as const, cgpa: 8.8, attendance: 96, achievements: 10 },
-    { rank: 3, studentId: "2024003", name: "Arjun Singh", points: 1690, streak: 8, badge: 'bronze' as const, cgpa: 8.9, attendance: 94, achievements: 8 },
-    { rank: 4, studentId: "2024004", name: "Sneha Desai", points: 1580, streak: 5, badge: null, cgpa: 8.5, attendance: 92, achievements: 6 },
-    { rank: 5, studentId: "2024005", name: "Vikram Joshi", points: 1520, streak: 3, badge: null, cgpa: 8.3, attendance: 88, achievements: 5 },
+    { rank: 1, studentId: "2025001", name: "Rahul Sharma", points: 1850, streak: 15, badge: 'gold' as const, cgpa: 9.2, attendance: 98, achievements: 12 },
+    { rank: 2, studentId: "2025002", name: "Priya Patel", points: 1720, streak: 12, badge: 'silver' as const, cgpa: 8.8, attendance: 96, achievements: 10 },
+    { rank: 3, studentId: "2025003", name: "Arjun Singh", points: 1690, streak: 8, badge: 'bronze' as const, cgpa: 8.9, attendance: 94, achievements: 8 },
+    { rank: 4, studentId: "2025004", name: "Sneha Desai", points: 1580, streak: 5, badge: null, cgpa: 8.5, attendance: 92, achievements: 6 },
+    { rank: 5, studentId: "2025005", name: "Vikram Joshi", points: 1520, streak: 3, badge: null, cgpa: 8.3, attendance: 88, achievements: 5 },
   ];
 
   return (
@@ -261,7 +261,7 @@ export default function Dashboard() {
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
             <div className="flex-1">
               <div className="p-3 bg-white/10 rounded-lg backdrop-blur-sm">
-                <p className="text-sm font-medium">🚀 Upcoming: TechFest 2024 Hackathon</p>
+                <p className="text-sm font-medium">🚀 Upcoming: TechFest 2025 Hackathon</p>
                 <p className="text-xs text-blue-200">Registration closes in 3 days • Win ₹1,00,000</p>
               </div>
             </div>
@@ -674,7 +674,7 @@ export default function Dashboard() {
               <div className="p-4 border-b bg-red-50 hover:bg-red-100 transition-colors">
                 <div className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-red-500 rounded-full animate-ping"></div>
-                  <h4 className="font-semibold text-red-800">🚨 TechFest 2024 Registration Deadline</h4>
+                  <h4 className="font-semibold text-red-800">🚨 TechFest 2025 Registration Deadline</h4>
                 </div>
                 <p className="text-sm text-red-700 mt-1">Only 3 days left! Grand prize ₹1,00,000. Register now!</p>
                 <p className="text-xs text-red-600 mt-1">Posted 15 mins ago • 234 registrations today</p>

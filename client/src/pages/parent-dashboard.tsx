@@ -79,7 +79,7 @@ export default function ParentDashboard() {
 
   const studentData = {
     name: "Aarti Sharma",
-    rollNumber: "2024001",
+    rollNumber: "2025001",
     class: "Second Year",
     department: "Computer Science & Engineering",
     semester: "4th Semester",
@@ -104,10 +104,10 @@ export default function ParentDashboard() {
   };
 
   const recentActivities = [
-    { type: "academic", text: "Scored 85/100 in Data Structures Mid-term", date: "2024-03-20", icon: GraduationCap },
-    { type: "attendance", text: "Present in all classes this week", date: "2024-03-19", icon: CheckCircle },
-    { type: "fee", text: "Hostel fee payment reminder", date: "2024-03-18", icon: DollarSign },
-    { type: "assignment", text: "Submitted Computer Networks assignment", date: "2024-03-17", icon: BookOpen }
+    { type: "academic", text: "Scored 85/100 in Data Structures Mid-term", date: "2025-03-20", icon: GraduationCap },
+    { type: "attendance", text: "Present in all classes this week", date: "2025-03-19", icon: CheckCircle },
+    { type: "fee", text: "Hostel fee payment reminder", date: "2025-03-18", icon: DollarSign },
+    { type: "assignment", text: "Submitted Computer Networks assignment", date: "2025-03-17", icon: BookOpen }
   ];
 
   const upcomingEvents = [

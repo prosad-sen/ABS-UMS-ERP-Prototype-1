@@ -130,7 +130,7 @@ export default function RoleSelection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">Choose Your Portal</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Enter your personalized dashboard with role-specific features and comprehensive analytics
           </p>
           
@@ -261,7 +261,7 @@ export default function RoleSelection() {
               <div className="space-y-4">
                 <div>
                   <div className="text-sm font-medium text-gray-700">Last Updated</div>
-                  <div className="text-sm text-gray-600">September 2024</div>
+                  <div className="text-sm text-gray-600">September 2025</div>
                 </div>
                 <div>
                   <div className="text-sm font-medium text-gray-700">System Status</div>
@@ -285,7 +285,7 @@ export default function RoleSelection() {
       <div className="bg-gray-800 text-white py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-gray-300">
-            © 2024 JUNO Campus UMS. All rights reserved. | Powered by JUNO Software Systems
+            © 2025 JUNO Campus UMS. All rights reserved. | Powered by JUNO Software Systems
           </p>
         </div>
       </div>

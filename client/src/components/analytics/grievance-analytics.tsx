@@ -83,9 +83,9 @@ export default function GrievanceAnalytics({ isManagementView = false }: Grievan
       { month: "Oct 2023", submitted: 45, resolved: 38 },
       { month: "Nov 2023", submitted: 52, resolved: 41 },
       { month: "Dec 2023", submitted: 38, resolved: 44 },
-      { month: "Jan 2024", submitted: 61, resolved: 48 },
-      { month: "Feb 2024", submitted: 49, resolved: 56 },
-      { month: "Mar 2024", submitted: 67, resolved: 52 }
+      { month: "Jan 2025", submitted: 61, resolved: 48 },
+      { month: "Feb 2025", submitted: 49, resolved: 56 },
+      { month: "Mar 2025", submitted: 67, resolved: 52 }
     ],
     priorityDistribution: [
       { priority: "Low", count: 156, avgResolutionTime: 12.3 },

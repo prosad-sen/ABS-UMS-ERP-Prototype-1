@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 
-// the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
+// the newest OpenAI model is "gpt-4o" which was released May 13, 2025. do not change this unless explicitly requested by the user
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 export interface AIRequest {
@@ -31,7 +31,7 @@ export class AIAssistant {
       
       if (query.includes("assignment") || query.includes("homework") || query.includes("project") || query.includes("due")) {
         return {
-          response: "Your upcoming assignments: 1) Data Structures Lab Report (Due: March 20, 2024) - 25% weightage, 2) Computer Networks Project (Due: March 25, 2024) - 30% weightage, 3) Software Engineering Case Study (Due: March 28, 2024) - 20% weightage. Submit early for 10% bonus points!",
+          response: "Your upcoming assignments: 1) Data Structures Lab Report (Due: March 20, 2025) - 25% weightage, 2) Computer Networks Project (Due: March 25, 2025) - 30% weightage, 3) Software Engineering Case Study (Due: March 28, 2025) - 20% weightage. Submit early for 10% bonus points!",
           suggestions: ["Start with highest weightage assignment first", "Create a study schedule", "Form project groups", "Visit library for resources"],
           actions: ["Download assignment templates", "Book library study room", "Join study groups", "Set deadline reminders"]
         };

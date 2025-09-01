@@ -138,7 +138,7 @@ export default function AlumniDashboard() {
   ];
 
   const upcomingEvents = [
-    { date: "Apr 15", title: "Annual Alumni Meet 2024", location: "COEP Campus", type: "reunion", attendees: 500 },
+    { date: "Apr 15", title: "Annual Alumni Meet 2025", location: "XYZ College Campus", type: "reunion", attendees: 500 },
     { date: "Apr 20", title: "Tech Talk: AI in Industry", location: "Virtual", type: "webinar", attendees: 200 },
     { date: "May 05", title: "Career Guidance Session", location: "Mumbai Chapter", type: "mentorship", attendees: 50 },
     { date: "May 12", title: "Startup Pitch Competition", location: "Pune", type: "competition", attendees: 150 }
@@ -151,8 +151,8 @@ export default function AlumniDashboard() {
   ];
 
   const donationOpportunities = [
-    { title: "Computer Lab Modernization", target: 5000000, raised: 3200000, contributors: 245, deadline: "Jun 30, 2024" },
-    { title: "Student Scholarship Fund", target: 2000000, raised: 1650000, contributors: 189, deadline: "Dec 31, 2024" },
+    { title: "Computer Lab Modernization", target: 5000000, raised: 3200000, contributors: 245, deadline: "Jun 30, 2025" },
+    { title: "Student Scholarship Fund", target: 2000000, raised: 1650000, contributors: 189, deadline: "Dec 31, 2025" },
     { title: "Innovation Center Setup", target: 8000000, raised: 4800000, contributors: 156, deadline: "Mar 31, 2025" }
   ];
 
@@ -626,7 +626,7 @@ export default function AlumniDashboard() {
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <Crown className="h-5 w-5 text-yellow-600" />
-                  <span>Top Contributing Chapters (2024)</span>
+                  <span>Top Contributing Chapters (2025)</span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -752,7 +752,7 @@ export default function AlumniDashboard() {
                 <p className="text-sm text-gray-600 mb-4">Contributed ₹10L+ lifetime</p>
                 <Badge className="bg-yellow-100 text-yellow-800">Achieved</Badge>
                 <div className="mt-4 text-xs text-gray-500">
-                  Unlocked: Jan 2024 • Only 12 alumni hold this badge
+                  Unlocked: Jan 2025 • Only 12 alumni hold this badge
                 </div>
               </CardContent>
             </Card>
@@ -766,7 +766,7 @@ export default function AlumniDashboard() {
                 <p className="text-sm text-gray-600 mb-4">Connected 50+ alumni</p>
                 <Badge className="bg-blue-100 text-blue-800">Achieved</Badge>
                 <div className="mt-4 text-xs text-gray-500">
-                  Unlocked: Mar 2024 • Top 5% in networking
+                  Unlocked: Mar 2025 • Top 5% in networking
                 </div>
               </CardContent>
             </Card>
@@ -905,7 +905,7 @@ export default function AlumniDashboard() {
                         <p className="font-semibold text-green-600">{chapter.contribution}</p>
                       </div>
                       <div>
-                        <p className="text-gray-600">Events (2024)</p>
+                        <p className="text-gray-600">Events (2025)</p>
                         <p className="font-semibold">{chapter.events}</p>
                       </div>
                     </div>
@@ -946,42 +946,42 @@ export default function AlumniDashboard() {
                 {[
                   {
                     name: "Dr. Rajesh Kumar ('89)",
-                    achievement: "Distinguished Alumni Award 2024",
+                    achievement: "Distinguished Alumni Award 2025",
                     description: "Pioneered breakthrough research in AI/ML, leading global team at Google DeepMind",
                     contribution: "₹25L+ donated, 50+ students mentored",
                     image: "/api/placeholder/100/100"
                   },
                   {
                     name: "Priya Sharma ('92)",
-                    achievement: "Social Impact Champion 2024",
+                    achievement: "Social Impact Champion 2025",
                     description: "Founded EdTech startup reaching 10M+ students across rural India",
                     contribution: "Scholarship fund for 100+ students",
                     image: "/api/placeholder/100/100"
                   },
                   {
                     name: "Amit Patel ('94)",
-                    achievement: "Innovation Excellence Award 2024",
+                    achievement: "Innovation Excellence Award 2025",
                     description: "CTO at leading fintech, 15+ patents in blockchain technology",
                     contribution: "₹15L+ to innovation lab setup",
                     image: "/api/placeholder/100/100"
                   },
                   {
                     name: "Sunita Verma ('96)",
-                    achievement: "Global Leadership Recognition 2024",  
+                    achievement: "Global Leadership Recognition 2025",  
                     description: "VP Engineering at Meta, champion of women in tech initiatives",
                     contribution: "Diversity scholarship program founder",
                     image: "/api/placeholder/100/100"
                   },
                   {
                     name: "Vikram Singh ('98)",
-                    achievement: "Entrepreneurship Excellence 2024",
+                    achievement: "Entrepreneurship Excellence 2025",
                     description: "Founded successful clean energy startup, $50M+ funding raised",
                     contribution: "Green technology research lab sponsor",
                     image: "/api/placeholder/100/100"
                   },
                   {
                     name: "Neha Agarwal ('00)",
-                    achievement: "Humanitarian Service Award 2024",
+                    achievement: "Humanitarian Service Award 2025",
                     description: "Leading disaster relief technology solutions globally",
                     contribution: "Emergency response training programs",
                     image: "/api/placeholder/100/100"

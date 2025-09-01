@@ -573,8 +573,8 @@ export default function DetailedStatsModal({
             <TabsContent value="events" className="space-y-4">
               <div className="space-y-3">
                 {[
-                  { title: "COEP Tech Meetup 2024", date: "March 15, 2024", attendees: 85 },
-                  { title: "Alumni Career Fair", date: "January 20, 2024", attendees: 156 },
+                  { title: "COEP Tech Meetup 2025", date: "March 15, 2025", attendees: 85 },
+                  { title: "Alumni Career Fair", date: "January 20, 2025", attendees: 156 },
                   { title: "Industry Connect Session", date: "December 10, 2023", attendees: 67 }
                 ].map((event, index) => (
                   <Card key={index}>
@@ -683,7 +683,7 @@ export default function DetailedStatsModal({
                     <div className="flex items-start space-x-3">
                       <Award className="h-5 w-5 text-yellow-600 mt-0.5" />
                       <div>
-                        <h4 className="font-semibold text-yellow-800">Distinguished Alumni Award 2024</h4>
+                        <h4 className="font-semibold text-yellow-800">Distinguished Alumni Award 2025</h4>
                         <p className="text-sm text-yellow-700 mt-1">Recognized for outstanding contributions to university development and student mentorship.</p>
                       </div>
                     </div>

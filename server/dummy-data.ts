@@ -264,9 +264,9 @@ export async function seedDummyData() {
     
     let studentCounter = 1;
     
-    // Generate students for years 2015-2024 (10 years)
-    for (let year = 2015; year <= 2024; year++) {
-      const studentsThisYear = year === 2024 ? 1200 : // Current year - more admissions
+    // Generate students for years 2015-2025 (11 years)
+    for (let year = 2015; year <= 2025; year++) {
+      const studentsThisYear = year === 2025 ? 1200 : // Current year - more admissions
                                year >= 2021 ? 1100 : // Recent years
                                year >= 2018 ? 1000 : // Mid years
                                900; // Earlier years - total ~10,400 students
@@ -279,7 +279,7 @@ export async function seedDummyData() {
         const email = `${studentId.toLowerCase()}@student.coeptech.ac.in`;
         
         // Determine current semester based on admission year
-        const currentYear = 2024;
+        const currentYear = 2025;
         const yearsPassed = currentYear - year;
         let currentSemester = Math.min(yearsPassed * 2 + 1, 8);
         
@@ -321,7 +321,7 @@ export async function seedDummyData() {
           admissionYear: year,
           currentSemester: currentSemester,
           admissionDate: new Date(year, 6, 15).toISOString().split('T')[0], // July 15th admission
-          cgpa: hasGraduated ? generateCGPA() : (currentSemester >= 2 ? generateCGPA() : null),
+          cgpa: hasGraduated ? generateCGPA().toString() : (currentSemester >= 2 ? generateCGPA().toString() : null),
           contactNumber: `+91${Math.floor(Math.random() * 9000000000) + 1000000000}`,
           address: `${Math.floor(Math.random() * 999) + 1}, ${getRandomElement(['MG Road', 'FC Road', 'Karve Road', 'Paud Road', 'Baner', 'Kothrud', 'Viman Nagar'])}, Pune - ${Math.floor(Math.random() * 100000) + 400000}`,
           parentName: `${getRandomElement(FIRST_NAMES)} ${lastName}`,

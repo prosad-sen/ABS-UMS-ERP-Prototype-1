@@ -45,16 +45,16 @@ export default function CourseDetailModal({ isOpen, onClose, course }: CourseDet
     { 
       id: 1, 
       title: "Data Structures Implementation", 
-      dueDate: "2024-03-25", 
+      dueDate: "2025-03-25", 
       status: "submitted", 
       score: 85,
       maxScore: 100,
-      submittedDate: "2024-03-20"
+      submittedDate: "2025-03-20"
     },
     { 
       id: 2, 
       title: "Algorithm Analysis Report", 
-      dueDate: "2024-03-30", 
+      dueDate: "2025-03-30", 
       status: "pending", 
       score: null,
       maxScore: 100,
@@ -63,7 +63,7 @@ export default function CourseDetailModal({ isOpen, onClose, course }: CourseDet
     { 
       id: 3, 
       title: "Binary Tree Visualization", 
-      dueDate: "2024-04-05", 
+      dueDate: "2025-04-05", 
       status: "in-progress", 
       score: null,
       maxScore: 100,
@@ -75,28 +75,28 @@ export default function CourseDetailModal({ isOpen, onClose, course }: CourseDet
     { 
       week: 1, 
       topic: "Introduction to Data Structures", 
-      date: "2024-03-01",
+      date: "2025-03-01",
       materials: ["Slides", "Video", "Notes"],
       attended: true
     },
     { 
       week: 2, 
       topic: "Arrays and Linked Lists", 
-      date: "2024-03-08",
+      date: "2025-03-08",
       materials: ["Slides", "Video", "Practice Problems"],
       attended: true
     },
     { 
       week: 3, 
       topic: "Stacks and Queues", 
-      date: "2024-03-15",
+      date: "2025-03-15",
       materials: ["Slides", "Video", "Lab Exercises"],
       attended: false
     },
     { 
       week: 4, 
       topic: "Trees and Binary Search Trees", 
-      date: "2024-03-22",
+      date: "2025-03-22",
       materials: ["Slides", "Video", "Interactive Demo"],
       attended: true
     },

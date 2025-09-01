@@ -21,11 +21,11 @@ export default function Fees() {
 
   // Mock fee data
   const feeStructure = {
-    semester: "Fall 2024 - Semester 4",
+    semester: "Fall 2025 - Semester 4",
     totalFee: 98500,
     paidAmount: 73500,
     pendingAmount: 25000,
-    dueDate: "2024-07-30",
+    dueDate: "2025-07-30",
     components: [
       { name: "Tuition Fee", amount: 75000, paid: true },
       { name: "Development Fee", amount: 15000, paid: false },
@@ -38,21 +38,21 @@ export default function Fees() {
   const paymentHistory = [
     { 
       id: "PAY001", 
-      date: "2024-07-15", 
+      date: "2025-07-15", 
       amount: 73500, 
       description: "Semester 4 Partial Payment", 
       method: "UPI", 
       status: "completed",
-      receipt: "REC-2024-001"
+      receipt: "REC-2025-001"
     },
     { 
       id: "PAY002", 
-      date: "2024-01-20", 
+      date: "2025-01-20", 
       amount: 98500, 
       description: "Semester 3 Full Payment", 
       method: "Net Banking", 
       status: "completed",
-      receipt: "REC-2024-002"
+      receipt: "REC-2025-002"
     },
     { 
       id: "PAY003", 

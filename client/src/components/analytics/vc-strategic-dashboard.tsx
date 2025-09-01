@@ -195,7 +195,7 @@ export default function VCStrategicDashboard() {
             <div className="space-y-4">
               <div className="text-center">
                 <div className="text-3xl font-bold text-green-600">{financialMetrics.totalRevenue}</div>
-                <p className="text-gray-600">Total Revenue (FY 2024)</p>
+                <p className="text-gray-600">Total Revenue (FY 2025)</p>
                 <Badge className="mt-1 bg-green-100 text-green-800">
                   {financialMetrics.growthRate} YoY Growth
                 </Badge>

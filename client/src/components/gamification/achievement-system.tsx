@@ -88,7 +88,7 @@ export default function AchievementSystem({ studentLevel, totalXP, nextLevelXP }
       points: 300,
       rarity: 'rare',
       category: 'academic',
-      unlockedDate: '2024-03-15'
+      unlockedDate: '2025-03-15'
     },
     {
       id: 'knowledge_seeker',
@@ -113,7 +113,7 @@ export default function AchievementSystem({ studentLevel, totalXP, nextLevelXP }
       points: 250,
       rarity: 'common',
       category: 'social',
-      unlockedDate: '2024-03-10'
+      unlockedDate: '2025-03-10'
     },
     {
       id: 'streak_master',

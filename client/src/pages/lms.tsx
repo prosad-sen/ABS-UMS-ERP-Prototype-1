@@ -28,14 +28,14 @@ export default function LMS() {
       id: 1,
       title: "ML Model Implementation",
       course: "Machine Learning",
-      dueDate: "2024-02-15",
+      dueDate: "2025-02-15",
       status: "pending"
     },
     {
       id: 2,
       title: "AI Ethics Essay",
       course: "Artificial Intelligence",
-      dueDate: "2024-02-10",
+      dueDate: "2025-02-10",
       status: "submitted"
     }
   ];

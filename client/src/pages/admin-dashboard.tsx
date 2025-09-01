@@ -131,10 +131,10 @@ export default function AdminDashboard() {
   ];
 
   const recentReports = [
-    { title: "Monthly Academic Performance Report", department: "Academic Affairs", date: "2024-03-20", status: "completed" },
-    { title: "Infrastructure Utilization Analysis", department: "Campus Services", date: "2024-03-18", status: "pending" },
-    { title: "Student Satisfaction Survey Results", department: "Student Affairs", date: "2024-03-15", status: "completed" },
-    { title: "Financial Budget Review Q1", department: "Finance", date: "2024-03-12", status: "in-progress" }
+    { title: "Monthly Academic Performance Report", department: "Academic Affairs", date: "2025-03-20", status: "completed" },
+    { title: "Infrastructure Utilization Analysis", department: "Campus Services", date: "2025-03-18", status: "pending" },
+    { title: "Student Satisfaction Survey Results", department: "Student Affairs", date: "2025-03-15", status: "completed" },
+    { title: "Financial Budget Review Q1", department: "Finance", date: "2025-03-12", status: "in-progress" }
   ];
 
   const keyMetrics = {

@@ -43,7 +43,7 @@ export default function EnhancedSliderModal({ isOpen, onClose, type, title }: En
           ],
           achievements: [
             { title: 'Dean\'s List Scholar', description: 'Top 1% academic performance', icon: Trophy },
-            { title: 'Innovation Challenge Winner', description: 'Best Technical Project 2024', icon: Award },
+            { title: 'Innovation Challenge Winner', description: 'Best Technical Project 2025', icon: Award },
             { title: 'Student Leader', description: 'CSE Department Representative', icon: Users },
             { title: 'Research Excellence', description: 'Published research paper', icon: BookOpen }
           ],
@@ -66,10 +66,10 @@ export default function EnhancedSliderModal({ isOpen, onClose, type, title }: En
           ],
           opportunities: [
             {
-              title: 'Google Summer of Code 2024',
+              title: 'Google Summer of Code 2025',
               company: 'Google',
               type: 'Open Source Program',
-              deadline: 'March 18, 2024',
+              deadline: 'March 18, 2025',
               stipend: '$1,500 - $6,600',
               skills: ['Python', 'Machine Learning', 'Open Source'],
               difficulty: 'Competitive'
@@ -78,7 +78,7 @@ export default function EnhancedSliderModal({ isOpen, onClose, type, title }: En
               title: 'Microsoft Imagine Cup',
               company: 'Microsoft',
               type: 'Innovation Competition',
-              deadline: 'April 15, 2024',
+              deadline: 'April 15, 2025',
               prize: '$100,000',
               skills: ['Cloud Computing', 'AI', 'Innovation'],
               difficulty: 'Global'
@@ -87,7 +87,7 @@ export default function EnhancedSliderModal({ isOpen, onClose, type, title }: En
               title: 'Amazon SDE Internship',
               company: 'Amazon',
               type: 'Summer Internship',
-              deadline: 'February 28, 2024',
+              deadline: 'February 28, 2025',
               stipend: '₹80,000/month',
               skills: ['Data Structures', 'Algorithms', 'System Design'],
               difficulty: 'Highly Selective'

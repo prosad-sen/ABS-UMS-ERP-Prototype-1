@@ -42,20 +42,20 @@ export default function AnimatedInfoSlider() {
     {
       id: '1',
       type: 'social',
-      title: 'COEP Tech Fest 2024 Winners Announced!',
-      content: 'Congratulations to all participants! Outstanding innovation projects showcased by our talented students. The future of technology is bright at COEP! 🚀',
+      title: 'JUNO Tech Fest 2025 Winners Announced!',
+      content: 'Congratulations to all participants! Outstanding innovation projects showcased by our talented students. The future of technology is bright at JUNO Campus! 🚀',
       platform: 'Instagram',
       date: '2 hours ago',
       likes: 1247,
       comments: 89,
       link: 'https://instagram.com/coep_tech',
-      tags: ['TechFest2024', 'Innovation', 'Students']
+      tags: ['TechFest2025', 'Innovation', 'Students']
     },
     {
       id: '2',
       type: 'press',
-      title: 'COEP Students Win National Coding Championship',
-      content: 'Three COEP Computer Science students secured top positions in the All India Coding Competition, bringing glory to the institution.',
+      title: 'JUNO Campus Students Win National Coding Championship',
+      content: 'Three JUNO Campus Computer Science students secured top positions in the All India Coding Competition, bringing glory to the institution.',
       author: 'The Times of India',
       date: '1 day ago',
       link: 'https://timesofindia.com/coep-coding-win',
@@ -72,9 +72,9 @@ export default function AnimatedInfoSlider() {
     {
       id: '4',
       type: 'event',
-      title: 'Annual Cultural Festival - Ganesh Kala Krida 2024',
+      title: 'Annual Cultural Festival - Ganesh Kala Krida 2025',
       content: 'Join us for three days of music, dance, drama, and cultural celebrations. Register now for competitions and performances!',
-      date: 'March 25-27, 2024',
+      date: 'March 25-27, 2025',
       tags: ['Cultural', 'Festival', 'Registration']
     },
     {
@@ -92,8 +92,8 @@ export default function AnimatedInfoSlider() {
     {
       id: '6',
       type: 'press',
-      title: 'COEP Ranks in Top 10 Engineering Colleges',
-      content: 'COEP Technological University maintains its position among India\'s premier engineering institutions in latest NIRF rankings.',
+      title: 'JUNO Campus Ranks in Top 10 Engineering Colleges',
+      content: 'JUNO Campus maintains its position among India\'s premier engineering institutions in latest NIRF rankings.',
       author: 'Education Today',
       date: '1 week ago',
       link: 'https://educationtoday.in/coep-ranking',
