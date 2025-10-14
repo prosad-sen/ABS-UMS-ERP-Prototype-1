@@ -836,7 +836,7 @@ export default function Sidebar({ isOpen = false, onClose, isMobile = false }: S
           {/* Mobile Footer */}
           <div className="flex-shrink-0 p-4 border-t border-gray-200 bg-gray-50">
             <div className="text-center">
-              <p className="text-xs font-medium text-gray-600">JUNO Campus UMS</p>
+              <p className="text-xs font-medium text-gray-600">ABC UMS ERP</p>
               <p className="text-xs text-gray-500">Mobile Portal</p>
             </div>
           </div>
@@ -886,7 +886,7 @@ export default function Sidebar({ isOpen = false, onClose, isMobile = false }: S
         {/* Footer */}
         <div className="flex-shrink-0 p-4 border-t border-gray-200 bg-gray-50">
           <div className="text-center">
-            <p className="text-xs font-medium text-gray-600">JUNO Campus UMS</p>
+            <p className="text-xs font-medium text-gray-600">ABC UMS ERP</p>
             <p className="text-xs text-gray-500">XYZ College of Engineering</p>
           </div>
         </div>
