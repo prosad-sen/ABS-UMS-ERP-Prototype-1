@@ -25,7 +25,7 @@ export default function Landing() {
           {/* ABC UMS ERP Logo */}
           <div className="text-center mb-8">
             <div className="w-20 h-20 mx-auto mb-4 flex items-center justify-center">
-              <img src="/abc-logo-optimized.png" alt="ABC UMS ERP" className="w-18 h-18 drop-shadow-lg" />
+              <img src="/abc-logo-optimized.svg" alt="ABC UMS ERP" className="w-18 h-18 drop-shadow-lg" />
             </div>
             <h1 className="text-2xl font-bold text-gray-800">ABC UMS ERP</h1>
             <p className="text-gray-600 mt-2">XYZ College of Engineering</p>
