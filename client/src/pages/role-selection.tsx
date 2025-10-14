@@ -111,16 +111,16 @@ export default function RoleSelection() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="text-center">
             <div className="flex items-center justify-center mb-4">
-              <img src="/juno-logo-optimized.png" alt="JUNO Campus" className="h-16 w-16 mr-4 drop-shadow-lg" />
+              <img src="/abc-logo-optimized.png" alt="ABC UMS ERP" className="h-16 w-16 mr-4 drop-shadow-lg" />
               <div>
-                <h1 className="text-4xl font-bold text-gray-900">JUNO Campus UMS</h1>
+                <h1 className="text-4xl font-bold text-gray-900">ABC UMS ERP</h1>
                 <p className="text-lg text-gray-600">XYZ College of Engineering</p>
               </div>
             </div>
             <div className="flex justify-center space-x-2">
               <Badge className="bg-green-100 text-green-800">AI-Powered ERP</Badge>
               <Badge className="bg-blue-100 text-blue-800">550+ Implementations</Badge>
-              <Badge className="bg-purple-100 text-purple-800">JUNO Technology</Badge>
+              <Badge className="bg-purple-100 text-purple-800">ABC Technology</Badge>
             </div>
           </div>
         </div>
@@ -192,9 +192,9 @@ export default function RoleSelection() {
           })}
         </div>
 
-        {/* JUNO Campus Stats */}
+        {/* ABC UMS ERP Stats */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-12">
-          <h3 className="text-2xl font-bold text-center mb-8">JUNO Campus Excellence</h3>
+          <h3 className="text-2xl font-bold text-center mb-8">ABC UMS ERP Excellence</h3>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
               <div className="text-3xl font-bold text-blue-600 mb-2">550+</div>
@@ -285,7 +285,7 @@ export default function RoleSelection() {
       <div className="bg-gray-800 text-white py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-gray-300">
-            © 2025 JUNO Campus UMS. All rights reserved. | Powered by JUNO Software Systems
+            © 2025 ABC UMS ERP. All rights reserved. | Powered by ABC Software Systems
           </p>
         </div>
       </div>

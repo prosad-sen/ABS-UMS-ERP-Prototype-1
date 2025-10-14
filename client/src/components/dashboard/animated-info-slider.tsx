@@ -42,8 +42,8 @@ export default function AnimatedInfoSlider() {
     {
       id: '1',
       type: 'social',
-      title: 'JUNO Tech Fest 2025 Winners Announced!',
-      content: 'Congratulations to all participants! Outstanding innovation projects showcased by our talented students. The future of technology is bright at JUNO Campus! 🚀',
+      title: 'ABC Tech Fest 2025 Winners Announced!',
+      content: 'Congratulations to all participants! Outstanding innovation projects showcased by our talented students. The future of technology is bright at ABC Campus! 🚀',
       platform: 'Instagram',
       date: '2 hours ago',
       likes: 1247,
@@ -54,8 +54,8 @@ export default function AnimatedInfoSlider() {
     {
       id: '2',
       type: 'press',
-      title: 'JUNO Campus Students Win National Coding Championship',
-      content: 'Three JUNO Campus Computer Science students secured top positions in the All India Coding Competition, bringing glory to the institution.',
+      title: 'ABC Campus Students Win National Coding Championship',
+      content: 'Three ABC Campus Computer Science students secured top positions in the All India Coding Competition, bringing glory to the institution.',
       author: 'The Times of India',
       date: '1 day ago',
       link: 'https://timesofindia.com/coep-coding-win',
@@ -92,8 +92,8 @@ export default function AnimatedInfoSlider() {
     {
       id: '6',
       type: 'press',
-      title: 'JUNO Campus Ranks in Top 10 Engineering Colleges',
-      content: 'JUNO Campus maintains its position among India\'s premier engineering institutions in latest NIRF rankings.',
+      title: 'ABC Campus Ranks in Top 10 Engineering Colleges',
+      content: 'ABC Campus maintains its position among India\'s premier engineering institutions in latest NIRF rankings.',
       author: 'Education Today',
       date: '1 week ago',
       link: 'https://educationtoday.in/coep-ranking',

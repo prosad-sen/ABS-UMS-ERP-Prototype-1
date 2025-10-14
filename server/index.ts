@@ -126,7 +126,7 @@ app.use((req, res, next) => {
   server.listen(port, "0.0.0.0", () => {
     log(`serving on port ${port} (bound to 0.0.0.0 for external access)`);
     log(`🌐 Access your application through Replit's Preview tab`);
-    log(`🔗 The preview window should show the JUNO Campus UMS`);
+    log(`🔗 The preview window should show the ABC UMS ERP`);
     
     if (process.env.REPLIT_DEV_DOMAIN) {
       log(`📱 Mobile URL: https://${process.env.REPLIT_DEV_DOMAIN}`);
