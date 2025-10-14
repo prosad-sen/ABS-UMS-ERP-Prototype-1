@@ -1,9 +1,22 @@
 import OpenAI from "openai";
 
-// the newest OpenAI model is "gpt-4o" which was released May 13, 2025. do not change this unless explicitly requested by the user
-const openai = new OpenAI({ 
-  apiKey: process.env.OPENAI_API_KEY 
-});
+// Lazy-load the OpenAI client only when needed and API key is available
+let openai: OpenAI | null = null;
+
+function getOpenAIClient(): OpenAI | null {
+  if (!process.env.OPENAI_API_KEY) {
+    return null;
+  }
+  
+  if (!openai) {
+    // the newest OpenAI model is "gpt-4o" which was released May 13, 2025. do not change this unless explicitly requested by the user
+    openai = new OpenAI({ 
+      apiKey: process.env.OPENAI_API_KEY 
+    });
+  }
+  
+  return openai;
+}
 
 interface ChatRequest {
   message: string;
@@ -176,6 +189,13 @@ Be helpful, informative, and direct users to appropriate resources when needed.`
 export async function handleAIChat(req: ChatRequest): Promise<ChatResponse> {
   try {
     const { message, userRole, userName = "User", context = [] } = req;
+    
+    const client = getOpenAIClient();
+    
+    // If no API key is available, fall back to role-based responses immediately
+    if (!client) {
+      throw new Error('OpenAI API key not configured');
+    }
 
     // Build conversation history
     const messages = [
@@ -194,7 +214,7 @@ export async function handleAIChat(req: ChatRequest): Promise<ChatResponse> {
       }
     ];
 
-    const completion = await openai.chat.completions.create({
+    const completion = await client.chat.completions.create({
       model: "gpt-4o", // the newest OpenAI model is "gpt-4o"
       messages,
       max_tokens: 1000,
