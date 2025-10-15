@@ -101,7 +101,7 @@ export default function FacultyDashboard() {
     name: "Prof. Amit Kumar",
     department: "Computer Science & Engineering",
     designation: "Associate Professor",
-    employeeId: "COEP-FAC-2019-045",
+    employeeId: "FAC-2019-045",
     coursesAssigned: 4,
     studentsTotal: 245,
     lecturesThisWeek: 12,

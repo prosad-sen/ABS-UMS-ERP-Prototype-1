@@ -38,9 +38,9 @@ export default function TransportManagement() {
 
   const busFleet = [
     {
-      busNumber: "COEP-001",
+      busNumber: "BUS-001",
       routeNumber: "R001",
-      routeName: "Pune Station - COEP",
+      routeName: "Pune Station - University Campus",
       capacity: 45,
       currentOccupancy: 38,
       driver: "Ramesh Kumar",
@@ -52,9 +52,9 @@ export default function TransportManagement() {
       gpsLocation: "Shivajinagar"
     },
     {
-      busNumber: "COEP-002", 
+      busNumber: "BUS-002", 
       routeNumber: "R002",
-      routeName: "Hadapsar - COEP",
+      routeName: "Hadapsar - University Campus",
       capacity: 50,
       currentOccupancy: 42,
       driver: "Mahesh Jadhav",
@@ -66,9 +66,9 @@ export default function TransportManagement() {
       gpsLocation: "Hadapsar Chowk"
     },
     {
-      busNumber: "COEP-003",
+      busNumber: "BUS-003",
       routeNumber: "R003", 
-      routeName: "Katraj - COEP",
+      routeName: "Katraj - University Campus",
       capacity: 45,
       currentOccupancy: 0,
       driver: "Ganesh Pawar",
@@ -84,10 +84,10 @@ export default function TransportManagement() {
   const routes = [
     {
       routeNumber: "R001",
-      routeName: "Pune Station - COEP",
+      routeName: "Pune Station - University Campus",
       distance: "8.5 km",
       duration: "35 minutes",
-      stops: ["Pune Station", "Shivajinagar", "JM Road", "Deccan", "FC Road", "COEP"],
+      stops: ["Pune Station", "Shivajinagar", "JM Road", "Deccan", "FC Road", "University Campus"],
       busesAssigned: 3,
       peakHourFrequency: "15 minutes",
       offPeakFrequency: "30 minutes",
@@ -97,10 +97,10 @@ export default function TransportManagement() {
     },
     {
       routeNumber: "R002",
-      routeName: "Hadapsar - COEP", 
+      routeName: "Hadapsar - University Campus", 
       distance: "12.2 km",
       duration: "45 minutes",
-      stops: ["Hadapsar", "Mundhwa", "Koregaon Park", "Boat Club", "Bund Garden", "COEP"],
+      stops: ["Hadapsar", "Mundhwa", "Koregaon Park", "Boat Club", "Bund Garden", "University Campus"],
       busesAssigned: 2,
       peakHourFrequency: "20 minutes",
       offPeakFrequency: "40 minutes", 
@@ -110,10 +110,10 @@ export default function TransportManagement() {
     },
     {
       routeNumber: "R003",
-      routeName: "Katraj - COEP",
+      routeName: "Katraj - University Campus",
       distance: "15.8 km", 
       duration: "55 minutes",
-      stops: ["Katraj", "Bharti Vidyapeeth", "Dhankawadi", "Swargate", "Shaniwarwada", "COEP"],
+      stops: ["Katraj", "Bharti Vidyapeeth", "Dhankawadi", "Swargate", "Shaniwarwada", "University Campus"],
       busesAssigned: 2,
       peakHourFrequency: "25 minutes",
       offPeakFrequency: "45 minutes",
@@ -130,7 +130,7 @@ export default function TransportManagement() {
       studentId: "BE22CS045",
       course: "Computer Engineering",
       year: "2nd Year",
-      preferredRoute: "Pune Station - COEP",
+      preferredRoute: "Pune Station - University Campus",
       passType: "Monthly",
       contactNumber: "+91 9876543216",
       applicationDate: "Dec 16, 2024",
@@ -142,7 +142,7 @@ export default function TransportManagement() {
       studentId: "BE21IT012",
       course: "Information Technology",
       year: "3rd Year",
-      preferredRoute: "Hadapsar - COEP",
+      preferredRoute: "Hadapsar - University Campus",
       passType: "Semester",
       contactNumber: "+91 9876543217",
       applicationDate: "Dec 15, 2024", 

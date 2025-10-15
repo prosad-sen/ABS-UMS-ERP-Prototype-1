@@ -28,14 +28,14 @@ import {
 
 export default function FacultyAcademics() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [selectedCourse, setSelectedCourse] = useState<any>(null);
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [selectedAnalytics, setSelectedAnalytics] = useState("");
 
   // Faculty Academic Data
   const facultyData = {
     name: "Prof. Amit Kumar",
-    employeeId: "COEP-FAC-2019-045",
+    employeeId: "FAC-2019-045",
     department: "Computer Science & Engineering",
     designation: "Associate Professor",
     totalStudents: 245,

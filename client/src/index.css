@@ -24,9 +24,9 @@
   --ring: hsl(20, 14.3%, 4.1%);
   --radius: 0.5rem;
   
-  /* COEP Theme Colors */
-  --coep-blue: hsl(207, 82%, 41%);
-  --coep-light-blue: hsl(207, 85%, 45%);
+  /* University Theme Colors */
+  --university-blue: hsl(207, 82%, 41%);
+  --university-light-blue: hsl(207, 85%, 45%);
   --academic-orange: hsl(28, 84%, 58%);
   --success-green: hsl(120, 54%, 35%);
   --warning-amber: hsl(32, 95%, 50%);
@@ -288,20 +288,37 @@
 }
 
 @layer utilities {
+  .university-blue {
+    color: var(--university-blue);
+  }
+  
+  .bg-university-blue {
+    background-color: var(--university-blue);
+  }
+  
+  .university-light-blue {
+    color: var(--university-light-blue);
+  }
+  
+  .bg-university-light-blue {
+    background-color: var(--university-light-blue);
+  }
+  
+  /* Legacy class names for backward compatibility */
   .coep-blue {
-    color: var(--coep-blue);
+    color: var(--university-blue);
   }
   
   .bg-coep-blue {
-    background-color: var(--coep-blue);
+    background-color: var(--university-blue);
   }
   
   .coep-light-blue {
-    color: var(--coep-light-blue);
+    color: var(--university-light-blue);
   }
   
   .bg-coep-light-blue {
-    background-color: var(--coep-light-blue);
+    background-color: var(--university-light-blue);
   }
   
   .academic-orange {

@@ -33,13 +33,13 @@ export default function FacultyProfile() {
 
   // Faculty data - this would come from API based on authenticated faculty user
   const facultyData = {
-    id: "COEP-FAC-2019-045",
+    id: "FAC-2019-045",
     firstName: "Prof. Amit",
     lastName: "Kumar",
-    email: "amit.kumar@coeptech.ac.in",
+    email: "amit.kumar@xyz.ac.in",
     phone: "+91 9876543210",
     profileImageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-    employeeId: "COEP-FAC-2019-045",
+    employeeId: "FAC-2019-045",
     designation: "Associate Professor",
     department: "Computer Science & Engineering",
     qualification: "Ph.D in Computer Science",
@@ -65,9 +65,9 @@ export default function FacultyProfile() {
       { title: "Smart Campus Initiative", funding: "₹25,00,000", agency: "MHRD", status: "Ongoing", startDate: "2023-03-01" }
     ],
     achievements: [
-      { title: "Best Faculty Award", organization: "COEP Technological University", year: "2023" },
+      { title: "Best Faculty Award", organization: "University", year: "2023" },
       { title: "Excellence in Research", organization: "IEEE", year: "2022" },
-      { title: "Outstanding Teaching Award", organization: "COEP", year: "2021" }
+      { title: "Outstanding Teaching Award", organization: "University", year: "2021" }
     ],
     stats: {
       totalStudents: 245,

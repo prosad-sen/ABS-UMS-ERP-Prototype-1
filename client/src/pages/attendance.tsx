@@ -133,7 +133,7 @@ export default function Attendance() {
       setTimeout(async () => {
         try {
           // Generate a mock QR code for demonstration
-          const mockQRData = "COEP_ATTENDANCE_CS301_" + Date.now();
+          const mockQRData = "ATTENDANCE_CS301_" + Date.now();
           
           const response = await fetch('/api/attendance/scan', {
             method: 'POST',

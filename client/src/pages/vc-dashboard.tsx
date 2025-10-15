@@ -49,7 +49,7 @@ export default function VCDashboard() {
     {
       id: "global-ranking",
       title: "Global University Ranking Achievement",
-      description: "COEP has jumped 12 positions in QS World Rankings to #78 globally! Our research output and industry partnerships contributed significantly to this milestone achievement.",
+      description: "University has jumped 12 positions in QS World Rankings to #78 globally! Our research output and industry partnerships contributed significantly to this milestone achievement.",
       icon: Crown,
       color: "text-yellow-600",
       bgColor: "bg-gradient-to-r from-yellow-500 to-orange-500",
@@ -77,7 +77,7 @@ export default function VCDashboard() {
     {
       id: "research-excellence",
       title: "Research & Innovation Leadership",
-      description: "67 patents published this year, placing COEP in top 5 Indian engineering institutions for innovation. Our research grants increased by 34% to ₹12.3Cr.",
+      description: "67 patents published this year, placing University in top 5 Indian engineering institutions for innovation. Our research grants increased by 34% to ₹12.3Cr.",
       icon: Zap,
       color: "text-purple-600",
       bgColor: "bg-gradient-to-r from-purple-500 to-indigo-500",
@@ -91,7 +91,7 @@ export default function VCDashboard() {
     {
       id: "sustainability-leadership",
       title: "Sustainability & Green Campus Initiative",
-      description: "COEP leads with 85% sustainability score. Solar power initiatives reduced energy costs by ₹1.2Cr annually. Carbon footprint reduced by 34% through green technology adoption.",
+      description: "University leads with 85% sustainability score. Solar power initiatives reduced energy costs by ₹1.2Cr annually. Carbon footprint reduced by 34% through green technology adoption.",
       icon: Shield,
       color: "text-green-600",
       bgColor: "bg-gradient-to-r from-green-600 to-teal-600",
