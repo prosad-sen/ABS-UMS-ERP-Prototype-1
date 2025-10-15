@@ -35,7 +35,7 @@ export default function Profile() {
     id: "20240001",
     firstName: "Rahul",
     lastName: "Sharma",
-    email: "rahul.sharma@student.coep.ac.in",
+    email: "rahul.sharma@student.xyz.ac.in",
     phone: "+91 9876543210",
     profileImageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
     rollNumber: "2024001",
@@ -45,7 +45,7 @@ export default function Profile() {
     semester: 4,
     admissionYear: 2022,
     currentCGPA: 8.45,
-    address: "A-123, Student Hostel, COEP Campus, Pune - 411005",
+    address: "A-123, Student Hostel, University Campus, Pune - 411005",
     parentName: "Mr. Suresh Sharma",
     parentPhone: "+91 9876543211",
     bloodGroup: "B+",
@@ -521,27 +521,27 @@ export default function Profile() {
             <CardContent className="space-y-3">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                 <Button variant="outline" className="justify-start" asChild>
-                  <a href="https://coep.ac.in" target="_blank" rel="noopener noreferrer">
+                  <a href="https://xyz.ac.in" target="_blank" rel="noopener noreferrer">
                     <Globe className="h-4 w-4 mr-2" />
-                    COEP Official Website
+                    University Official Website
                   </a>
                 </Button>
                 <Button variant="outline" className="justify-start" asChild>
-                  <a href="https://www.linkedin.com/school/coep/" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.linkedin.com/school/xyz-engineering/" target="_blank" rel="noopener noreferrer">
                     <Building className="h-4 w-4 mr-2" />
-                    COEP LinkedIn
+                    University LinkedIn
                   </a>
                 </Button>
                 <Button variant="outline" className="justify-start" asChild>
-                  <a href="https://www.facebook.com/COEPTech" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.facebook.com/XYZEngineering" target="_blank" rel="noopener noreferrer">
                     <Users className="h-4 w-4 mr-2" />
-                    COEP Facebook
+                    University Facebook
                   </a>
                 </Button>
                 <Button variant="outline" className="justify-start" asChild>
-                  <a href="https://twitter.com/COEPtech" target="_blank" rel="noopener noreferrer">
+                  <a href="https://twitter.com/XYZEngineering" target="_blank" rel="noopener noreferrer">
                     <Globe className="h-4 w-4 mr-2" />
-                    COEP Twitter
+                    University Twitter
                   </a>
                 </Button>
               </div>

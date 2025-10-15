@@ -281,12 +281,12 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* COEP Social Media & Info Slider */}
+      {/* University Social Media & Info Slider */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-bold text-gray-900 flex items-center space-x-2">
             <Sparkles className="h-5 w-5 text-purple-600" />
-            <span>COEP Updates & Social Feed</span>
+            <span>University Updates & Social Feed</span>
           </h2>
           <div className="flex space-x-2">
             <Button 
@@ -295,7 +295,7 @@ export default function Dashboard() {
               className="text-blue-600 border-blue-200 hover:bg-blue-50"
               asChild
             >
-              <a href="https://www.instagram.com/coep_official?igsh=MTA3N3hoM2MycXFqYw==" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.instagram.com/xyz_engineering" target="_blank" rel="noopener noreferrer">
                 <Instagram className="h-4 w-4 mr-1" />
                 Follow
               </a>
@@ -306,7 +306,7 @@ export default function Dashboard() {
               className="text-blue-600 border-blue-200 hover:bg-blue-50"
               asChild
             >
-              <a href="https://www.linkedin.com/school/coep-technological-university/" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.linkedin.com/school/xyz-engineering/" target="_blank" rel="noopener noreferrer">
                 <Linkedin className="h-4 w-4 mr-1" />
                 Connect
               </a>
@@ -470,7 +470,7 @@ export default function Dashboard() {
                 className="p-1 hover:bg-blue-100"
                 onClick={(e) => {
                   e.stopPropagation();
-                  window.open('https://www.linkedin.com/school/coep-technological-university/', '_blank');
+                  window.open('https://www.linkedin.com/school/xyz-engineering/', '_blank');
                 }}
               >
                 <Linkedin className="h-6 w-6 lg:h-8 lg:w-8 text-blue-600" />
@@ -593,7 +593,7 @@ export default function Dashboard() {
           <div className="space-y-4">
             <div className="bg-gray-50 p-3 rounded-lg">
               <p className="text-sm text-gray-600">
-                Hi! I'm your COEP AI assistant. I can help you with:
+                Hi! I'm your University AI assistant. I can help you with:
               </p>
               <ul className="text-sm text-gray-600 mt-2 space-y-1">
                 <li>• Academic queries and course information</li>
@@ -685,7 +685,7 @@ export default function Dashboard() {
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                   <h4 className="font-semibold text-green-800">🎯 CodeChef Contest Live</h4>
                 </div>
-                <p className="text-sm text-green-700 mt-1">COEP Team leading! Join now for bonus XP points.</p>
+                <p className="text-sm text-green-700 mt-1">University Team leading! Join now for bonus XP points.</p>
                 <p className="text-xs text-green-600 mt-1">Live now • 234 participants</p>
               </div>
               

@@ -48,7 +48,7 @@ export default function AnimatedInfoSlider() {
       date: '2 hours ago',
       likes: 1247,
       comments: 89,
-      link: 'https://instagram.com/coep_tech',
+      link: 'https://instagram.com/xyz_engineering',
       tags: ['TechFest2025', 'Innovation', 'Students']
     },
     {
@@ -58,7 +58,7 @@ export default function AnimatedInfoSlider() {
       content: 'Three ABC Campus Computer Science students secured top positions in the All India Coding Competition, bringing glory to the institution.',
       author: 'The Times of India',
       date: '1 day ago',
-      link: 'https://timesofindia.com/coep-coding-win',
+      link: 'https://timesofindia.com/xyz-coding-win',
       tags: ['Achievement', 'Coding', 'National']
     },
     {
@@ -86,7 +86,7 @@ export default function AnimatedInfoSlider() {
       date: '5 days ago',
       likes: 892,
       comments: 34,
-      link: 'https://linkedin.com/school/coep',
+      link: 'https://linkedin.com/school/xyz-engineering',
       tags: ['Research', 'AI', 'Publication']
     },
     {
@@ -96,7 +96,7 @@ export default function AnimatedInfoSlider() {
       content: 'ABC Campus maintains its position among India\'s premier engineering institutions in latest NIRF rankings.',
       author: 'Education Today',
       date: '1 week ago',
-      link: 'https://educationtoday.in/coep-ranking',
+      link: 'https://educationtoday.in/xyz-ranking',
       tags: ['Ranking', 'Excellence', 'NIRF']
     }
   ];
