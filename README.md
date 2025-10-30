@@ -1,0 +1,1 @@
+This is a prototype of a modern university management system meant for global academic standards. This is inspired from real life demos of state of the art of modern University management ERP systems and deep experience of working in higher education ecosystem with quality exposure across multiple domains involving technology or otherwise with scope for appliation of technology.
